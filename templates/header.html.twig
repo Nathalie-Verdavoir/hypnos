@@ -1,0 +1,37 @@
+ <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{{ path('app_accueil') }}"
+            ><img class="logo" src="{{ asset('images/logo.PNG') }}" alt="Logo Hypnos" /> Hypnos</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarScroll"
+            aria-controls="navbarScroll"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul
+              class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+            >
+              <li class="nav-item">
+                <a class="nav-link active ms-5" 
+                  aria-current="page" 
+                  href="{{ path('app_accueil') }}"
+                >Accueil
+                </a>
+              </li>
+              <li class="nav-item">
+                <a 
+                  class="nav-link ms-5" 
+                  href="#"
+                >Nos Hôtels</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
