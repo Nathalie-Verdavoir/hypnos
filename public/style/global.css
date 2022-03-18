@@ -82,3 +82,9 @@ h1.title {
   color: #e7f5f5;
   margin: 1rem;
 }
+
+label,
+input,
+select {
+    font-size: 1.5rem;
+}
