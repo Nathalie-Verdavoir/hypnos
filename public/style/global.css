@@ -2,37 +2,17 @@
 
 :root {
     --color-beige-1: #d0ccb6; /* var(--color-beige-1); */
-    --color-beige-2: #b0ae88; /* var(--color-beige-2); */
+    --color-beige-2: #ffffff66; /* var(--color-beige-2); */
     --color-beige-3: #858562; /* var(--color-beige-3); */
     --color-grey: #3e3c48; /* var(--color-grey); */
     --color-drak-grey: #262430; /* var(--color-drak-grey); */
     --color-green-1: #beef9e; /* var(--color-green-1); */
     --color-green-2: #a6c36f; /* var(--color-green-2); */
     --color-green-3: #828c51; /* var(--color-green-3); */
-    --color-green-4: #335145; /* var(--color-green-4); */
+    --color-green-4: #335245; /* var(--color-green-4); */
     --color-green-5: #1e352f; /* var(--color-green-5); */
 }
 
-* {
-    scrollbar-width: thin;
-    scrollbar-color: rgb(145, 145, 148) rgba(0, 0, 0, 0);
-  
-  }
-  
-  /* Works on Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 12px;
-  }
-
-  *::-webkit-scrollbar-track {
-    background: rgba(131, 131, 131, 0);
-  }
-  
-  *::-webkit-scrollbar-thumb {
-    background-color: rgb(145, 145, 148);
-    border-radius: 20px;
-    border: 3px solid rgba(0, 0, 0, 0);
-  }
 
 html, 
 body {
@@ -54,17 +34,33 @@ body>* {
   font-family: 'Dancing Script', cursive;
 }
 
+header {
+  background-image: url(/images/bg-nav.png);
+}
+
+body > header > nav > div > button > span {
+  background-color: var(--color-green-4);
+}
+
+.admin-buttons {
+    position: absolute;
+    top: 1rem;
+    right: 4rem;
+    z-index: 100;
+}
+
 main {
   height: 70vh;
 }
+
 .logo {
     display: inline;
-    width: 10vh;
-    margin: 5vh;
+    width: 10vw;
+    margin: 0;
 }
 
 h1 {
-    font-size: 6rem;
+    font-size: 3rem;
     color: var(--color-drak-grey);
 }
 
@@ -77,16 +73,33 @@ h2 {
   color: var(--color-drak-grey);
 }
 
-.navbar ,
-.fond-gris {
+.navbar {
     width: auto;
-    font-size: 3rem;
-    background-color: var(--color-green-3);
+    font-size: 1.5rem;
+  background-color: var(--color-beige-2);
     color:  var(--color-green-1);
 }
 
+#navbarScroll > ul > li > a {
+  color: var(--color-green-3);
+}
+
+#navbarScroll > ul > li > a.active {
+  color: var(--color-green-4);
+}
+
+.fond-clair {
+  width: 60vw;
+  margin: auto;
+  padding-top: 1rem;
+  padding-inline: 1rem;
+  background-color: var(--color-beige-1);
+  border-radius: 5px;
+  text-align: center;
+}
+
 .btn {
-    font-size: 2rem;
+    font-size: 1.5rem;
     background-color: var(--color-green-5);
     border: 0;
     color:  var(--color-green-1);
@@ -123,10 +136,23 @@ a {
 }
 
 /*forms*/
-form,
-.btn.inlineForm,
-body > form:nth-child(6),
-.inlineForm {
+form {
     display: inline;
-    margin-inline-start: 2rem;
+}
+
+
+
+@media screen and (min-width: 991px) {
+  .logo {
+    margin: 5vw;
+  }
+
+  h1 {
+    font-size: 6rem;
+    color: var(--color-drak-grey);
+  }
+
+  .admin-buttons {
+    right: 1rem;
+  }
 }
