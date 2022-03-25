@@ -46,15 +46,15 @@
                       <li class="nav-item">
                         <a 
                         class="nav-link ms-5" 
-                        href="{{ path('app_hotel_show', {'id': app.user.hotel}) }}"
-                        >Mon hôtel</a>
+                        href="{{ path('app_hotel_show', {'id': app.user.hotel.id}) }}"
+                        >Mon Hôtel</a>
                       </li>
                     {% else %}
                       <li class="nav-item">
                         <a 
                         class="nav-link ms-5" 
                         href="{{ path('app_hotel_new') }}"
-                        >Créer mon hôtel</a>
+                        >Créer mon Hôtel</a>
                       </li>
                     {% endif %}
                   {% endif %}

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Hotel;
 use App\Form\HotelType;
 use App\Repository\HotelRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,13 +23,17 @@ class HotelController extends AbstractController
     }
 
     #[Route('/new', name: 'app_hotel_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, HotelRepository $hotelRepository): Response
+    public function new(Request $request, HotelRepository $hotelRepository, EntityManagerInterface $entityManager): Response
     {
+         /** @var \App\Entity\User $gerant */
+         $gerant = $this->getUser();
         $hotel = new Hotel();
         $form = $this->createForm(HotelType::class, $hotel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $gerant->setHotel($hotel);
+            $entityManager->persist($gerant);
             $hotelRepository->add($hotel);
             return $this->redirectToRoute('app_hotel_index', [], Response::HTTP_SEE_OTHER);
         }
