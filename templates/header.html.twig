@@ -40,14 +40,32 @@
                   href="{{ path('app_hotel_index') }}"
                 >Nos Hôtels</a>
               </li>
-              
-              {% if "ROLE_GERANT" in app.user.roles %}
-                <li class="nav-item">
-                  <a 
-                  class="nav-link ms-5" 
-                  href="{{ path('app_hotel_show', {'id': app.user.hotel}) }}"
-                  >Mon hôtel</a>
-                </li>
+               {% if app.user %}
+                  {% if "ROLE_GERANT" in app.user.roles %}
+                    {% if app.user.hotel %}
+                      <li class="nav-item">
+                        <a 
+                        class="nav-link ms-5" 
+                        href="{{ path('app_hotel_show', {'id': app.user.hotel}) }}"
+                        >Mon hôtel</a>
+                      </li>
+                    {% else %}
+                      <li class="nav-item">
+                        <a 
+                        class="nav-link ms-5" 
+                        href="{{ path('app_hotel_new') }}"
+                        >Créer mon hôtel</a>
+                      </li>
+                    {% endif %}
+                  {% endif %}
+                  {% if "ROLE_ADMIN" in app.user.roles %}
+                    <li class="nav-item">
+                      <a 
+                      class="nav-link ms-5" 
+                      href="{{ path('app_register_gerant') }}"
+                      >Ajouter un gérant</a>
+                    </li>
+                  {% endif %}
               {% endif %}
             </ul>
           </div>
