@@ -16,7 +16,6 @@ class HotelType extends AbstractType
             ->add('ville')
             ->add('description')
             ->add('adresse')
-            ->add('gerant')
         ;
     }
 
