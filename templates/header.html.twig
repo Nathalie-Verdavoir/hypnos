@@ -37,9 +37,18 @@
               <li class="nav-item">
                 <a 
                   class="nav-link ms-5" 
-                  href="#"
+                  href="{{ path('app_hotel_index') }}"
                 >Nos Hôtels</a>
               </li>
+              
+              {% if "ROLE_GERANT" in app.user.roles %}
+                <li class="nav-item">
+                  <a 
+                  class="nav-link ms-5" 
+                  href="{{ path('app_hotel_show', {'id': app.user.hotel}) }}"
+                  >Mon hôtel</a>
+                </li>
+              {% endif %}
             </ul>
           </div>
         </div>
