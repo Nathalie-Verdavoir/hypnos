@@ -55,10 +55,8 @@ class PhotoHotelController extends AbstractController
                     $photo->setCover(false);
                     $photo->setLien($newFilename);
                     $photoRepository->add($photo);
-                    dump($newFilename);
                 }
             }
-            //$photoRepository->add($photo);
             return $this->redirectToRoute('app_photo_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -76,20 +74,27 @@ class PhotoHotelController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_photo_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Photo $photo, PhotoRepository $photoRepository): Response
+    #[Route('/{id}/edit/{cover}', name: 'app_photo_edit', methods: ['GET', 'POST'])]
+    public function edit(Hotel $id, Photo $photo, PhotoRepository $photoRepository, $cover): Response
     {
-        $form = $this->createForm(PhotoType::class, $photo);
-        $form->handleRequest($request);
+        
+        $photoOfThisHotel = $photoRepository->findByHotel($id);
+            foreach($photoOfThisHotel as $photo)
+            {
+                if(intval($cover) === $photo->getId())
+                {
+                    $photo->setCover(true);
+                }else {
+                    $photo->setCover(false);
+                }
+                $photoRepository->add($photo);
+                
+            }
+            
+        
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $photoRepository->add($photo);
-            return $this->redirectToRoute('app_photo_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('photo-hotel/edit.html.twig', [
-            'photo' => $photo,
-            'form' => $form,
+        return $this->render('photo-hotel/index.html.twig', [
+            'photos' => $photoRepository->findAll(),
         ]);
     }
 
