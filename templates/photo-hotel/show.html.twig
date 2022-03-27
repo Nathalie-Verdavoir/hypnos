@@ -4,7 +4,10 @@
 
 {% block body %}
     <h1>Photo</h1>
+    <a class="btn btn-primary"  href="{{ path('app_photo_index') }}">Retour à la liste des photos</a>
 
+    <a class="btn btn-primary"  href="{{ path('app_photo_edit', {'id': photo.id}) }}">Modifier</a> 
+    {{ include('photo-hotel/_delete_form.html.twig') }}
     <table class="table">
         <tbody>
             <tr>
@@ -12,8 +15,7 @@
                 <td>{{ photo.id }}</td>
             </tr>
             <tr>
-                <th>Lien</th>
-                <td>{{ photo.lien }}</td>
+                <img src="{{ asset('/uploads/photos/')  }}{{ photo.lien}}" class="photo-show">
             </tr>
             <tr>
                 <th>Cover</th>
@@ -22,9 +24,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_photo_index') }}">Retour à la liste des photos</a>
+    
 
-    <a href="{{ path('app_photo_edit', {'id': photo.id}) }}">Modifier</a>
-
-    {{ include('photo-hotel/_delete_form.html.twig') }}
+   
 {% endblock %}
