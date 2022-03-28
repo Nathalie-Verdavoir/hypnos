@@ -6,10 +6,9 @@ use App\Entity\Photo;
 use App\Entity\Hotel;
 use App\Form\PhotoHotelType;
 use App\Repository\PhotoRepository;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Gedmo\Sluggable\Util\Urlizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -102,6 +101,11 @@ class PhotoHotelController extends AbstractController
     public function delete(Request $request, Photo $photo, PhotoRepository $photoRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$photo->getId(), $request->request->get('_token'))) {
+            $folder = $this->getParameter('kernel.project_dir').'/public/uploads/photos/';
+            $path = $folder . $photo->getLien();
+            $filesystem = new Filesystem();
+            $filesystem->remove($path);
+
             $photoRepository->remove($photo);
         }
 
