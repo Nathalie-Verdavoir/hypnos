@@ -109,6 +109,13 @@ h2 {
     color:  var(--color-green-1);
 }
 
+.btn.iconic {
+  font-size: 1rem;
+  background-color: var(--color-green-5);
+  border: 0;
+  color:  var(--color-green-1);
+}
+
 .btn-primary.disabled {
   background-color: var(--color-green-4);
   color:  var(--color-green-2);
