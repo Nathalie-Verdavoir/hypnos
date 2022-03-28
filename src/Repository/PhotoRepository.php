@@ -59,7 +59,21 @@ class PhotoRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    /**
+      * @return Photo[] Returns an array of Photo objects
+      */
     
+      public function findByChambre($value)
+      {
+          return $this->createQueryBuilder('p')
+              ->andWhere('p.chambres = :val')
+              ->setParameter('val', $value)
+              ->orderBy('p.id', 'ASC')
+              ->getQuery()
+              ->getResult()
+          ;
+      }
 
     /*
     public function findOneBySomeField($value): ?Photo

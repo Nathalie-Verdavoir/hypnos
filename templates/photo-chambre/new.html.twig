@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Photo{% endblock %}
+
+{% block body %}
+    <h1>Ajouter des Photos</h1>
+
+    {{ include('photo-chambre/_form.html.twig') }}
+
+    <a href="{{ path('app_photo_chambre_index', {'chambre': app.request.get('chambre')}) }}">Retour à la liste des photos</a>
+{% endblock %}
