@@ -49,6 +49,12 @@
                         href="{{ path('app_hotel_show', {'id': app.user.hotel.id}) }}"
                         >Mon Hôtel</a>
                       </li>
+                      <li class="nav-item">
+                        <a 
+                        class="nav-link ms-5" 
+                        href="{{ path('app_photo_index') }}"
+                        >Photos</a>
+                      </li>
                     {% else %}
                       <li class="nav-item">
                         <a 
