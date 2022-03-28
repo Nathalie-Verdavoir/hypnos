@@ -163,6 +163,7 @@ form {
 
 .card-img-top {
   width: 96%;
+  height: 15vh;
   margin-top:2rem;
   margin-inline: auto;
 }

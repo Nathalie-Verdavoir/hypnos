@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Photo index{% endblock %}
-{% dump(app.request.get('chambre')) %}
+
 {% block body %}
     <h1>Photos de la chambre</h1>
     <a class="btn btn-primary" href="{{ path('app_photo_chambre_new', {'chambre': app.request.get('chambre')}) }}">
