@@ -98,12 +98,20 @@ h2 {
   text-align: center;
 }
 
+.card-body {
+  text-align: center;
+}
+
 .btn {
     font-size: 1.5rem;
     background-color: var(--color-green-5);
     border: 0;
     color:  var(--color-green-1);
-    margin: 1rem;
+}
+
+.btn-primary.disabled {
+  background-color: var(--color-green-4);
+  color:  var(--color-green-2);
 }
 
 .btn:hover {
