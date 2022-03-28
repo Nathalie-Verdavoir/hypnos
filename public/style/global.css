@@ -50,7 +50,7 @@ body > header > nav > div > button > span {
 }
 
 main {
-  height: 70vh;
+  min-height: 70vh;
 }
 
 .logo {
@@ -98,20 +98,33 @@ h2 {
   text-align: center;
 }
 
+.card-body {
+  text-align: center;
+}
+
 .btn {
     font-size: 1.5rem;
     background-color: var(--color-green-5);
     border: 0;
     color:  var(--color-green-1);
-    margin: 1rem;
+}
+
+.btn.iconic {
+  font-size: 1rem;
+  background-color: var(--color-green-5);
+  border: 0;
+  color:  var(--color-green-1);
+}
+
+.btn-primary.disabled {
+  background-color: var(--color-green-4);
+  color:  var(--color-green-2);
 }
 
 .btn:hover {
-  font-size: 2rem;
   background-color: var(--color-green-5);
   border: 0;
   color: var(--color-beige-3);
-  margin: 1rem;
 }
 
 label,
@@ -140,7 +153,19 @@ form {
     display: inline;
 }
 
+.photo-show {
+  border-radius: 8px;
+  display: block;
+  margin: auto;
+  width: 80vw;
+}
 
+
+.card-img-top {
+  width: 96%;
+  margin-top:2rem;
+  margin-inline: auto;
+}
 
 @media screen and (min-width: 991px) {
   .logo {
