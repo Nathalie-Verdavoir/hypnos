@@ -25,7 +25,11 @@ Ajouter une chambre
         <div class="carousel-item {{ chambre  is same as(chambres[0]) ? "active" : ""}}">
             <div class="card larg">
                 {% if chambre.photo|length > 0 %}
-                    <img src="{{ asset('uploads/photos/') }}{{chambre.photo[0].lien}}" class="card-img-top big" alt="photo de la chambre">
+                    {% for pic in chambre.photo %}
+                        {% if pic.cover %}
+                            <img src="{{ asset('uploads/photos/') }}{{pic.lien}}" class="card-img-top big" alt="photo de la chambre">
+                        {% endif %}
+                    {% endfor %}
                 {% else %}
                     <img src="{{ asset('uploads/photos/') }}nopic.jpg" class="card-img-top big" alt="aucune photo disponible">
                 {% endif %}
