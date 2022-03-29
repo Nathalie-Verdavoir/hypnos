@@ -34,20 +34,66 @@
                 >Accueil
                 </a>
               </li>
-              <li class="nav-item">
-                <a 
-                  class="nav-link ms-5" 
-                  href="{{ path('app_hotel_index') }}"
-                >Nos Hôtels</a>
-              </li>
-              
-              {% if "ROLE_GERANT" in app.user.roles %}
-                <li class="nav-item">
-                  <a 
-                  class="nav-link ms-5" 
-                  href="{{ path('app_hotel_show', {'id': app.user.hotel}) }}"
-                  >Mon hôtel</a>
-                </li>
+               {% if app.user %}
+                  {% if "ROLE_GERANT" in app.user.roles %}
+                    {% if app.user.hotel %}
+                      <li class="nav-item">
+                        <a 
+                        class="nav-link ms-5" 
+                        href="{{ path('app_hotel_show', {'id': app.user.hotel.id}) }}"
+                        >Mon Hôtel</a>
+                      </li>
+                      <li class="nav-item">
+                        <a 
+                        class="nav-link ms-5" 
+                        href="{{ path('app_photo_index') }}"
+                        >Photos de mon Hôtel</a>
+                      </li>
+                    {% else %}
+                      <li class="nav-item">
+                        <a 
+                        class="nav-link ms-5" 
+                        href="{{ path('app_hotel_new') }}"
+                        >Créer mon Hôtel</a>
+                      </li>
+                    {% endif %}
+                    {% if app.user.hotel and app.user.hotel.chambres|length > 0 %}
+                      <li class="nav-item">
+                        <a 
+                        class="nav-link ms-5" 
+                        href="{{ path('app_chambres_index') }}"
+                        >Mes Chambres</a>
+                      </li>
+                    {% else %}
+                      <li class="nav-item">
+                        <a 
+                        class="nav-link ms-5" 
+                        href="{{ path('app_chambres_new') }}"
+                        >Créer ma première Chambre</a>
+                      </li>
+                    {% endif %}
+                  {% elseif "ROLE_ADMIN" in app.user.roles %}
+                    <li class="nav-item">
+                      <a 
+                      class="nav-link ms-5" 
+                      href="{{ path('app_register_gerant') }}"
+                      >Ajouter un gérant</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                      <a 
+                        class="nav-link ms-5" 
+                        href="{{ path('app_hotel_index') }}"
+                      >Nos Hôtels</a>
+                    </li>
+                  {% endif %}
+              {% else %}
+                    <li class="nav-item">
+                      <a 
+                        class="nav-link ms-5" 
+                        href="{{ path('app_hotel_index') }}"
+                      >Nos Hôtels</a>
+                    </li>
               {% endif %}
             </ul>
           </div>
