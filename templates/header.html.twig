@@ -34,12 +34,6 @@
                 >Accueil
                 </a>
               </li>
-              <li class="nav-item">
-                <a 
-                  class="nav-link ms-5" 
-                  href="{{ path('app_hotel_index') }}"
-                >Nos Hôtels</a>
-              </li>
                {% if app.user %}
                   {% if "ROLE_GERANT" in app.user.roles %}
                     {% if app.user.hotel %}
@@ -53,7 +47,7 @@
                         <a 
                         class="nav-link ms-5" 
                         href="{{ path('app_photo_index') }}"
-                        >Photos</a>
+                        >Photos de mon Hôtel</a>
                       </li>
                     {% else %}
                       <li class="nav-item">
@@ -63,15 +57,34 @@
                         >Créer mon Hôtel</a>
                       </li>
                     {% endif %}
-                  {% endif %}
-                  {% if "ROLE_ADMIN" in app.user.roles %}
+                    <li class="nav-item">
+                        <a 
+                        class="nav-link ms-5" 
+                        href="{{ path('app_chambres_index') }}"
+                        >Mes Chambres</a>
+                      </li>
+                  {% elseif "ROLE_ADMIN" in app.user.roles %}
                     <li class="nav-item">
                       <a 
                       class="nav-link ms-5" 
                       href="{{ path('app_register_gerant') }}"
                       >Ajouter un gérant</a>
                     </li>
+                    {% else %}
+                    <li class="nav-item">
+                      <a 
+                        class="nav-link ms-5" 
+                        href="{{ path('app_hotel_index') }}"
+                      >Nos Hôtels</a>
+                    </li>
                   {% endif %}
+              {% else %}
+                    <li class="nav-item">
+                      <a 
+                        class="nav-link ms-5" 
+                        href="{{ path('app_hotel_index') }}"
+                      >Nos Hôtels</a>
+                    </li>
               {% endif %}
             </ul>
           </div>
