@@ -160,12 +160,27 @@ form {
   width: 80vw;
 }
 
+.card.larg {
+  width: 60vw;
+  margin: auto;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
 
 .card-img-top {
   width: 96%;
   height: 15vh;
   margin-top:2rem;
   margin-inline: auto;
+}
+
+.card-img-top.big {
+  height: auto;
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+  width: 5rem;
+  height: 5rem;
 }
 
 @media screen and (min-width: 991px) {
