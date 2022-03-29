@@ -57,12 +57,21 @@
                         >Créer mon Hôtel</a>
                       </li>
                     {% endif %}
-                    <li class="nav-item">
+                    {% if app.user.hotel and app.user.hotel.chambres|length > 0 %}
+                      <li class="nav-item">
                         <a 
                         class="nav-link ms-5" 
                         href="{{ path('app_chambres_index') }}"
                         >Mes Chambres</a>
                       </li>
+                    {% else %}
+                      <li class="nav-item">
+                        <a 
+                        class="nav-link ms-5" 
+                        href="{{ path('app_chambres_new') }}"
+                        >Créer ma première Chambre</a>
+                      </li>
+                    {% endif %}
                   {% elseif "ROLE_ADMIN" in app.user.roles %}
                     <li class="nav-item">
                       <a 
