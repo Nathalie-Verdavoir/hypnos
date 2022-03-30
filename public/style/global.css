@@ -183,6 +183,11 @@ form {
   height: 5rem;
 }
 
+.bg-grey {
+  color: var(--color-green-1);
+  background-color: var(--color-grey);
+}
+
 @media screen and (min-width: 991px) {
   .logo {
     margin: 5vw;
