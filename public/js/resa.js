@@ -94,3 +94,16 @@ const resetDatePicker = () => $(function() {
     
   });
 
+const fetchInfoResaChambre = chambre =>  $.getJSON({url: "/api/dates/reservations?page=1", success: function(result){
+    console.log(result);
+    resetDatePicker();
+  }});
+  
+const addEventOnChangeOnChambre = () => $(function() {
+    $('#chambreSelector').on('change',(event) => {
+        alert( event.target.value );  
+        //fetchInfoResaChambre();
+    });
+ });
+
+  addEventOnChangeOnChambre();
