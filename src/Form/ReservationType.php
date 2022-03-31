@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Chambres;
+use App\Entity\Reservation;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class ReservationType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('debut', DateType::class, [
+                'attr' => ['class' => 'd-none'],
+                'label_attr' => ['class' => 'd-none'],
+            ])
+            ->add('fin', DateType::class, [
+                'attr' => ['class' => 'd-none'],
+                'label_attr' => ['class' => 'd-none'],
+            ])
+            ->add('chambre', EntityType::class, [
+                'class' => Chambres::class,
+                'attr' => ['class' => 'd-none'],
+                'label_attr' => ['class' => 'd-none'],
+            ])
+            ->add('client', EntityType::class, [
+                'class' => User::class,
+                'attr' => ['class' => 'd-none'],
+                'label_attr' => ['class' => 'd-none'],
+            ])
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Reservation::class,
+        ]);
+    }
+}

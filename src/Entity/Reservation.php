@@ -32,6 +32,7 @@ class Reservation
 
     #[ORM\ManyToOne(targetEntity: Chambres::class, inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(["read"])]
     private $chambre;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'reservations')]

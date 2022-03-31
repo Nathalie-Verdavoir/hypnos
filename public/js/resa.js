@@ -1,5 +1,7 @@
 minDate =  new Date();
 disabledArr = ["04/04/2022","04/06/2022","04/08/2022","04/20/2022"];
+let startDate;
+let endDate;
 const resetDatePicker = () => $(function() {
     $('input[name="datetimes"]').daterangepicker({
         isInvalidDate: function(arg){
@@ -62,8 +64,8 @@ const resetDatePicker = () => $(function() {
     }).on("apply.daterangepicker",function(e,picker){
 
         // Get the selected bound dates.
-        var startDate = picker.startDate.format('MM/DD/YYYY')
-        var endDate = picker.endDate.format('MM/DD/YYYY')
+        startDate = picker.startDate.format('MM/DD/YYYY')
+        endDate = picker.endDate.format('MM/DD/YYYY')
     
         // Compare the dates again.
         var clearInput = false;
@@ -89,21 +91,38 @@ const resetDatePicker = () => $(function() {
     
             // Alert user!
             alert("Your range selection includes disabled dates!");
+        }else{
+            $(`#reservation_debut_month option[value='${picker.startDate.format('M')}']`).prop('selected', true);
+            $(`#reservation_debut_day option[value='${picker.startDate.format('D')}']`).prop('selected', true);
+            $(`#reservation_debut_year option[value='${picker.startDate.format('YYYY')}']`).prop('selected', true);
+            $(`#reservation_fin_month option[value='${picker.endDate.format('M')}']`).prop('selected', true);
+            $(`#reservation_fin_day option[value='${picker.endDate.format('D')}']`).prop('selected', true);
+            $(`#reservation_fin_year option[value='${picker.endDate.format('YYYY')}']`).prop('selected', true);
+            console.log($(`#reservation_debut_month`).val())
         }
     });
     
   });
 
-const fetchInfoResaChambre = chambre =>  $.getJSON({url: "/api/dates/reservations?page=1", success: function(result){
-    console.log(result);
+const fetchInfoResaChambre = chambreTo =>  $.getJSON({url: "/api/dates/reservations?page=1", success: function(result){
+    $(`#reservation_chambre option[value='${chambreTo}']`).prop('selected', true);
+    console.log(result[0]['chambre']);console.log(chambreTo);
     resetDatePicker();
   }});
   
 const addEventOnChangeOnChambre = () => $(function() {
     $('#chambreSelector').on('change',(event) => {
         alert( event.target.value );  
+
         //fetchInfoResaChambre();
     });
  });
 
+ $( document ).ready(function() {
+     if(window.location.href.match('reservation/new')) {
+   
+    $(`#reservation_client option[value='${user.id}']`).prop('selected', true); 
+    fetchInfoResaChambre(chambre.id);
+ }
+});
   addEventOnChangeOnChambre();
