@@ -26,11 +26,18 @@
                         <h3 class="card-title border bg-grey p-3">Réservations</h3>
                         <p class="card-text">à {{ hotel.ville }}</p>
                         <p class="card-text border"><small class="text-muted">Chambre</small></p>
-                        <p class="card-text"></p>
+                        <p class="card-text">
+                            <select name="chambreSelector" id="chambreSelector">
+                                <option value="">--Please choose an option--</option>
+                                {% for chambre in hotel.getChambres %}
+                                <option value="{{chambre.id}}">{{ chambre.titre}}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
                         <p class="card-text border"><small class="text-muted">Dates</small></p>
                     </div> {# fin du texte haut de la card de la réservation #}
-                    <div class="card-img-bottom" >
-                        
+                    <div class="card-text m-auto mb-3" >
+                        <input type="text" name="datetimes" />
                     </div> {# fin du datepicker de la card de la réservation #}
                 </div> {# fin de la card de la réservation #}
                 <div class="card">

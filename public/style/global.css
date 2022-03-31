@@ -188,6 +188,24 @@ form {
   background-color: var(--color-grey);
 }
 
+/*calendriers*/
+.daterangepicker td.off.disabled {
+  background-color: var(--color-green-4);
+}
+
+.daterangepicker td.active {
+  color: var(--color-green-4);
+  background-color: var(--color-green-2);
+}
+
+.daterangepicker td.in-range {
+  background-color: var(--color-green-1);
+}
+
+.calendar-time {
+  display: none;
+}
+
 @media screen and (min-width: 991px) {
   .logo {
     margin: 5vw;
