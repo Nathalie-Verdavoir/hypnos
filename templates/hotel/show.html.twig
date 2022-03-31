@@ -38,7 +38,7 @@
                         <p class="card-text border"><small class="text-muted">Dates</small></p>
                     </div> {# fin du texte haut de la card de la réservation #}
                     <div class="card-text m-auto mb-3" >
-                        <input type="text" name="datetimes" />
+                        {{ include('reservation/_form.html.twig') }}
                     </div> {# fin du datepicker de la card de la réservation #}
                 </div> {# fin de la card de la réservation #}
                 <div class="card">

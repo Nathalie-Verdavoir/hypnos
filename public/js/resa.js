@@ -1,5 +1,5 @@
 minDate =  new Date();
-disabledArr = ["04/04/2022","04/06/2022","04/08/2022","04/20/2022"];
+disabledArr = [];
 let startDate;
 let endDate;
 const resetDatePicker = () => $(function() {
@@ -19,7 +19,6 @@ const resetDatePicker = () => $(function() {
             var thisCompare = thisMonth +"/"+ thisDate +"/"+ thisYear;
    
             if($.inArray(thisCompare,disabledArr)!=-1){
-                console.log(arg);
                 return true;
             }
         },
@@ -87,7 +86,6 @@ const resetDatePicker = () => $(function() {
     
             // To clear input field and keep calendar opened.
             $(this).val("").focus();
-            console.log("Cleared the input field...");
     
             // Alert user!
             alert("Your range selection includes disabled dates!");
@@ -98,31 +96,47 @@ const resetDatePicker = () => $(function() {
             $(`#reservation_fin_month option[value='${picker.endDate.format('M')}']`).prop('selected', true);
             $(`#reservation_fin_day option[value='${picker.endDate.format('D')}']`).prop('selected', true);
             $(`#reservation_fin_year option[value='${picker.endDate.format('YYYY')}']`).prop('selected', true);
-            console.log($(`#reservation_debut_month`).val())
         }
     });
     
   });
 
-const fetchInfoResaChambre = chambreTo =>  $.getJSON({url: "/api/dates/reservations?page=1", success: function(result){
-    $(`#reservation_chambre option[value='${chambreTo}']`).prop('selected', true);
-    console.log(result[0]['chambre']);console.log(chambreTo);
+const fetchInfoResaChambre = chambreTo =>  $.getJSON({
+    url: "/api/dates/reservations?page=1", 
+    success: function(result){
+        disabledArr = [];
+        $(`#reservation_chambre option[value='${chambreTo}']`).prop('selected', true);
+        result.forEach(resa => {
+            if(resa.chambre.id==chambreTo){
+                let debut = new Date(resa.debut);
+                let fin =  new Date(resa.fin);
+                let duree = (fin - debut)/ 86400000;
+                for(d=0;d<duree;d++) {
+                    currentMonth = debut.getMonth()+1
+                    if (currentMonth < 10) { currentMonth = '0' + currentMonth; }
+                    disabledArr.push(currentMonth+'/'+debut.getDate()+'/'+debut.getFullYear());
+                    debut.setDate(debut.getDate() + 1)
+                }
+            }
+    });
     resetDatePicker();
   }});
   
 const addEventOnChangeOnChambre = () => $(function() {
     $('#chambreSelector').on('change',(event) => {
-        alert( event.target.value );  
-
-        //fetchInfoResaChambre();
+        alert( event.target.options[event.target.selectedIndex].text);  
+        fetchInfoResaChambre(event.target.value);
     });
  });
 
  $( document ).ready(function() {
-     if(window.location.href.match('reservation/new')) {
-   
-    $(`#reservation_client option[value='${user.id}']`).prop('selected', true); 
-    fetchInfoResaChambre(chambre.id);
- }
+    if(window.location.href.match('reservation/new')) {
+        $(`#reservation_client option[value='${user.id}']`).prop('selected', true); 
+        fetchInfoResaChambre(chambre.id);
+    }
+    if(window.location.href.match('hotel/')) {
+        $(`#reservation_client option[value='${user.id}']`).prop('selected', true);
+        addEventOnChangeOnChambre();
+    }
 });
-  addEventOnChangeOnChambre();
+

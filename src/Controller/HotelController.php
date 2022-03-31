@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Hotel;
+use App\Entity\Reservation;
 use App\Form\HotelType;
+use App\Form\ReservationType;
 use App\Repository\HotelRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,12 +46,24 @@ class HotelController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_hotel_show', methods: ['GET'])]
-    public function show(Hotel $hotel): Response
+    #[Route('/{id}', name: 'app_hotel_show', methods: ['GET', 'POST'])]
+    public function show(Request $request,Hotel $hotel, EntityManagerInterface $entityManager): Response
     {
+        $reservation = new Reservation();
+        $form = $this->createForm(ReservationType::class, $reservation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) { 
+            $entityManager->persist($reservation);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+        }
+        
         return $this->render('hotel/show.html.twig', [
             'hotel' => $hotel,
+            'form' => $form->createView(),
         ]);
+        
     }
 
     #[Route('/{id}/edit', name: 'app_hotel_edit', methods: ['GET', 'POST'])]
