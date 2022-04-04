@@ -6,7 +6,18 @@
         {% endif %}
     {% endif %}
             <a type="button" class="btn" href="/register">Créer un compte</a>
-            <a type="button" class="btn" href="{{ app.user ? path('logout') : path('login')}}">{{ app.user ? 'Déconnexion' : 'Connexion' }}</a>
+            <a 
+              type="button" 
+              class="btn" 
+              href="{{ app.user ? 
+                        path('logout') 
+                        : 
+                        path('login', {
+                          'to':app.request.attributes.get('_route')
+                        })
+                    }}"
+            > {{ app.user ? 'Déconnexion' : 'Connexion' }}
+            </a>
   </div>
   <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
