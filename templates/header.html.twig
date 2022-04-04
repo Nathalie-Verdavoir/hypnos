@@ -48,6 +48,12 @@
                 >Accueil 
                 </a>
               </li>
+              <li class="nav-item">
+                      <a 
+                        class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_index'  %}active{% endif %} ms-5" 
+                        href="{{ path('app_hotel_index') }}"
+                      >Nos Hôtels</a>
+                    </li>
                {% if app.user %}
                   {% if "ROLE_GERANT" in app.user.roles %}
                     {% if app.user.hotel %}
@@ -62,13 +68,6 @@
                         class="nav-link {% if app.request.attributes.get('_route') ==  'app_photo_index'  %}active{% endif %} ms-5" 
                         href="{{ path('app_photo_index') }}"
                         >Photos de mon Hôtel</a>
-                      </li>
-                    {% else %}
-                      <li class="nav-item">
-                        <a 
-                        class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_new'  %}active{% endif %} ms-5" 
-                        href="{{ path('app_hotel_new') }}"
-                        >Créer mon Hôtel</a>
                       </li>
                     {% endif %}
                     {% if app.user.hotel and app.user.hotel.chambres|length > 0 %}
@@ -93,13 +92,12 @@
                       href="{{ path('app_register_gerant') }}"
                       >Ajouter un gérant</a>
                     </li>
-                    {% else %}
                     <li class="nav-item">
-                      <a 
-                        class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_index'  %}active{% endif %} ms-5" 
-                        href="{{ path('app_hotel_index') }}"
-                      >Nos Hôtels</a>
-                    </li>
+                        <a 
+                        class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_new'  %}active{% endif %} ms-5" 
+                        href="{{ path('app_hotel_new') }}"
+                        >Créer un Hôtel</a>
+                      </li>
                   {% endif %}
                   <li class="nav-item">
                       <a 
