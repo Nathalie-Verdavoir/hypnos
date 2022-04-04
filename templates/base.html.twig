@@ -19,13 +19,14 @@
             <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
             <script type="text/javascript" src="{{ asset('js/resa.js') }}"></script>
-            {% if app.user %}
+           
                 <script type="text/javascript">
-                    user = {
-                    id:  {{app.user.id}},
+
+                    let user = {
+                    id:  {{app.user ? app.user.id : 'null'}},
                     };
                 </script>
-            {% endif %}
+            
             {% if app.request.get('chambre') %}
                 <script type="text/javascript">
                     chambre = {

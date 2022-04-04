@@ -32,6 +32,7 @@ class Chambres
     private $description;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
+    #[Groups(["read"])]
     private $prix;
 
     #[ORM\ManyToOne(targetEntity: Hotel::class, inversedBy: 'chambres')]

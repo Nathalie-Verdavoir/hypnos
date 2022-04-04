@@ -13,6 +13,25 @@
     --color-green-5: #1e352f; /* var(--color-green-5); */
 }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-green-2) var(--color-green-5);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-beige-1);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-green-2);
+  border-radius: 20px;
+  border: 1px solid var(--color-green-5);
+}
 
 html, 
 body {
@@ -78,6 +97,22 @@ h2 {
     font-size: 1.5rem;
   background-color: var(--color-beige-2);
     color:  var(--color-green-1);
+}
+
+.fond-gris {
+  width: auto;
+  font-size: 1.5rem;
+  background-color: var(--color-green-5);
+  color: var(--color-green-1);
+}
+
+.container.large-width {
+  min-width: 95vw;
+}
+
+.scroll {
+  overflow-y:scroll;
+  height:90vh;
 }
 
 #navbarScroll > ul > li > a {
@@ -153,6 +188,10 @@ form {
     display: inline;
 }
 
+#chambreSelector {
+  width: 70%;
+}   
+
 .photo-show {
   border-radius: 8px;
   display: block;
@@ -204,6 +243,27 @@ form {
 
 .calendar-time {
   display: none;
+}
+
+/* animations */
+.announcement {
+  overflow: hidden;
+}
+
+.announcement > :first-child {  
+ display: inline-block;
+ padding-left: 100vw;
+ white-space: nowrap;
+ animation: announce 45s infinite linear;
+}
+  
+@keyframes announce {
+    0% {
+      transform: translate3d(0,0,0);      /* position initiale à droite */
+    }
+    100% {
+      transform: translate3d(-100%,0,0);  /* position finale à gauche */
+    }
 }
 
 @media screen and (min-width: 991px) {

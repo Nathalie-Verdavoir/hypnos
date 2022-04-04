@@ -47,13 +47,25 @@ class HotelController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_hotel_show', methods: ['GET', 'POST'])]
-    public function show(Request $request,Hotel $hotel, EntityManagerInterface $entityManager): Response
+    public function show(Request $request,Hotel $hotel, EntityManagerInterface $entityManager,$id): Response
     {
         $reservation = new Reservation();
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) { 
+            /** @var User $user */
+            $user = $this->getUser();
+            if($user==null || $user->getRoles() !== 'ROLE_USER'){
+                return $this->redirectToRoute('login', [ 
+                    'to' => 'app_hotel_show',
+                    'id' => $id,
+                    'resa_debut' => $reservation->getDebut()->getTimestamp(),
+                    'resa_chambre' => $reservation->getChambre()->getId(),
+                    
+                    'resa_fin' => $reservation->getFin()->getTimestamp(),
+                ], Response::HTTP_SEE_OTHER);
+            }
             $entityManager->persist($reservation);
             $entityManager->flush();
             return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);

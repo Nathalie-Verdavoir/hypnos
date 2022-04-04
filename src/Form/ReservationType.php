@@ -5,9 +5,11 @@ namespace App\Form;
 use App\Entity\Chambres;
 use App\Entity\Reservation;
 use App\Entity\User;
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType as TypeTextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,11 +28,6 @@ class ReservationType extends AbstractType
             ])
             ->add('chambre', EntityType::class, [
                 'class' => Chambres::class,
-                'attr' => ['class' => 'd-none'],
-                'label_attr' => ['class' => 'd-none'],
-            ])
-            ->add('client', EntityType::class, [
-                'class' => User::class,
                 'attr' => ['class' => 'd-none'],
                 'label_attr' => ['class' => 'd-none'],
             ])
