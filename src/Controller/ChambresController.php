@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Chambres;
+use App\Entity\Hotel;
 use App\Form\ChambresType;
 use App\Repository\ChambresRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,6 +30,11 @@ class ChambresController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var User $gerant */
+            $gerant = $this->getUser();
+            /** @var Hotel $hotel */
+            $hotel = $gerant->getHotel();
+            $chambre->setHotel($hotel);
             $chambresRepository->add($chambre);
             return $this->redirectToRoute('app_chambres_index', [], Response::HTTP_SEE_OTHER);
         }

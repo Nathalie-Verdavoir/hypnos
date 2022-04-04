@@ -1,31 +1,37 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Life+Savers&family=Petit+Formal+Script&display=swap');
 
 :root {
-    --color-white: #ffffff;
-    --color-orange: #F57B29;
-    --color-grey: #707070;
-    --color-pink: #EC7171;
+    --color-beige-1: #d0ccb6; /* var(--color-beige-1); */
+    --color-beige-2: #ffffff66; /* var(--color-beige-2); */
+    --color-beige-3: #858562; /* var(--color-beige-3); */
+    --color-grey: #3e3c48; /* var(--color-grey); */
+    --color-drak-grey: #262430; /* var(--color-drak-grey); */
+    --color-green-1: #beef9e; /* var(--color-green-1); */
+    --color-green-2: #a6c36f; /* var(--color-green-2); */
+    --color-green-3: #828c51; /* var(--color-green-3); */
+    --color-green-4: #335245; /* var(--color-green-4); */
+    --color-green-5: #1e352f; /* var(--color-green-5); */
 }
 
 * {
-    scrollbar-width: thin;
-    scrollbar-color: rgb(145, 145, 148) rgba(0, 0, 0, 0);
-  }
-  
-  /* Works on Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 12px;
-  }
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-green-2) var(--color-green-5);
+}
 
-  *::-webkit-scrollbar-track {
-    background: rgba(131, 131, 131, 0);
-  }
-  
-  *::-webkit-scrollbar-thumb {
-    background-color: rgb(145, 145, 148);
-    border-radius: 20px;
-    border: 3px solid rgba(0, 0, 0, 0);
-  }
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-beige-1);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-green-2);
+  border-radius: 20px;
+  border: 1px solid var(--color-green-5);
+}
 
 html, 
 body {
@@ -38,47 +44,239 @@ body {
 }
 
 body {
-    background-color: var(--color-grey);
-    color: #024141;
-    font-family: 'Poiret One', cursive;
+    background-color: var(--color-green-2);
+    color: var(--color-green-4);
     font-weight: bolder;
+}
+
+body>* {
+  font-family: 'Dancing Script', cursive;
+}
+
+header {
+  background-image: url(/images/bg-nav.png);
+}
+
+body > header > nav > div > button > span {
+  background-color: var(--color-green-4);
+}
+
+.admin-buttons {
+    position: absolute;
+    top: 1rem;
+    right: 4rem;
+    z-index: 100;
+}
+
+main {
+  min-height: 70vh;
 }
 
 .logo {
     display: inline;
     width: 10vw;
-    margin: 5rem;
+    margin: 0;
 }
 
 h1 {
-    font-size: 6rem;
-    color: black;
+    font-size: 3rem;
+    color: var(--color-drak-grey);
 }
 
 h1.title {
     display: inline;
 }
 
-.nav,
-.fond-gris {
+h2 {
+  font-size: 4rem;
+  color: var(--color-drak-grey);
+}
+
+.navbar {
     width: auto;
     font-size: 1.5rem;
-    background-color: #272f3b9a;
-    color: #7afffe;
+  background-color: var(--color-beige-2);
+    color:  var(--color-green-1);
+}
+
+.fond-gris {
+  width: auto;
+  font-size: 1.5rem;
+  background-color: var(--color-green-5);
+  color: var(--color-green-1);
+}
+
+.container.large-width {
+  min-width: 95vw;
+}
+
+.scroll {
+  overflow-y:scroll;
+  height:90vh;
+}
+
+#navbarScroll > ul > li > a {
+  color: var(--color-green-3);
+}
+
+#navbarScroll > ul > li > a.active {
+  color: var(--color-green-4);
+}
+
+.fond-clair {
+  width: 60vw;
+  margin: auto;
+  padding-top: 1rem;
+  padding-inline: 1rem;
+  background-color: var(--color-beige-1);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.card-body {
+  text-align: center;
 }
 
 .btn {
-    font-size: 2rem;
-    background-color: #272f3b;
+    font-size: 1.5rem;
+    background-color: var(--color-green-5);
     border: 0;
-    color: #7afffe;
-    margin: 1rem;
+    color:  var(--color-green-1);
+}
+
+.btn.iconic {
+  font-size: 1rem;
+  background-color: var(--color-green-5);
+  border: 0;
+  color:  var(--color-green-1);
+}
+
+.btn-primary.disabled {
+  background-color: var(--color-green-4);
+  color:  var(--color-green-2);
 }
 
 .btn:hover {
-  font-size: 2rem;
-  background-color: #0b0e11;
+  background-color: var(--color-green-5);
   border: 0;
-  color: #e7f5f5;
-  margin: 1rem;
+  color: var(--color-beige-3);
+}
+
+label,
+input,
+select {
+  font-family: 'Petit Formal Script', cursive;
+    font-size: 1.5rem;
+}
+
+footer > * {
+  font-family: 'Life Savers', cursive;
+}
+
+.list-group-item, 
+.list-group-item.active {
+  background-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/*forms*/
+form {
+    display: inline;
+}
+
+#chambreSelector {
+  width: 70%;
+}   
+
+.photo-show {
+  border-radius: 8px;
+  display: block;
+  margin: auto;
+  width: 80vw;
+}
+
+.card.larg {
+  width: 60vw;
+  margin: auto;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+
+.card-img-top {
+  width: 96%;
+  height: 15vh;
+  margin-top:2rem;
+  margin-inline: auto;
+}
+
+.card-img-top.big {
+  height: auto;
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+  width: 5rem;
+  height: 5rem;
+}
+
+.bg-grey {
+  color: var(--color-green-1);
+  background-color: var(--color-grey);
+}
+
+/*calendriers*/
+.daterangepicker td.off.disabled {
+  background-color: var(--color-green-4);
+}
+
+.daterangepicker td.active {
+  color: var(--color-green-4);
+  background-color: var(--color-green-2);
+}
+
+.daterangepicker td.in-range {
+  background-color: var(--color-green-1);
+}
+
+.calendar-time {
+  display: none;
+}
+
+/* animations */
+.announcement {
+  overflow: hidden;
+}
+
+.announcement > :first-child {  
+ display: inline-block;
+ padding-left: 100vw;
+ white-space: nowrap;
+ animation: announce 45s infinite linear;
+}
+  
+@keyframes announce {
+    0% {
+      transform: translate3d(0,0,0);      /* position initiale à droite */
+    }
+    100% {
+      transform: translate3d(-100%,0,0);  /* position finale à gauche */
+    }
+}
+
+@media screen and (min-width: 991px) {
+  .logo {
+    margin: 5vw;
+  }
+
+  h1 {
+    font-size: 6rem;
+    color: var(--color-drak-grey);
+  }
+
+  .admin-buttons {
+    right: 1rem;
+  }
 }

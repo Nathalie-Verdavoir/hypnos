@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservations{% endblock %}
+
+{% block body %}
+    <h1>{{ app.user and "ROLE_CLIENT" in app.user.roles ? "Vos" : "Les"}} Réservations</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Debut</th>
+                <th>Fin</th>
+                <th>Chambre</th>
+                <th>Client</th>
+                <th>Mail</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            {% if reservation %}
+                {% if app.user and "ROLE_CLIENT" in app.user.roles %}
+                    {% if app.user is same as (reservation.client) %}
+                        <tr>
+                            <td>{{ reservation.id }}</td>
+                            <td>{{ reservation.debut ? reservation.debut|date('Y-m-d') : '' }}</td>
+                            <td>{{ reservation.fin ? reservation.fin|date('Y-m-d') : '' }}</td>
+                            <td>{{ reservation.chambre }} de {{ reservation.chambre.hotel }} à {{ reservation.chambre.hotel.ville }} 
+                            {% for photo in reservation.chambre.photo %}
+                                {% if photo.cover %}
+                                    <img src="{{ asset('/uploads/photos/')  }}{{ photo.lien}}" class="photo-show w-25">
+                                {% endif %}
+                            {% endfor %}
+                            </td>
+                            <td>{{ reservation.client.nom }} {{ reservation.client.prenom }}</td>
+                            <td>{{ reservation.client.email }}</td>
+                            <td>
+                                <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
+                                <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                    {% endif %} 
+                {% endif %}
+            {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr> 
+            {% endif %} 
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h2>Créer un compte "Gérant"</h2>
+    <div class="container">
+        {{ form_start(registrationForm) }}
+        <div class="row m-2">
+            <div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
+                {{ form_label(registrationForm.nom, 'Son nom') }}
+            </div>
+            <div class="col-12 col-lg-3">
+                {{ form_widget(registrationForm.nom) }}
+            </div>
+        </div>
+         {{ form_errors(registrationForm.nom) }}
+        <div class="row m-2">
+            <div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
+                {{ form_label(registrationForm.prenom, 'Son prénom') }}
+            </div>
+            <div class="col-12 col-lg-3">
+                {{ form_widget(registrationForm.prenom) }}
+            </div>
+        </div>
+         {{ form_errors(registrationForm.prenom) }}
+        <div class="row m-2">
+            <div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
+                {{ form_label(registrationForm.email, 'Son adresse email') }}
+            </div>
+            <div class="col-12 col-lg-3">
+                {{ form_widget(registrationForm.email) }}
+            </div>
+        </div>
+         {{ form_errors(registrationForm.email) }}
+        <div class="row m-2">
+            <div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
+                {{ form_label(registrationForm.plainPassword, 'Son mot de passe') }}
+            </div>
+            <div class="col-12 col-lg-3">
+                {{ form_widget(registrationForm.plainPassword) }}
+            </div>
+        </div>
+         {{ form_errors(registrationForm.plainPassword) }}
+        <div class="row m-3">
+            <div class="col-1 col-lg-3 d-flex flex-row-reverse"> 
+               {{ form_widget(registrationForm.agreeTerms) }}
+            </div>
+            <div class="col-9 col-lg-3">
+                {{ form_label(registrationForm.agreeTerms, 'J\'accepte les conditions d\'utilisations du site') }}
+            </div>
+        </div>
+         {{ form_errors(registrationForm.agreeTerms) }}
+        
+        <div class="row m-2">
+            <div class="col-3 col-lg-3"></div>
+            <div class="col-9 col-lg-3"> 
+                <button type="submit" class="btn">Enregistrer</button>
+            </div>
+        </div>
+           
+        {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

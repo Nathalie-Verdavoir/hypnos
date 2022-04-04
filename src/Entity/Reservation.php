@@ -2,25 +2,37 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
+#[ApiResource( 
+    collectionOperations: ['get'],
+    itemOperations: ['get'],
+    routePrefix: '/dates',
+    normalizationContext: ['groups' => ['read']],
+)]
 class Reservation
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(["read"])]
     private $id;
 
     #[ORM\Column(type: 'date')]
+    #[Groups(["read"])]
     private $debut;
 
     #[ORM\Column(type: 'date')]
+    #[Groups(["read"])]
     private $fin;
 
     #[ORM\ManyToOne(targetEntity: Chambres::class, inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(["read"])]
     private $chambre;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'reservations')]
