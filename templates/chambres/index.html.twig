@@ -20,7 +20,7 @@
         {% set slide = 0 %}
         {% for chambre in chambres %}
             {% if app.user and chambre.hotel.gerant == app.user  %}
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{slide}}" class="{{ chambre  is same as(chambres[0]) ? "active" : ""}}" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{slide}}" class="{{ slide == 0 ? "active" : ""}}" aria-current="true" aria-label="Slide 1"></button>
                 {% set slide = slide + 1 %}
             {% endif %}
         {% endfor %}
@@ -29,7 +29,7 @@
          {% set active = true %}
         {% for chambre in chambres %}
         {% if app.user and chambre.hotel and chambre.hotel.gerant == app.user  %}
-        <div class="carousel-item {{ active ? "active" : ""}}">
+        <div class="carousel-item {{ active == true ? "active" : ""}}">{% dump(active==true) %}
             {% set active = false %}
             <div class="card larg">
                 {% if chambre.photo|length > 0 %}
@@ -75,7 +75,8 @@
                     </a>
                 </div>
             </div>
-            </div>   {% endif %}
+            </div>   
+            {% endif %}
             {% endfor %}
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
