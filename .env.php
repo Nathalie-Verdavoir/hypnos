@@ -4,5 +4,5 @@
 
 return array (
   'APP_ENV' => 'prod',
-  
+  'CORS_ALLOW_ORIGIN'=>"*"
 );
