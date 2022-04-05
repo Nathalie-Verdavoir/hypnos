@@ -2,6 +2,7 @@ minDate =  new Date();
 chambresPrice = [];
 disabledArr = [];
 let startDate, endDate;
+
 function get_query(param){
     var url = document.location.href;
     var qs = url.substring(url.indexOf('?') + 1).split('&');
@@ -11,7 +12,9 @@ function get_query(param){
     }
     return result[param] ;
 }
+
 get_query();
+
 const fetchInfoResaChambre = chambreTo =>  $.getJSON({
     url: "/api/dates/reservations", 
     success: function(result){
@@ -166,18 +169,27 @@ start.setDate(start.getDate() + 1)
     
   });
 
-  
+let initPrice = true; // to update price according chambre changes except on init
+
 const addEventOnChangeOnChambre = () => $(function() {
     $('#chambreSelector').on('change',(event) => {
         //alert( event.target.options[event.target.selectedIndex].text); 
         $(`#nuitee`).text('? nuitée(s)'); 
         $(`#montant`).text('? €');
         startDate, endDate;
+        if(initPrice==false){
+            showPrice()
+        }
+        initPrice=false;
         fetchInfoResaChambre(event.target.value);
-        
     });
  });
- 
+
+ const showPrice = () => $(function() {
+    $('input[name="datetimes"]').get(0).click();
+    $('.applyBtn').get(0).click();
+ });
+
  $( document ).ready(function() {
     if(window.location.href.match('reservation/new')) {
         $(`reservation[client]`).text(user.id); 
