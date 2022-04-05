@@ -1,5 +1,5 @@
 minDate =  new Date();
-price = 0;
+chambresPrice = [];
 disabledArr = [];
 let startDate, endDate;
 function get_query(param){
@@ -13,7 +13,7 @@ function get_query(param){
 }
 get_query();
 const fetchInfoResaChambre = chambreTo =>  $.getJSON({
-    url: "/api/dates/reservations?page=1", 
+    url: "/api/dates/reservations", 
     success: function(result){
         disabledArr = [];
         $(`#reservation_chambre option[value='${chambreTo}']`).prop('selected', true);
@@ -28,10 +28,17 @@ const fetchInfoResaChambre = chambreTo =>  $.getJSON({
                     disabledArr.push(currentMonth+'/'+debut.getDate()+'/'+debut.getFullYear());
                     debut.setDate(debut.getDate() + 1)
                 }
-                return price = resa.chambre.prix;
             }
-            
-    });
+           
+    }); 
+    if(chambresPrice.length==0){
+                $.getJSON({
+                    url: "/api/dates/chambres", 
+                    success: function(result){
+                        return chambresPrice = result;
+                    }
+                })
+            }
     resetDatePicker();
   }});
   
@@ -106,8 +113,8 @@ const resetDatePicker = () => $(function() {
     }).on("apply.daterangepicker",function(e,picker){
 
         // Get the selected bound dates.
-        startDate = picker.startDate.format('MM/DD/YYYY')
-        endDate = picker.endDate.format('MM/DD/YYYY')
+        startDate = picker.startDate.format('DD/MM/YYYY')
+        endDate = picker.endDate.format('DD/MM/YYYY')
     
         // Compare the dates again.
         var clearInput = false;
@@ -148,6 +155,11 @@ dayCount++
 start.setDate(start.getDate() + 1)
 }
             $(`#nuitee`).text(dayCount + ' ' + (dayCount>1 ? 'nuitées' : 'nuitée'));
+            chambresPrice.forEach(chambre => {
+                if(chambre.id==$('#chambreSelector').val()){
+                    price=chambre.prix
+                }
+            });
             $(`#montant`).text(dayCount*price + ' €');
         }
     });
@@ -157,8 +169,12 @@ start.setDate(start.getDate() + 1)
   
 const addEventOnChangeOnChambre = () => $(function() {
     $('#chambreSelector').on('change',(event) => {
-        //alert( event.target.options[event.target.selectedIndex].text);  
+        //alert( event.target.options[event.target.selectedIndex].text); 
+        $(`#nuitee`).text('? nuitée(s)'); 
+        $(`#montant`).text('? €');
+        startDate, endDate;
         fetchInfoResaChambre(event.target.value);
+        
     });
  });
  
