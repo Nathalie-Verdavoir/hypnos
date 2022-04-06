@@ -81,6 +81,8 @@
         },
         "post-install-cmd": [
             "chmod -R 777 public/",
+            "chmod -R 777 public/uploads/photos",
+
             "@auto-scripts"
         ],
         "post-update-cmd": [
