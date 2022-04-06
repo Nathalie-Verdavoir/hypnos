@@ -29,7 +29,7 @@
          {% set active = true %}
         {% for chambre in chambres %}
         {% if app.user and chambre.hotel and chambre.hotel.gerant == app.user  %}
-        <div class="carousel-item {{ active == true ? "active" : ""}}">{% dump(active==true) %}
+        <div class="carousel-item {{ active == true ? "active" : ""}}">
             {% set active = false %}
             <div class="card larg">
                 {% if chambre.photo|length > 0 %}
