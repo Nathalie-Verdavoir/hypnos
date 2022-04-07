@@ -2,17 +2,20 @@
 
 namespace App\Controller;
 
+use App\Repository\HotelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AccueilController extends AbstractController
 {
-    #[Route('/', name: 'app_accueil')]
-    public function index(): Response
+
+    #[Route('/', name: 'app_accueil', methods: ['GET'])]
+    public function slide(HotelRepository $hotelRepository): Response
     {
-        return $this->render('base.html.twig', [
-            'controller_name' => 'AccueilController',
+        return $this->render('accueil/index.html.twig', [
+            'hotels' => $hotelRepository->findAll(),
         ]);
     }
+    
 }
