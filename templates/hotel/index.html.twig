@@ -3,11 +3,10 @@
 {% block title %}Les Hôtels{% endblock %}
 
 {% block body %}
-    <h1>Les Hôtels</h1>
-    
+    <h2>Les Hôtels</h2>
     {% if hotels|length > 0 %}
-    <div id="carouselExampleIndicators" class="carousel slide py-5" data-bs-ride="carousel">
-        <div class="carousel-indicators my-5">
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators hotels">
         {% set slide = 0 %}
         {% for hotel in hotels %}
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{slide}}" class="{{ hotel  is same as(hotels[0]) ? "active" : ""}}" aria-current="true" aria-label="Slide 1"></button>

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Hôtels{% endblock %}
+
+{% block body %}
+    <h2>Bienvenue !</h2>
+    <div class="container large-width">
+        <div class="row align-items-start">
+            <div class="col-12 col-lg-2 left-col">
+                 {{ include('hotel/_aside_hotels.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -5,7 +5,7 @@
     --color-beige-2: #ffffff66; /* var(--color-beige-2); */
     --color-beige-3: #858562; /* var(--color-beige-3); */
     --color-grey: #3e3c48; /* var(--color-grey); */
-    --color-drak-grey: #262430; /* var(--color-drak-grey); */
+    --color-dark-grey: #262430; /* var(--color-dark-grey); */
     --color-green-1: #beef9e; /* var(--color-green-1); */
     --color-green-2: #a6c36f; /* var(--color-green-2); */
     --color-green-3: #828c51; /* var(--color-green-3); */
@@ -80,7 +80,8 @@ main {
 
 h1 {
     font-size: 3rem;
-    color: var(--color-drak-grey);
+    color: var(--color-dark-grey);
+
 }
 
 h1.title {
@@ -89,7 +90,13 @@ h1.title {
 
 h2 {
   font-size: 4rem;
-  color: var(--color-drak-grey);
+  color: var(--color-dark-grey);
+}
+
+h2,
+h3,
+h4 {
+  text-align: center;
 }
 
 .navbar {
@@ -116,11 +123,19 @@ h2 {
 }
 
 #navbarScroll > ul > li > a {
-  color: var(--color-green-3);
+  color: var(--color-green-5);
+  background-size: 200% auto;
+  border-radius: 5px;
+  padding-inline: 1rem;
+  background-image: linear-gradient(to right, var(--color-beige-1) 0%, var(--color-green-3) 100%);
 }
 
 #navbarScroll > ul > li > a.active {
-  color: var(--color-green-4);
+  color: var(--color-green-5);
+  background-size: 200% auto;
+  box-shadow: 0 0 20px var(--color-beige-1);
+  border-radius: 5px;
+  background-image: linear-gradient(to right, var(--color-beige-2) 0%, var(--color-green-1) 31%, var(--color-green-3) 60%, var(--color-green-4) 100%);
 }
 
 .fond-clair {
@@ -169,6 +184,10 @@ select {
     font-size: 1.5rem;
 }
 
+#datetimes {
+  width: 80%;
+}
+
 footer > * {
   font-family: 'Life Savers', cursive;
 }
@@ -181,6 +200,19 @@ footer > * {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.carousel-indicators.hotels {
+  font-size: 2rem;
+  position: relative;
+}
+
+.img-fluid.chambre {
+  height: 650px;
+}
+
+.img-fluid.chambre.small {
+  height: 500px;
 }
 
 /*forms*/
@@ -200,14 +232,14 @@ form {
 }
 
 .card.larg {
-  width: 60vw;
+  width: 50vw;
   margin: auto;
   margin-top: 3vh;
   margin-bottom: 3vh;
 }
 
 .card-img-top {
-  width: 96%;
+  width: 80%;
   height: 15vh;
   margin-top:2rem;
   margin-inline: auto;
@@ -268,15 +300,268 @@ form {
 
 @media screen and (min-width: 991px) {
   .logo {
-    margin: 5vw;
+    margin: 1vw;
   }
 
   h1 {
     font-size: 6rem;
-    color: var(--color-drak-grey);
+    color: var(--color-dark-grey);
   }
 
   .admin-buttons {
     right: 1rem;
+  }
+}
+.bubbles-container {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 100%;
+  max-width: 15rem;
+  transform: translateX(-50%);
+  opacity: 0.75;
+  overflow: visible;
+}
+
+.bubbles {
+  width: 100%;
+  height: auto;
+}
+.bubbles circle {
+  stroke: white;
+  fill: none;
+}
+.bubbles > g > g:nth-of-type(3n) circle {
+  stroke: #87f5fb;
+}
+.bubbles > g > g:nth-of-type(4n) circle {
+  stroke: #8be8cb;
+}
+
+.bubbles-large {
+  overflow: visible;
+}
+.bubbles-large > g {
+  transform: translateY(2048px);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.bubbles-large g:nth-of-type(1) {
+  -webkit-animation: up 6.5s infinite;
+          animation: up 6.5s infinite;
+}
+.bubbles-large g:nth-of-type(1) g {
+  transform: translateX(350px);
+}
+.bubbles-large g:nth-of-type(1) circle {
+  -webkit-animation: wobble 5s infinite ease-in-out;
+          animation: wobble 5s infinite ease-in-out;
+}
+.bubbles-large g:nth-of-type(2) {
+  -webkit-animation: up 8.25s 250ms infinite;
+          animation: up 8.25s 250ms infinite;
+}
+.bubbles-large g:nth-of-type(2) g {
+  transform: translateX(450px);
+}
+.bubbles-large g:nth-of-type(2) circle {
+  -webkit-animation: wobble 5s infinite ease-in-out;
+          animation: wobble 5s infinite ease-in-out;
+}
+.bubbles-large g:nth-of-type(3) {
+  -webkit-animation: up 9s 750ms infinite;
+          animation: up 9s 750ms infinite;
+}
+.bubbles-large g:nth-of-type(3) g {
+  transform: translateX(700px);
+}
+.bubbles-large g:nth-of-type(3) circle {
+  -webkit-animation: wobble 6s infinite ease-in-out;
+          animation: wobble 6s infinite ease-in-out;
+}
+.bubbles-large g:nth-of-type(4) {
+  -webkit-animation: up 8.5s 1.5s infinite;
+          animation: up 8.5s 1.5s infinite;
+}
+.bubbles-large g:nth-of-type(4) g {
+  transform: translateX(500px);
+}
+.bubbles-large g:nth-of-type(4) circle {
+  -webkit-animation: wobble 6s infinite ease-in-out;
+          animation: wobble 6s infinite ease-in-out;
+}
+.bubbles-large g:nth-of-type(5) {
+  -webkit-animation: up 9.5s 4s infinite;
+          animation: up 9.5s 4s infinite;
+}
+.bubbles-large g:nth-of-type(5) g {
+  transform: translateX(675px);
+}
+.bubbles-large g:nth-of-type(5) circle {
+  -webkit-animation: wobble 6s infinite ease-in-out;
+          animation: wobble 6s infinite ease-in-out;
+}
+
+.bubbles-small {
+  overflow: visible;
+}
+.bubbles-small > g {
+  transform: translateY(2048px);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.bubbles-small g circle {
+  transform: scale(0);
+}
+.bubbles-small g:nth-of-type(1) {
+  -webkit-animation: up 8.25s infinite;
+          animation: up 8.25s infinite;
+}
+.bubbles-small g:nth-of-type(1) g {
+  transform: translateX(350px);
+}
+.bubbles-small g:nth-of-type(1) circle {
+  -webkit-animation: wobble 6s infinite ease-in-out;
+          animation: wobble 6s infinite ease-in-out;
+}
+.bubbles-small g:nth-of-type(2) {
+  -webkit-animation: up 8.75s infinite;
+          animation: up 8.75s infinite;
+}
+.bubbles-small g:nth-of-type(2) g {
+  transform: translateX(750px);
+}
+.bubbles-small g:nth-of-type(2) circle {
+  -webkit-animation: wobble 3s infinite ease-in-out;
+          animation: wobble 3s infinite ease-in-out;
+}
+.bubbles-small g:nth-of-type(3) {
+  -webkit-animation: up 5.25s 250ms infinite;
+          animation: up 5.25s 250ms infinite;
+}
+.bubbles-small g:nth-of-type(3) g {
+  transform: translateX(350px);
+}
+.bubbles-small g:nth-of-type(3) circle {
+  -webkit-animation: wobble 3s 250ms infinite ease-in-out;
+          animation: wobble 3s 250ms infinite ease-in-out;
+}
+.bubbles-small g:nth-of-type(4) {
+  -webkit-animation: up 5.75s 325ms infinite;
+          animation: up 5.75s 325ms infinite;
+}
+.bubbles-small g:nth-of-type(4) g {
+  transform: translateX(180px);
+}
+.bubbles-small g:nth-of-type(4) circle {
+  -webkit-animation: wobble 3s 325ms infinite ease-in-out;
+          animation: wobble 3s 325ms infinite ease-in-out;
+}
+.bubbles-small g:nth-of-type(5) {
+  -webkit-animation: up 6s 125ms infinite;
+          animation: up 6s 125ms infinite;
+}
+.bubbles-small g:nth-of-type(5) g {
+  transform: translateX(350px);
+}
+.bubbles-small g:nth-of-type(5) circle {
+  -webkit-animation: wobble 3s 250ms infinite ease-in-out;
+          animation: wobble 3s 250ms infinite ease-in-out;
+}
+.bubbles-small g:nth-of-type(6) {
+  -webkit-animation: up 5.13s 250ms infinite;
+          animation: up 5.13s 250ms infinite;
+}
+.bubbles-small g:nth-of-type(6) g {
+  transform: translateX(650px);
+}
+.bubbles-small g:nth-of-type(6) circle {
+  -webkit-animation: wobble 3s 125ms infinite ease-in-out;
+          animation: wobble 3s 125ms infinite ease-in-out;
+}
+.bubbles-small g:nth-of-type(7) {
+  -webkit-animation: up 6.25s 350ms infinite;
+          animation: up 6.25s 350ms infinite;
+}
+.bubbles-small g:nth-of-type(7) g {
+  transform: translateX(480px);
+}
+.bubbles-small g:nth-of-type(7) circle {
+  -webkit-animation: wobble 3s 325ms infinite ease-in-out;
+          animation: wobble 3s 325ms infinite ease-in-out;
+}
+.bubbles-small g:nth-of-type(8) {
+  -webkit-animation: up 7s 200ms infinite;
+          animation: up 7s 200ms infinite;
+}
+.bubbles-small g:nth-of-type(8) g {
+  transform: translateX(330px);
+}
+.bubbles-small g:nth-of-type(8) circle {
+  -webkit-animation: wobble 3s 325ms infinite ease-in-out;
+          animation: wobble 3s 325ms infinite ease-in-out;
+}
+.bubbles-small g:nth-of-type(9) {
+  -webkit-animation: up 6.25s 233ms infinite;
+          animation: up 6.25s 233ms infinite;
+}
+.bubbles-small g:nth-of-type(9) g {
+  transform: translateX(230px);
+}
+.bubbles-small g:nth-of-type(9) circle {
+  -webkit-animation: wobble 3s 275ms infinite ease-in-out;
+          animation: wobble 3s 275ms infinite ease-in-out;
+}
+.bubbles-small g:nth-of-type(10) {
+  -webkit-animation: up 6s 900ms infinite;
+          animation: up 6s 900ms infinite;
+}
+.bubbles-small g:nth-of-type(10) g {
+  transform: translateX(730px);
+}
+.bubbles-small g:nth-of-type(10) circle {
+  -webkit-animation: wobble 2s 905ms infinite ease-in-out;
+          animation: wobble 2s 905ms infinite ease-in-out;
+}
+
+@-webkit-keyframes wobble {
+  33% {
+    transform: translateX(-50px);
+  }
+  66% {
+    transform: translateX(50px);
+  }
+}
+
+@keyframes wobble {
+  33% {
+    transform: translateX(-50px);
+  }
+  66% {
+    transform: translateX(50px);
+  }
+}
+@-webkit-keyframes up {
+  0% {
+    opacity: 0;
+  }
+  10%, 90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-1024px);
+  }
+}
+@keyframes up {
+  0% {
+    opacity: 0;
+  }
+  10%, 90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-1024px);
   }
 }

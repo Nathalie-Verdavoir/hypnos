@@ -3,7 +3,7 @@
 {% block title %}Réservations{% endblock %}
 
 {% block body %}
-    <h1>{{ app.user and "ROLE_CLIENT" in app.user.roles ? "Vos" : "Les"}} Réservations</h1>
+    <h2>{{ app.user and "ROLE_CLIENT" in app.user.roles ? "Vos" : "Les"}} Réservations</h2>
 
     <table class="table">
         <thead>
