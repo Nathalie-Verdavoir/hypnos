@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Chambres;
 use App\Entity\Hotel;
+use App\Entity\Reservation;
 use App\Form\ChambresType;
+use App\Form\ReservationType;
 use App\Repository\ChambresRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,10 +49,32 @@ class ChambresController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_chambres_show', methods: ['GET'])]
-    public function show(Chambres $chambre): Response
+    public function show(Request $request, Chambres $chambre, EntityManagerInterface $entityManager, $id): Response
     {
+        $reservation = new Reservation();
+        $form = $this->createForm(ReservationType::class, $reservation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) { 
+            /** @var User $user */
+            $user = $this->getUser();
+            if($user==null || $user->getRoles() !== 'ROLE_USER'){
+                return $this->redirectToRoute('login', [ 
+                    'to' => 'app_chambres_show',
+                    'id' => $id,
+                    'resa_debut' => $reservation->getDebut()->getTimestamp(),
+                    'resa_chambre' => $reservation->getChambre()->getId(),
+                    
+                    'resa_fin' => $reservation->getFin()->getTimestamp(),
+                ], Response::HTTP_SEE_OTHER);
+            }
+            $entityManager->persist($reservation);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+        }
         return $this->render('chambres/show.html.twig', [
             'chambre' => $chambre,
+            'form' => $form->createView(),
         ]);
     }
 
