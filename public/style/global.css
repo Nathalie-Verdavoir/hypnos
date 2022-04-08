@@ -149,7 +149,7 @@ h4 {
 }
 
 .card {
-  margin: 1rem;
+  margin-left: 1rem;
   box-shadow: 10px 10px 5px var(--color-beige-3);
 }
 
@@ -157,9 +157,20 @@ h4 {
   text-align: center;
 }
 
-.card.reservations {
- width: 100%;
+.card-text {
+  font-size: larger;
 }
+
+.card.small,
+.card.reservations {
+  margin-left: auto;
+  width: 100%;
+}
+
+.col-12 {
+  margin-top: 1rem;
+}
+
 .btn {
     font-size: 1.5rem;
     background-color: var(--color-green-5);
@@ -323,5 +334,9 @@ form {
 
   .admin-buttons {
     right: 1rem;
+  }
+
+  .col-12 {
+    margin-top: 0;
   }
 }

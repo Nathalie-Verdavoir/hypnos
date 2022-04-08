@@ -199,3 +199,7 @@ const addEventOnChangeOnChambre = () => $(function() {
     }
 });
 
+$(document).on('ready', function () {
+    // initialization of daterangepicker
+    $('.js-daterangepicker').daterangepicker();
+  });

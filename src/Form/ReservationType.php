@@ -16,17 +16,17 @@ class ReservationType extends AbstractType
     {
         $builder
             ->add('debut', DateType::class, [
-                'attr' => ['class' => 'd-none'],
-                'label_attr' => ['class' => 'd-none'],
+              //  'attr' => ['class' => 'd-none'],
+               // 'label_attr' => ['class' => 'd-none'],
             ])
             ->add('fin', DateType::class, [
-                'attr' => ['class' => 'd-none'],
-                'label_attr' => ['class' => 'd-none'],
+               // 'attr' => ['class' => 'd-none'],
+               // 'label_attr' => ['class' => 'd-none'],
             ])
             ->add('chambre', EntityType::class, [
                 'class' => Chambres::class,
-                'attr' => ['class' => 'd-none'],
-                'label_attr' => ['class' => 'd-none'],
+               // 'attr' => ['class' => 'd-none'],
+               // 'label_attr' => ['class' => 'd-none'],
             ])
         ;
     }
