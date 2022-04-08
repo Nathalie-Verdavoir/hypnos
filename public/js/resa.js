@@ -199,7 +199,15 @@ const addEventOnChangeOnChambre = () => $(function() {
     }
 });
 
-$(document).on('ready', function () {
-    // initialization of daterangepicker
-    $('.js-daterangepicker').daterangepicker();
-  });
+$(document).ready(function(){
+    $(function() {
+    $('input[name="daterange"]').daterangepicker({
+    "startDate": "01/01/2020",
+    "endDate": "17/01/2020",
+    opens: 'center',
+    locale: {
+    format: 'DD/MM/YYYY'
+    }
+    });
+    });
+    });

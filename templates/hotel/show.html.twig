@@ -127,31 +127,8 @@
                             </select>
                         </p>
                         <p class="card-text border"><small class="text-muted">Dates</small></p>  
-                        {{ include('reservation/_form.html.twig') }}
-   <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <label>Select date</label>
-         <input type="text" id="datetimes" name="datetimes" />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+                        {{ include('reservation/_form.html.twig') }} <div class="input-group input-daterange"> <label class="">Select Date Range :</label> <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" readonly /> </div>
+  
                     </div> {# fin du texte haut de la card de la réservation #}
                     
                       
