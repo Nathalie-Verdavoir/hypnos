@@ -186,7 +186,7 @@ const addEventOnChangeOnChambre = () => $(function() {
  });
 
  const showPrice = () => $(function() {
-    $('input[name="datetimes"]').get(0).click();
+    $('input[name="daterange"]').get(0).click();
     $('.applyBtn').get(0).click();
  });
 
