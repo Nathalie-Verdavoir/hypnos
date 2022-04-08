@@ -42,7 +42,7 @@ const fetchInfoResaChambre = chambreTo =>  $.getJSON({
                     }
                 })
             }
-    resetDatePicker();
+            emptyDatePicker();
   }});
   
 if(get_query('resa_debut')){
@@ -54,6 +54,11 @@ if(get_query('resa_debut')){
     startDate = moment().startOf('day');
     endDate = moment().startOf('day').add(1, 'day');
 }
+
+const emptyDatePicker = () => $(function() {
+    $('input[name="daterange"]').daterangepicker();
+    resetDatePicker();
+});
 
 const resetDatePicker = () => $(function() {
     $('input[name="daterange"]').daterangepicker({
@@ -116,8 +121,8 @@ const resetDatePicker = () => $(function() {
     }).on("apply.daterangepicker",function(e,picker){
 
         // Get the selected bound dates.
-        startDate = picker.startDate.format('DD/MM/YYYY')
-        endDate = picker.endDate.format('DD/MM/YYYY')
+        startDate = picker.startDate.format('MM/DD/YYYY')
+        endDate = picker.endDate.format('MM/DD/YYYY')
     
         // Compare the dates again.
         var clearInput = false;
@@ -176,6 +181,8 @@ const addEventOnChangeOnChambre = () => $(function() {
         //alert( event.target.options[event.target.selectedIndex].text); 
         $(`#nuitee`).text('? nuitée(s)'); 
         $(`#montant`).text('? €');
+        $( "form[name='reservation'] > div > ul" ).remove();
+        
         startDate, endDate;
         if(initPrice==false){
             showPrice()

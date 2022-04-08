@@ -204,8 +204,16 @@ select {
     font-size: 1.5rem;
 }
 
-#datetimes {
+#daterange {
+  margin: auto;
   width: 80%;
+}
+
+/*validator message */
+
+div > ul > li {
+  color: red;
+  font-size: 1.5rem;
 }
 
 footer {
