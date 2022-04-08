@@ -191,13 +191,10 @@ const addEventOnChangeOnChambre = () => $(function() {
  });
 
  $( document ).ready(function() {
-    if(window.location.href.match('reservation/new')) {
-        $(`reservation[client]`).text(user.id); 
+    if(window.location.href.match('chambres/') && typeof chambre !== "undefined") {
         fetchInfoResaChambre(chambre.id);
-        
     }
     if(window.location.href.match('hotel/')) {
-        $(`reservation[client]`).text(user.id);
         addEventOnChangeOnChambre();
     }
 });
