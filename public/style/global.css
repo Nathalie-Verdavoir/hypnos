@@ -14,6 +14,7 @@
 }
 
 * {
+  font-size: 32px;
   scrollbar-width: thin;
   scrollbar-color: var(--color-green-2) var(--color-green-5);
 }
@@ -38,7 +39,7 @@ body {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
+	font-size: 1rem;
 	font: inherit;
 	vertical-align: baseline;
 }
@@ -64,7 +65,7 @@ body > header > nav > div > button > span {
 .admin-buttons {
     position: absolute;
     top: 1rem;
-    right: 4rem;
+    right: 6rem;
     z-index: 100;
 }
 
@@ -79,7 +80,7 @@ main {
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 5rem;
     color: var(--color-dark-grey);
 
 }
@@ -93,6 +94,11 @@ h2 {
   color: var(--color-dark-grey);
 }
 
+h3 {
+  font-size: 3rem;
+  color: var(--color-dark-grey);
+}
+
 h2,
 h3,
 h4 {
@@ -101,6 +107,19 @@ h4 {
 
 .green-1-text {
   color: var(--color-green-2);
+}
+
+.beige-1-text {
+  color: var(--color-beige-1);
+}
+
+.grey-text {
+  color: var(--color-grey);
+}
+
+.shadow {
+  box-shadow: 0 0 20px var(--color-beige-1);
+  border-radius: 5px;
 }
 
 .navbar {
@@ -169,6 +188,13 @@ h4 {
 .card.reservations {
   margin-left: auto;
   width: 100%;
+}
+
+.card-img-top.slider {
+  height: 40vh;
+  width: 100%;
+  margin-top:0;
+  margin-inline: auto;
 }
 
 .col-12 {
@@ -334,6 +360,19 @@ form {
  animation: announce 45s infinite linear;
 }
   
+.announcement-2 > :first-child {  
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 30vw;
+  animation: announce 45s infinite linear;
+}
+
+/* change transition duration to control the speed of fade effect */
+.carousel-item {
+  opacity: 1;
+  transition: opacity 0s ease-in-out 0s;
+}
+
 @keyframes announce {
     0% {
       transform: translate3d(0,0,0);      /* position initiale à droite */
@@ -344,6 +383,11 @@ form {
 }
 
 @media screen and (min-width: 991px) {
+
+  * {
+    font-size: 24px;
+  }
+
   .logo {
     margin: 1vw;
   }
@@ -356,6 +400,20 @@ form {
   h1 {
     font-size: 6rem;
     color: var(--color-dark-grey);
+  }
+
+  h2 {
+    font-size: 3rem;
+    color: var(--color-dark-grey);
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    color: var(--color-dark-grey);
+  }
+
+  .card-text {
+    font-size: 1rem;
   }
 
   .admin-buttons {

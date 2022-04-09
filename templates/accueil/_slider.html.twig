@@ -1,0 +1,21 @@
+<div id="carousel" class="carousel slide shadow mx-auto" data-bs-ride="carousel" data-bs-interval="7000">
+    <div class="carousel-inner mx-auto">
+        {% set slidev = 0 %}
+        {% for photo in photos %}
+           {% set randomPic = photos[random(0, photos|length - 1)] %}
+            <div class="carousel-item mx-auto {{ slidev == 0 ? "active" : ""}}">
+                <img src="{{ asset('uploads/photos/') }}{{randomPic.lien}}" class="card-img-top slider " alt="photo de la hotel">
+                <div class="card-img-overlay announcement-2 m-5">
+                    <h2 class="beige-1-text">{{ randomPic.hotel ? randomPic.hotel.nom : randomPic.chambres.hotel.nom}}</h2>
+                </div>
+                <div class="card-img-overlay announcement-2 m-4">
+                    <h2 class="green-1-text">{{ randomPic.hotel ? randomPic.hotel.nom : randomPic.chambres.hotel.nom}}</h2>
+                </div>
+                <div class="card-img-overlay announcement-2 m-3">
+                    <h2 class="grey-text">{{ randomPic.hotel ? randomPic.hotel.nom : randomPic.chambres.hotel.nom}}</h2>
+                </div>
+            </div>
+            {% set slidev = slidev + 1 %}
+        {% endfor %}
+    </div>
+</div>
