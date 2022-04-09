@@ -170,7 +170,14 @@ h4 {
 .col-12 {
   margin-top: 1rem;
 }
+.row{
+  overflow: hidden; 
+}
 
+[class*="col-"]{
+  margin-bottom: -99999px;
+  padding-bottom: 99999px;
+}
 .btn {
     font-size: 1.5rem;
     background-color: var(--color-green-5);

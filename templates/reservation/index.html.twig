@@ -41,6 +41,27 @@
                             </td>
                         </tr>
                     {% endif %} 
+                {% elseif app.user and "ROLE_GERANT" in app.user.roles %}
+                    {% if app.user.hotel is same as (reservation.chambre.hotel) %}
+                        <tr>
+                            <td>{{ reservation.id }}</td>
+                            <td>{{ reservation.debut ? reservation.debut|date('Y-m-d') : '' }}</td>
+                            <td>{{ reservation.fin ? reservation.fin|date('Y-m-d') : '' }}</td>
+                            <td>{{ reservation.chambre }} de {{ reservation.chambre.hotel }} à {{ reservation.chambre.hotel.ville }} 
+                            {% for photo in reservation.chambre.photo %}
+                                {% if photo.cover %}
+                                    <img src="{{ asset('/uploads/photos/')  }}{{ photo.lien}}" class="photo-show w-25">
+                                {% endif %}
+                            {% endfor %}
+                            </td>
+                            <td>{{ reservation.client.nom }} {{ reservation.client.prenom }}</td>
+                            <td>{{ reservation.client.email }}</td>
+                            <td>
+                                <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
+                                <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                    {% endif %} 
                 {% endif %}
             {% else %}
                     <tr>

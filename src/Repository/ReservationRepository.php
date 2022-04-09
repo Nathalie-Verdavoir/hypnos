@@ -61,6 +61,20 @@ class ReservationRepository extends ServiceEntityRepository
     }
     
 
+     /**
+      * @return Reservation[] Returns an array of Reservation objects
+      */
+    
+      public function findAllByClient($value)
+      {
+          return $this->createQueryBuilder('r')
+              ->andWhere('r.client = :val')
+              ->setParameter('val', $value)
+              ->orderBy('r.id', 'ASC')
+              ->getQuery()
+              ->getResult()
+          ;
+      }
     /*
     public function findOneBySomeField($value): ?Reservation
     {

@@ -98,13 +98,14 @@
                         href="{{ path('app_hotel_new') }}"
                         >Créer un Hôtel</a>
                       </li>
-                  {% endif %}
+                  {% elseif "ROLE_CLIENT" in app.user.roles %}
                   <li class="nav-item">
                       <a 
-                      class="nav-link {% if app.request.attributes.get('_route') ==  'app_reservation_index'  %}active{% endif %} ms-5" 
-                      href="{{ path('app_reservation_index') }}"
+                      class="nav-link {% if app.request.attributes.get('_route') ==  'app_reservation_client_index'  %}active{% endif %} ms-5" 
+                      href="{{ path('app_reservation_client_index', {'client':app.user.id}) }}"
                       >Réservations</a>
                     </li>
+                  {% endif %}
               {% endif %}
             </ul>
           </div>
