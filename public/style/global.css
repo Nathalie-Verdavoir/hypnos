@@ -99,6 +99,10 @@ h4 {
   text-align: center;
 }
 
+.green-1-text {
+  color: var(--color-green-2);
+}
+
 .navbar {
     width: auto;
     font-size: 1.5rem;
@@ -170,14 +174,7 @@ h4 {
 .col-12 {
   margin-top: 1rem;
 }
-.row{
-  overflow: hidden; 
-}
 
-[class*="col-"]{
-  margin-bottom: -99999px;
-  padding-bottom: 99999px;
-}
 .btn {
     font-size: 1.5rem;
     background-color: var(--color-green-5);
@@ -270,6 +267,15 @@ form {
   width: 80vw;
 }
 
+.card.reservation{
+  width: 100%;
+}
+
+.card-img-top.reservation.photo-show {
+  width:90%;
+  height: 50%;
+}
+
 .card.larg {
   width: 50vw;
   margin: auto;
@@ -340,6 +346,11 @@ form {
 @media screen and (min-width: 991px) {
   .logo {
     margin: 1vw;
+  }
+
+  .card-img-top.reservation.photo-show {
+    width:90%;
+    height: 15vh;
   }
 
   h1 {
