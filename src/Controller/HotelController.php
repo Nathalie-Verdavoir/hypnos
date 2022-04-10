@@ -52,7 +52,7 @@ class HotelController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) { 
             /** @var User $user */
             $user = $this->getUser();
-            if($user==null || $user->getRoles() !== 'ROLE_USER'){
+            if($user==null || !in_array('ROLE_USER', $user->getRoles()) ){
                 return $this->redirectToRoute('login', [ 
                     'to' => 'app_hotel_show',
                     'id' => $id,
@@ -62,6 +62,7 @@ class HotelController extends AbstractController
                     'resa_fin' => $reservation->getFin()->getTimestamp(),
                 ], Response::HTTP_SEE_OTHER);
             }
+            $reservation->setClient($this->getUser());
             $entityManager->persist($reservation);
             $entityManager->flush();
             return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);

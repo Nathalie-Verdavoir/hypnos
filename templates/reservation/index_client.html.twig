@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservations{% endblock %}
+
+{% block body %}
+    <h2>Vos Réservations</h2>
+    <div class="container">
+        <div class="row card-deck">
+            {% for reservation in reservations %}
+                    <div class="col col-12 col-lg-3 g-2 d-flex align-content-stretch flex-wrap">
+                        <div class="card reservation mb-2">
+                            {% for photo in reservation.chambre.photo %}
+                                {% if photo.cover %}
+                                    <img src="{{ asset('/uploads/photos/')  }}{{ photo.lien}}" class="card-img-top reservation photo-show" alt="photo de la chambre">
+                                {% endif %} 
+                            {% endfor %}
+                            <div class="card-body">
+                                <h4 class="card-title fw-bold green-1-text"><a href="{{ path('app_chambres_show', {'id': reservation.chambre.id}) }}">{{ reservation.chambre }}</a></h4>
+                                <h4 class="card-title green-1-text">{{ reservation.chambre.hotel }}</h4>
+                                <h5 class="card-title green-1-text">à {{ reservation.chambre.hotel.ville }}</h5>
+                                <p class="card-text">Réservée du</p>
+                                <p class="card-text">{{ reservation.debut ? reservation.debut|date('d.m.Y') : '' }} au {{ reservation.fin ? reservation.fin|date('d.m.Y') : '' }} </p>
+                                {% set difference = date(reservation.fin).diff(date(reservation.debut)) %}
+                                {% set leftDays = difference.days %}
+                                <p class="card-text">{{ leftDays }} nuitées </p>
+                                <p class="card-text">Total : {{ leftDays*reservation.chambre.prix }} € </p>
+                                <a class="btn btn-primary iconic" href="{{ path('app_reservation_show', {'id': reservation.id}) }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                    </svg>
+                                </a>     
+                                {% if reservation.debut|date_modify('-3 day')|date('Y-m-d') > "now"|date('Y-m-d') %}
+                                    {{ include('reservation/_delete_form.html.twig') }}
+                                {% endif %}  
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <h3>Aucune réservation</h3>
+                {% endfor %} 
+        </div>
+    </div>
+{% endblock %}

@@ -74,7 +74,7 @@ class PhotoHotelController extends AbstractController
     }
 
     #[Route('/{id}/edit/{cover}', name: 'app_photo_edit', methods: ['GET', 'POST'])]
-    public function edit(Hotel $id, Photo $photo, PhotoRepository $photoRepository, $cover): Response
+    public function edit(Hotel $id, PhotoRepository $photoRepository, $cover): Response
     {
         
         $photoOfThisHotel = $photoRepository->findByHotel($id);
@@ -90,8 +90,6 @@ class PhotoHotelController extends AbstractController
                 
             }
             
-        
-
         return $this->render('photo-hotel/index.html.twig', [
             'photos' => $photoRepository->findAll(),
         ]);

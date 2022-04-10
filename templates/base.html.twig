@@ -30,13 +30,18 @@
             {% if app.request.get('chambre') %}
                 <script type="text/javascript">
                     chambre = {
-                    id:  {{app.request.get('chambre')}},
+                    id:  {{app.request.get('chambre').id}},
                     };
                 </script>
             {% endif %}
         {% endblock %}
     </head>
     <body>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
         {% include 'header.html.twig' %}
         <main>
         {% block body %}{% endblock %}

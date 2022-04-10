@@ -42,7 +42,7 @@ const fetchInfoResaChambre = chambreTo =>  $.getJSON({
                     }
                 })
             }
-    resetDatePicker();
+            emptyDatePicker();
   }});
   
 if(get_query('resa_debut')){
@@ -55,8 +55,13 @@ if(get_query('resa_debut')){
     endDate = moment().startOf('day').add(1, 'day');
 }
 
+const emptyDatePicker = () => $(function() {
+    $('input[name="daterange"]').daterangepicker();
+    resetDatePicker();
+});
+
 const resetDatePicker = () => $(function() {
-    $('input[name="datetimes"]').daterangepicker({
+    $('input[name="daterange"]').daterangepicker({
         isInvalidDate: function(arg){
             // Prepare the date comparision
             var thisMonth = arg._d.getMonth()+1;   // Months are 0 based
@@ -116,8 +121,8 @@ const resetDatePicker = () => $(function() {
     }).on("apply.daterangepicker",function(e,picker){
 
         // Get the selected bound dates.
-        startDate = picker.startDate.format('DD/MM/YYYY')
-        endDate = picker.endDate.format('DD/MM/YYYY')
+        startDate = picker.startDate.format('MM/DD/YYYY')
+        endDate = picker.endDate.format('MM/DD/YYYY')
     
         // Compare the dates again.
         var clearInput = false;
@@ -176,6 +181,8 @@ const addEventOnChangeOnChambre = () => $(function() {
         //alert( event.target.options[event.target.selectedIndex].text); 
         $(`#nuitee`).text('? nuitée(s)'); 
         $(`#montant`).text('? €');
+        $( "form[name='reservation'] > div > ul" ).remove();
+        
         startDate, endDate;
         if(initPrice==false){
             showPrice()
@@ -186,18 +193,15 @@ const addEventOnChangeOnChambre = () => $(function() {
  });
 
  const showPrice = () => $(function() {
-    $('input[name="datetimes"]').get(0).click();
+    $('input[name="daterange"]').get(0).click();
     $('.applyBtn').get(0).click();
  });
 
  $( document ).ready(function() {
-    if(window.location.href.match('reservation/new')) {
-        $(`reservation[client]`).text(user.id); 
+    if(window.location.href.match('chambres/') && typeof chambre !== "undefined") {
         fetchInfoResaChambre(chambre.id);
-        
     }
     if(window.location.href.match('hotel/')) {
-        $(`reservation[client]`).text(user.id);
         addEventOnChangeOnChambre();
     }
 });

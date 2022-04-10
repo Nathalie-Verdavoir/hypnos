@@ -4,14 +4,13 @@ namespace App\Form;
 
 use App\Entity\Chambres;
 use App\Entity\Reservation;
-use App\Entity\User;
-use Doctrine\DBAL\Types\TextType;
+use App\Validator\Resa;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType as TypeTextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ReservationType extends AbstractType
 {
@@ -21,15 +20,25 @@ class ReservationType extends AbstractType
             ->add('debut', DateType::class, [
                 'attr' => ['class' => 'd-none'],
                 'label_attr' => ['class' => 'd-none'],
+                'constraints' => [
+                    new NotBlank()
+                ],
             ])
             ->add('fin', DateType::class, [
                 'attr' => ['class' => 'd-none'],
                 'label_attr' => ['class' => 'd-none'],
+                'constraints' => [
+                    new NotBlank(),
+                    new Resa(),
+                ],
             ])
             ->add('chambre', EntityType::class, [
                 'class' => Chambres::class,
                 'attr' => ['class' => 'd-none'],
                 'label_attr' => ['class' => 'd-none'],
+                'constraints' => [
+                    new NotBlank()
+                ],
             ])
         ;
     }

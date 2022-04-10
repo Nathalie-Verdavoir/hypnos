@@ -22,6 +22,14 @@ class ReservationController extends AbstractController
         ]);
     }
 
+    #[Route('/client/{client}', name: 'app_reservation_client_index', methods: ['GET'])]
+    public function indexClient(ReservationRepository $reservationRepository, $client): Response
+    {
+        return $this->render('reservation/index_client.html.twig', [
+            'reservations' => $reservationRepository->findAllByClient($client),
+        ]);
+    }
+
     #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ReservationRepository $reservationRepository): Response
     {
@@ -88,10 +96,18 @@ class ReservationController extends AbstractController
     #[Route('/{id}', name: 'app_reservation_delete', methods: ['POST'])]
     public function delete(Request $request, Reservation $reservation, ReservationRepository $reservationRepository): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+        
         if ($this->isCsrfTokenValid('delete'.$reservation->getId(), $request->request->get('_token'))) {
             $reservationRepository->remove($reservation);
         }
 
+        if (in_array( 'ROLE_CLIENT' , $user->getRoles() )) {
+            return $this->redirectToRoute('app_reservation_client_index', [
+                'client' => $user->getId(),
+            ], Response::HTTP_SEE_OTHER);
+        }
         return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
     }
 }

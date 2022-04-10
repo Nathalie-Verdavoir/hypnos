@@ -1,29 +1,32 @@
 <header>
   <div class="admin-buttons">
     {% if app.user %}
-        {% if "ROLE_ADMIN" in app.user.roles %}
-            <a type="button" class="btn" href="/admin">Admin</a>
-        {% endif %}
+      {% if "ROLE_ADMIN" in app.user.roles %}
+        <a type="button" class="btn" href="/admin">Admin</a>
+      {% endif %}
     {% endif %}
-            <a type="button" class="btn" href="/register">Créer un compte</a>
-            <a 
-              type="button" 
-              class="btn" 
-              href="{{ app.user ? 
-                        path('logout') 
-                        : 
-                        path('login', {
-                          'to':app.request.attributes.get('_route')
-                        })
-                    }}"
-            > {{ app.user ? 'Déconnexion' : 'Connexion' }}
-            </a>
+    {% if not app.user %}
+      <a type="button" class="btn" href="/register">Créer un compte</a>
+    {% endif %}
+    <a 
+      type="button" 
+      class="btn" 
+      href="{{ app.user ? 
+                path('logout') 
+                : 
+                path('login', {
+                  'to':app.request.attributes.get('_route')
+                })
+            }}"
+    > {{ app.user ? 'Déconnexion' : 'Connexion' }}
+    </a>
   </div>
   <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{{ path('app_accueil') }}"
-            ><img class="logo" src="{{ asset('images/logo.PNG') }}" alt="Logo Hypnos" /><h1 class="title">Hypnos</h1></a
-          >
+          <a class="navbar-brand" href="{{ path('app_accueil') }}">
+            <img class="logo" src="{{ asset('images/logo.PNG') }}" alt="Logo Hypnos" />
+            <h1 class="title">Hypnos</h2>
+          </a>
          
           <button
             class="navbar-toggler"
@@ -98,14 +101,31 @@
                         href="{{ path('app_hotel_new') }}"
                         >Créer un Hôtel</a>
                       </li>
-                  {% endif %}
+                  {% elseif "ROLE_CLIENT" in app.user.roles %}
                   <li class="nav-item">
                       <a 
-                      class="nav-link {% if app.request.attributes.get('_route') ==  'app_reservation_index'  %}active{% endif %} ms-5" 
-                      href="{{ path('app_reservation_index') }}"
+                      class="nav-link {% if app.request.attributes.get('_route') ==  'app_reservation_client_index'  %}active{% endif %} ms-5" 
+                      href="{{ path('app_reservation_client_index', {'client':app.user.id}) }}"
                       >Réservations</a>
                     </li>
+                  {% endif %}
+                  {% if not "ROLE_ADMIN" in app.user.roles %}
+                    <li class="nav-item">
+                      <a 
+                      class="nav-link {% if app.request.attributes.get('_route') ==  'contact'  %}active{% endif %} ms-5" 
+                      href="{{ path('contact') }}"
+                      >Contactez-nous</a>
+                    </li>
+                  {% endif %}
+              {% else %}
+                <li class="nav-item">
+                      <a 
+                      class="nav-link {% if app.request.attributes.get('_route') ==  'contact'  %}active{% endif %} ms-5" 
+                      href="{{ path('contact') }}"
+                      >Contactez-nous</a>
+                    </li>
               {% endif %}
+
             </ul>
           </div>
         </div>

@@ -3,7 +3,7 @@
 {% block title %}Les Chambres{% endblock %}
 
 {% block body %}
-    <h1>Toutes les Chambres</h1>
+    <h2>Toutes les Chambres</h2>
 
     <a class="btn btn-primary" href="{{ path('app_chambres_new') }}" title="Ajouter une chambre">
         Ajouter une chambre 
@@ -15,12 +15,12 @@
     
     {% if chambres|length > 0 %}
     
-    <div id="carouselExampleIndicators" class="carousel slide py-5" data-bs-ride="carousel">
+    <div id="carouselPhoto" class="carousel slide py-5" data-bs-ride="carousel">
         <div class="carousel-indicators my-5">
         {% set slide = 0 %}
         {% for chambre in chambres %}
             {% if app.user and chambre.hotel.gerant == app.user  %}
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{slide}}" class="{{ slide == 0 ? "active" : ""}}" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselPhoto" data-bs-slide-to="{{slide}}" class="{{ slide == 0 ? "active" : ""}}" aria-current="true" aria-label="Slide 1"></button>
                 {% set slide = slide + 1 %}
             {% endif %}
         {% endfor %}
@@ -29,7 +29,7 @@
          {% set active = true %}
         {% for chambre in chambres %}
         {% if app.user and chambre.hotel and chambre.hotel.gerant == app.user  %}
-        <div class="carousel-item {{ active == true ? "active" : ""}}">{% dump(active==true) %}
+        <div class="carousel-item {{ active == true ? "active" : ""}}">
             {% set active = false %}
             <div class="card larg">
                 {% if chambre.photo|length > 0 %}
@@ -79,11 +79,11 @@
             {% endif %}
             {% endfor %}
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselPhoto" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselPhoto" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
