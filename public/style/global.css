@@ -14,7 +14,8 @@
 }
 
 * {
-  font-size: 32px;
+  font-size: 32px; 
+  letter-spacing: 0.06em;
   scrollbar-width: thin;
   scrollbar-color: var(--color-green-2) var(--color-green-5);
 }
@@ -148,17 +149,24 @@ h4 {
 #navbarScroll > ul > li > a {
   color: var(--color-green-5);
   background-size: 200% auto;
+  box-shadow: 10px 10px 5px  var(--color-green-5);
   border-radius: 5px;
   padding-inline: 1rem;
-  background-image: linear-gradient(to right, var(--color-beige-1) 0%, var(--color-green-3) 100%);
+  background-image: linear-gradient(to right, var(--color-beige-1) 0%, var(--color-green-4) 100%);
 }
 
 #navbarScroll > ul > li > a.active {
   color: var(--color-green-5);
+  border-right: 1px solid var(--color-green-1);
+  border-bottom: 1px solid var(--color-green-1);
   background-size: 200% auto;
-  box-shadow: 0 0 20px var(--color-beige-1);
+  box-shadow: 10px 10px 5px  var(--color-green-5);
   border-radius: 5px;
   background-image: linear-gradient(to right, var(--color-beige-2) 0%, var(--color-green-1) 31%, var(--color-green-3) 60%, var(--color-green-4) 100%);
+}
+
+a:hover {
+  color: var(--color-green-5);
 }
 
 .fond-clair {
@@ -197,12 +205,25 @@ h4 {
   margin-inline: auto;
 }
 
+.card-footer {
+  padding: 0.5rem 1rem;
+  background-color: var(--color-beige-1);
+  border-top: 1px solid rgba(0,0,0,.125);
+  
+  background-size: 200% auto;
+  background-image: linear-gradient(to right, var(--color-beige-2) 0%, var(--color-green-1) 31%, var(--color-green-3) 60%, var(--color-green-4) 100%);
+}
+
+.card-footer > p {
+  font-size: 1rem;
+}
+
 .col-12 {
   margin-top: 1rem;
 }
 
 .btn {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     background-color: var(--color-green-5);
     border: 0;
     color:  var(--color-green-1);
@@ -239,6 +260,13 @@ select {
   width: 80%;
 }
 
+.alert {
+  position: absolute;
+  z-index: index 100;
+  top: 50%;  /* position the top  edge of the element at the middle of the parent */
+  left: 50%; /* position the left edge of the element at the middle of the parent */
+  transform: translate(-50%, -50%);
+}
 /*validator message */
 
 div > ul > li {
@@ -309,6 +337,14 @@ form {
   margin-bottom: 3vh;
 }
 
+.card.larg.contact-form {
+  width: 80%;
+}
+
+.img-contact {
+  width: 100%;
+}
+
 .card-img-top {
   width: 80%;
   height: 15vh;
@@ -323,6 +359,18 @@ form {
 .carousel-control-next-icon, .carousel-control-prev-icon {
   width: 5rem;
   height: 5rem;
+}
+
+.etage-1 {
+ margin : 5rem;
+}
+
+.etage-2 {
+  margin : 3rem;
+}
+
+.etage-3 {
+  margin : 1rem;
 }
 
 .bg-grey {
@@ -364,7 +412,7 @@ form {
   display: inline-block;
   white-space: nowrap;
   padding-left: 30vw;
-  animation: announce 45s infinite linear;
+  animation: announce 20s infinite linear;
 }
 
 /* change transition duration to control the speed of fade effect */
@@ -422,5 +470,10 @@ form {
 
   .col-12 {
     margin-top: 0;
+  }
+  
+  .img-contact {
+    width: auto;
+    max-width: 100%;
   }
 }

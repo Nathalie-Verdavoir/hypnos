@@ -25,15 +25,15 @@ class ContactController extends AbstractController
             $contactFormData = $form->getData();
             
             $message = (new Email())
-                ->from($contactFormData['email'])
+                ->from($contactFormData['nom'].' '.$contactFormData['prenom'].' <'.$contactFormData['email'].'>')
                 ->to('gestion.hypnos@gmail.com')
-                ->subject('vous avez reçu un email')
+                ->subject($contactFormData['objet'].' '.$contactFormData['nom'].' '.$contactFormData['prenom'])
                 ->text('Sender : '.$contactFormData['email'].\PHP_EOL.
                     $contactFormData['message'],
                     'text/plain');
             $mailer->send($message);
 
-            $this->addFlash('success', 'Vore message a été envoyé');
+            $this->addFlash('success', 'Votre message a été envoyé');
 
             return $this->redirectToRoute('contact');
         }
