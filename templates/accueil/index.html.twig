@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les Hôtels{% endblock %}
+{% block title %}Accueil - Hypnos{% endblock %}
 
 {% block body %}
     <h2>Bienvenue !</h2>
@@ -9,23 +9,25 @@
             <div class="col-12 col-lg-2 left-col">
                  {{ include('hotel/_aside_hotels.html.twig') }}
             </div>
-           
-            
             <div class="col-12 col-lg-6 left-col">
-            <img class="logo mx-auto d-block" src="{{ asset('images/logo.PNG') }}" alt="Logo Hypnos" />
-            <h1 class="title mx-auto d-block">Hypnos</h1>
-            <p>Le Groupe « Les Hôtels Hypnos » est une entreprise familiale mais surtout une identité, 
-            cultivée depuis la création de l’entreprise en 1992.</p>
-            <p>En 2017, un nouveau label a été inauguré pour marquer la « Révolution » de l’entreprise, résolument tournée vers l’avenir, une collection d'hôtels, de resorts, de restaurants, de bars, de clubs, de spas et d'espaces de travail.</p>
-            <p>La collection Signature met à l’honneur des lieux de vie expérientiels regroupant hébergement luxueux, espaces « Food & Beverage » pointus et des laboratoires d’idées, d’univers où la famille Machefert laisse libre cours à son imagination et à son amour inconditionnel pour le voyage.</p>
-            <p>Ce lancement a été renforcé par des programmes de rénovation couvrant 9 établissements en 2017 et 8 établissements en 2018 sur les 20 hôtels du Groupe à Paris, Saint-Tropez et Marrakech.</p>
-            <p></p>
+                <img class="logo mx-auto d-block" src="{{ asset('images/logo.PNG') }}" alt="Logo Hypnos" />
+                <h1 class="title mx-auto d-block">Hypnos</h1>
+                <p>Le Groupe « Les Hôtels Hypnos » est une entreprise familiale mais surtout une identité, 
+                cultivée depuis la création de l’entreprise en 1992.</p>
+                <p>En 2017, un nouveau label a été inauguré pour marquer la « Révolution » de l’entreprise, résolument tournée vers l’avenir, une collection d'hôtels, de resorts, de restaurants, de bars, de clubs, de spas et d'espaces de travail.</p>
+                <p>La collection Signature met à l’honneur des lieux de vie expérientiels regroupant hébergement luxueux, espaces « Food & Beverage » pointus et des laboratoires d’idées, d’univers où la famille Machefert laisse libre cours à son imagination et à son amour inconditionnel pour le voyage.</p>
+                <p>Ce lancement a été renforcé par des programmes de rénovation couvrant 9 établissements en 2017 et 8 établissements en 2018 sur les 20 hôtels du Groupe à Paris, Saint-Tropez et Marrakech.</p>
+                <p>Le Boutique</p>
+                <p>Cet hôtel dispose de 4 chambres dans une maison de ville de style bourgeois, en plein cœur de Bordeaux. Une décoration unique et soignée, des jacuzzis privatifs, et une terrasse idéale pour prendre un verre en début de soirée, voilà de quoi vous combler !</p>
+                <p>At Strasbourg Centre - The Garden, you’ll find contemporary style, an eco-friendly ethos, and a prestigious location in the heart of the city.</p>
+                <p>If you’re here to work, you’re in the right place. The electric H bus line can whisk you to the European Parliament in a matter of minutes, and there's easy access to the Archipel-Wacken business district and the Palais des Congrès convention centre. Curious about the city? Climb the cathedral tower and explore the canals of Petite France on the UNESCO-listed Grande Île, just a short walk away. Nearby strasbourg station has direct trains to the airport and cities all over France.</p>
+                <p>Furnished with natural materials, our quiet guest rooms all have free Wi-Fi, quality bedding and tiled bathrooms with powerful showers. Premium rooms add a sofa bed for families, while separate living rooms and private terraces make our Suites the perfect place for a romantic retreat.</p>
+                <p>Tropical plants and living walls flourish in all our public spaces, while the restaurant and lounge bar have secluded garden terraces that invite you to linger over your buffet breakfast or a drink after work. Our LOTUS meeting room has garden views, and space for 45 guests. Or you can relax and enjoy a swim, a steam in our hammam, or a massage in the spa.</p><p>Exemplary service, contemporary comforts and a prime central location.</p>
             </div>
              <div class="col-12 col-lg-4 g-0">
-                 {{ include('accueil/_slider.html.twig') }}
-                 {{ include('accueil/_slider.html.twig') }}
-                  {{ include('accueil/_slider.html.twig') }}
-                   {{ include('accueil/_slider.html.twig') }}
+                {% for i in 0..4 %}
+                    {{ include('accueil/_slider.html.twig') }}
+                {% endfor %}
             </div>
         </div>
     </div>
