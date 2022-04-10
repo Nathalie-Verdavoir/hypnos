@@ -16,14 +16,18 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('nom',TextType::class, [
+                'required' => true,
             ])
             ->add('prenom',TextType::class, [
+                'required' => true,
                 'label' => 'Prénom'
             ])
             ->add('email',EmailType::class, [
+                'required' => true,
                 'label' => 'Adresse Email'
             ])
             ->add('objet',ChoiceType::class, [
+                'required' => true,
                 'choices'  => [
                     'Selectionnez un objet...' => null,
                     'Je souhaite poser une réclamation' => 'RECLAMATION',
@@ -33,6 +37,7 @@ class ContactType extends AbstractType
                 ],
             ])
             ->add('message', TextareaType::class, [
+                'required' => true,
                 'attr' => ['rows' => 6],
             ])
         ;
