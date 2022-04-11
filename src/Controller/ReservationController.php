@@ -29,7 +29,7 @@ class ReservationController extends AbstractController
             'reservations' => $reservationRepository->findAllByClient($client),
         ]);
     }
-
+/*
     #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ReservationRepository $reservationRepository): Response
     {
@@ -48,7 +48,7 @@ class ReservationController extends AbstractController
             'form' => $form,
         ]);
     }
-
+*/
     #[Route('/new/{chambre}', name: 'app_reservation_new_chambre', methods: ['GET', 'POST'])]
     public function newResa(Request $request, ReservationRepository $reservationRepository): Response
     {
@@ -58,8 +58,10 @@ class ReservationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
              
-            //$reservationRepository->add($reservation);
-            //return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+            $reservationRepository->add($reservation);
+            return $this->redirectToRoute('app_reservation_client_index', [
+                'client' => $this->getUser(),
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('reservation/new.html.twig', [

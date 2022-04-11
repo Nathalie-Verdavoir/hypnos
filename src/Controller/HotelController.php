@@ -65,7 +65,9 @@ class HotelController extends AbstractController
             $reservation->setClient($this->getUser());
             $entityManager->persist($reservation);
             $entityManager->flush();
-            return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_reservation_client_index', [
+                'client' => $user->getId(),
+            ], Response::HTTP_SEE_OTHER);
         }
         
         return $this->render('hotel/show.html.twig', [

@@ -158,10 +158,10 @@ const resetDatePicker = () => $(function() {
             start = new Date(picker.startDate);
             end = new Date(picker.endDate); 
             let dayCount = 0
-while (end > start) {
-dayCount++
-start.setDate(start.getDate() + 1)
-}
+            while (end > start) {
+                dayCount++
+                start.setDate(start.getDate() + 1)
+            }
             $(`#nuitee`).text(dayCount + ' ' + (dayCount>1 ? 'nuitées' : 'nuitée'));
             chambresPrice.forEach(chambre => {
                 if(chambre.id==$('#chambreSelector').val()){

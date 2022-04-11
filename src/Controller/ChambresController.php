@@ -71,7 +71,9 @@ class ChambresController extends AbstractController
             
             $entityManager->persist($reservation);
             $entityManager->flush();
-            return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_reservation_client_index', [
+                'client' => $user->getId(),
+            ], Response::HTTP_SEE_OTHER);
         }
         
         
