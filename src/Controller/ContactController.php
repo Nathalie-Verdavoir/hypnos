@@ -33,6 +33,16 @@ class ContactController extends AbstractController
                     'text/plain');
             $mailer->send($message);
 
+            $confirmMessage = (new Email())
+                ->from('Hypnos <'.$contactFormData['email'].'>')
+                ->to($contactFormData['email'])
+                ->subject($contactFormData['objet'].' '.$contactFormData['nom'].' '.$contactFormData['prenom'])
+                ->text('Votre message a bien était envoyé'.\PHP_EOL.
+                'Récapitulatif du message : '.\PHP_EOL.$contactFormData['message'],
+                    'text/plain');
+            $mailer->send($confirmMessage);
+
+
             $this->addFlash('success', 'Votre message a été envoyé');
 
             return $this->redirectToRoute('contact');

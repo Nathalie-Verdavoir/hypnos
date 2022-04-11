@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Life+Savers&family=Petit+Formal+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Nunito+Sans:ital,wght@1,300&family=Raleway:ital,wght@1,100&display=swap');
 
 :root {
     --color-beige-1: #d0ccb6; /* var(--color-beige-1); */
@@ -251,7 +251,7 @@ a:hover {
 label,
 input,
 select {
-  font-family: 'Petit Formal Script', cursive;
+  font-family: 'Nunito Sans', sans-serif;
     font-size: 1.5rem;
 }
 
@@ -279,7 +279,7 @@ footer {
 }
 
 footer > * {
-  font-family: 'Life Savers', cursive;
+  font-family: 'Raleway', sans-serif;
 }
 
 .list-group-item, 
@@ -345,6 +345,9 @@ form {
   width: 100%;
 }
 
+.card-text {
+  font-family: 'Nunito Sans', sans-serif;
+}
 .card-img-top {
   width: 80%;
   height: 15vh;
@@ -363,14 +366,23 @@ form {
 
 .etage-1 {
  margin : 5rem;
+ z-index: 30;
+ transform: translate(50%, 50%);  
+
 }
 
 .etage-2 {
   margin : 3rem;
+  z-index: 20;
+  transform: translate(25%, 25%);  
+
 }
 
 .etage-3 {
   margin : 1rem;
+  z-index: 10;  background-size: 200% auto;
+  background-image: linear-gradient(to right, var(--color-beige-2) 0%, var(--color-beige-2) 100%);
+
 }
 
 .bg-grey {
@@ -416,7 +428,7 @@ form {
 }
 
 /* change transition duration to control the speed of fade effect */
-.carousel-item {
+.carousel-item.announcement-2 {
   opacity: 1;
   transition: opacity 0s ease-in-out 0s;
 }
