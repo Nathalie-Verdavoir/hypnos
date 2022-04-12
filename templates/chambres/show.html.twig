@@ -71,16 +71,21 @@
                     <div class="card-body">
                         <h3 class="card-title border bg-grey p-3">Réservations</h3>
                         <p class="card-text">à {{ chambre.hotel.ville }}</p>
-                        <p class="card-text border"><small class="text-muted">Chambre</small></p>
-                        <p class="card-text">
-                            <select name="chambreSelector" id="chambreSelector">
-                                <option value="{{chambre.id}}">{{ chambre.titre}}</option>
-                            </select>
-                        </p>
-                        <p class="card-text border"><small class="text-muted">Dates</small></p>  
-                       <div class="input-group input-daterange"> <label class=""></label> <input type="text" id="daterange" name="daterange" value="" readonly /> </div>
-  {{ include('reservation/_form.html.twig') }} 
-                    </div> {# fin du texte haut de la card de la réservation #}
+                        {% if app.user and chambre.hotel.gerant == app.user  %}
+                            A venir ... un calendrier montrant les reservations
+                        {% else %}
+                            <p class="card-text border"><small class="text-muted">Chambre</small></p>
+                            <p class="card-text">
+                                <select name="chambreSelector" id="chambreSelector">
+                                    <option value="{{chambre.id}}">{{ chambre.titre}}</option>
+                                </select>
+                            </p>
+                            <p class="card-text border"><small class="text-muted">Dates</small></p>  
+                            <div class="input-group input-daterange"> 
+                                <input type="text" id="daterange" name="daterange" value="" readonly /> </div>
+                                {{ include('reservation/_form.html.twig') }} 
+                            </div> {# fin du texte haut de la card de la réservation #}
+                        {% endif %}
                 </div> {# fin de la card de la réservation #}
             </div>
         </div>

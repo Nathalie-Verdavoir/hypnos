@@ -17,8 +17,16 @@ class ReservationController extends AbstractController
     #[Route('/', name: 'app_reservation_index', methods: ['GET'])]
     public function index(ReservationRepository $reservationRepository): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+        /** @var Hotel $hotel */
+        $hotel = $user->getHotel();
+        $reservations = [];
+        foreach( $hotel->getChambres() as $chambres) {
+            $reservations = [...$reservations, ...$reservationRepository->findByChambre($chambres)];
+        }
         return $this->render('reservation/index.html.twig', [
-            'reservations' => $reservationRepository->findAll(),
+            'reservations' => $reservations,
         ]);
     }
 

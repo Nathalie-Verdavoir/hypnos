@@ -248,11 +248,26 @@ a:hover {
   color: var(--color-beige-3);
 }
 
+table.table {
+  margin: auto;
+  width: 90%;
+  border-color: var(--color-green-4);
+  background-color: var(--color-beige-2);
+  border-radius: 8px 8px 0px 0px ;
+}
+
+table, 
 label,
 input,
 select {
   font-family: 'Nunito Sans', sans-serif;
     font-size: 1.5rem;
+}
+
+th,
+td,
+td > a {
+  font-size: 1rem;
 }
 
 #daterange {
