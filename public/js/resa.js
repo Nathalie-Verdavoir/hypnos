@@ -21,17 +21,6 @@ function get_query(param){
     return result[param] ;
 }
 
-//fill daterange with infos of early booking from url(set before login redirection)
-if(get_query('resa_debut')){
-    startDate = new Date(get_query('resa_debut')*1000);
-    endDate =  new Date(get_query('resa_fin')*1000);
-    setTimeout(function () {$(`#chambreSelector option[value='${get_query('resa_chambre')}']`).attr('selected','') }, 500);
-    fetchInfoResaChambre(get_query('resa_chambre'));
-}else{ //or with today and tomorrow dates
-    startDate = moment().startOf('day');
-    endDate = moment().startOf('day').add(1, 'day');
-}
-
 //ask infos of existing reservations and prices to API 
 const fetchInfoResaChambre = chambreTo =>  $.getJSON({
     url: "/api/dates/reservations", 
@@ -69,6 +58,18 @@ const fetchInfoResaChambre = chambreTo =>  $.getJSON({
         emptyDatePicker();
     }
 });
+
+
+//fill daterange with infos of early booking from url(set before login redirection)
+if(get_query('resa_debut')){
+    startDate = new Date(get_query('resa_debut')*1000);
+    endDate =  new Date(get_query('resa_fin')*1000);
+    setTimeout(function () {$(`#chambreSelector option[value='${get_query('resa_chambre')}']`).attr('selected','') }, 500);
+    fetchInfoResaChambre(get_query('resa_chambre'));
+}else{ //or with today and tomorrow dates
+    startDate = moment().startOf('day');
+    endDate = moment().startOf('day').add(1, 'day');
+}
 
 const emptyDatePicker = () => $(function () {
     $('input[name="daterange"]').daterangepicker();

@@ -70,6 +70,12 @@
                {% if app.user %}
                   {% if "ROLE_GERANT" in app.user.roles %}
                     {% if app.user.hotel %}
+                    <li class="nav-item">
+                      <a 
+                      class="nav-link {% if app.request.attributes.get('_route') ==  'app_reservation_index'  %}active{% endif %} ms-5" 
+                      href="{{ path('app_reservation_index', {'gerant':app.user.id}) }}"
+                      >Réservations</a>
+                    </li>
                       <li class="nav-item">
                         <a 
                         class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_show'  %}active{% endif %} ms-5" 
@@ -112,7 +118,7 @@
                         >Créer un Hôtel</a>
                       </li>
                   {% elseif "ROLE_CLIENT" in app.user.roles %}
-                  <li class="nav-item">
+                    <li class="nav-item">
                       <a 
                       class="nav-link {% if app.request.attributes.get('_route') ==  'app_reservation_client_index'  %}active{% endif %} ms-5" 
                       href="{{ path('app_reservation_client_index', {'client':app.user.id}) }}"
