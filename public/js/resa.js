@@ -3,6 +3,14 @@ chambresPrice = [];
 disabledArr = [];
 let startDate, endDate;
 
+//reset text of infos about booking waiting real ones
+const resetTextBooking = () => {
+    $(`#nuitee`).text('? nuitée(s)'); 
+    $(`#montant`).text('? €');
+    $( "form[name='reservation'] > div > ul" ).remove();
+}
+
+//get infos of early booking from url(set before login redirection)
 function get_query(param){
     var url = document.location.href;
     var qs = url.substring(url.indexOf('?') + 1).split('&');
@@ -13,13 +21,26 @@ function get_query(param){
     return result[param] ;
 }
 
-get_query();
+//fill daterange with infos of early booking from url(set before login redirection)
+if(get_query('resa_debut')){
+    startDate = new Date(get_query('resa_debut')*1000);
+    endDate =  new Date(get_query('resa_fin')*1000);
+    setTimeout(function () {$(`#chambreSelector option[value='${get_query('resa_chambre')}']`).attr('selected','') }, 500);
+    fetchInfoResaChambre(get_query('resa_chambre'));
+}else{ //or with today and tomorrow dates
+    startDate = moment().startOf('day');
+    endDate = moment().startOf('day').add(1, 'day');
+}
 
+//ask infos of existing reservations and prices to API 
 const fetchInfoResaChambre = chambreTo =>  $.getJSON({
     url: "/api/dates/reservations", 
     success: function(result){
+        resetTextBooking();
         disabledArr = [];
+        //set chambre field
         $(`#reservation_chambre option[value='${chambreTo}']`).prop('selected', true);
+        //set all disabled dates 
         result.forEach(resa => {
             if(resa.chambre.id==chambreTo){
                 let debut = new Date(resa.debut);
@@ -31,36 +52,55 @@ const fetchInfoResaChambre = chambreTo =>  $.getJSON({
                     disabledArr.push(currentMonth+'/'+debut.getDate()+'/'+debut.getFullYear());
                     debut.setDate(debut.getDate() + 1)
                 }
-            }
-           
-    }); 
-    if(chambresPrice.length==0){
-                $.getJSON({
-                    url: "/api/dates/chambres", 
-                    success: function(result){
-                        return chambresPrice = result;
+            } 
+        }); 
+        //set prices
+        if(chambresPrice.length==0){
+            $.getJSON({
+                url: "/api/dates/chambres", 
+                success: function(result){
+                    chambresPrice = result;
+                    if(window.location.href.match('resa_debut')) { 
+                        fillForm( $('#daterange').data('daterangepicker'));
                     }
-                })
-            }
-            emptyDatePicker();
-  }});
-  
-if(get_query('resa_debut')){
-    startDate = new Date(get_query('resa_debut')*1000);
-    endDate =  new Date(get_query('resa_fin')*1000);
-    setTimeout(function() {$(`#chambreSelector option[value='${get_query('resa_chambre')}']`).attr('selected','') }, 500);
-    fetchInfoResaChambre(get_query('resa_chambre'));
-}else{
-    startDate = moment().startOf('day');
-    endDate = moment().startOf('day').add(1, 'day');
-}
+                }
+            })
+        }
+        emptyDatePicker();
+    }
+});
 
-const emptyDatePicker = () => $(function() {
+const emptyDatePicker = () => $(function () {
     $('input[name="daterange"]').daterangepicker();
     resetDatePicker();
 });
 
-const resetDatePicker = () => $(function() {
+//fill hidden booking form with daterange infos (picker = $('#daterange').data('daterangepicker'))
+const fillForm = (picker) => {
+    $(`#reservation_debut_month option[value='${picker.startDate.format('M')}']`).prop('selected', true);
+    $(`#reservation_debut_day option[value='${picker.startDate.format('D')}']`).prop('selected', true);
+    $(`#reservation_debut_year option[value='${picker.startDate.format('YYYY')}']`).prop('selected', true);
+    $(`#reservation_fin_month option[value='${picker.endDate.format('M')}']`).prop('selected', true);
+    $(`#reservation_fin_day option[value='${picker.endDate.format('D')}']`).prop('selected', true);
+    $(`#reservation_fin_year option[value='${picker.endDate.format('YYYY')}']`).prop('selected', true);
+    start = new Date(picker.startDate);
+    end = new Date(picker.endDate); 
+    let dayCount = 0
+    while (end > start) {
+        dayCount++
+        start.setDate(start.getDate() + 1)
+    }
+    $(`#nuitee`).text(dayCount + ' ' + (dayCount>1 ? 'nuitées' : 'nuitée'));
+    chambresPrice.forEach(chambre => {
+        if(chambre.id==$('#chambreSelector').val()){
+            price=chambre.prix
+        }
+    });
+    $(`#montant`).text(dayCount*price + ' €');
+}
+
+//build daterange picket and add event on it
+const resetDatePicker = () => $(function () {
     $('input[name="daterange"]').daterangepicker({
         isInvalidDate: function(arg){
             // Prepare the date comparision
@@ -149,40 +189,16 @@ const resetDatePicker = () => $(function() {
             // Alert user!
             alert("Your range selection includes disabled dates!");
         }else{
-            $(`#reservation_debut_month option[value='${picker.startDate.format('M')}']`).prop('selected', true);
-            $(`#reservation_debut_day option[value='${picker.startDate.format('D')}']`).prop('selected', true);
-            $(`#reservation_debut_year option[value='${picker.startDate.format('YYYY')}']`).prop('selected', true);
-            $(`#reservation_fin_month option[value='${picker.endDate.format('M')}']`).prop('selected', true);
-            $(`#reservation_fin_day option[value='${picker.endDate.format('D')}']`).prop('selected', true);
-            $(`#reservation_fin_year option[value='${picker.endDate.format('YYYY')}']`).prop('selected', true);
-            start = new Date(picker.startDate);
-            end = new Date(picker.endDate); 
-            let dayCount = 0
-while (end > start) {
-dayCount++
-start.setDate(start.getDate() + 1)
-}
-            $(`#nuitee`).text(dayCount + ' ' + (dayCount>1 ? 'nuitées' : 'nuitée'));
-            chambresPrice.forEach(chambre => {
-                if(chambre.id==$('#chambreSelector').val()){
-                    price=chambre.prix
-                }
-            });
-            $(`#montant`).text(dayCount*price + ' €');
+            fillForm(picker);
         }
     });
-    
   });
 
 let initPrice = true; // to update price according chambre changes except on init
 
-const addEventOnChangeOnChambre = () => $(function() {
+const addEventOnChangeOnChambre = () => $(function () {
     $('#chambreSelector').on('change',(event) => {
-        //alert( event.target.options[event.target.selectedIndex].text); 
-        $(`#nuitee`).text('? nuitée(s)'); 
-        $(`#montant`).text('? €');
-        $( "form[name='reservation'] > div > ul" ).remove();
-        
+        resetTextBooking();
         startDate, endDate;
         if(initPrice==false){
             showPrice()
@@ -192,12 +208,12 @@ const addEventOnChangeOnChambre = () => $(function() {
     });
  });
 
- const showPrice = () => $(function() {
+ const showPrice = () => $(function () {
     $('input[name="daterange"]').get(0).click();
     $('.applyBtn').get(0).click();
  });
 
- $( document ).ready(function() {
+ $( document ).ready(function () {
     if(window.location.href.match('chambres/') && typeof chambre !== "undefined") {
         fetchInfoResaChambre(chambre.id);
     }
