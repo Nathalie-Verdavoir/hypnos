@@ -119,7 +119,7 @@
                       >Réservations</a>
                     </li>
                   {% endif %}
-                  {% if not "ROLE_ADMIN" in app.user.roles %}
+                  {% if "ROLE_GERANT" in app.user.roles or "ROLE_CLIENT" in app.user.roles %}
                     <li class="nav-item">
                       <a 
                       class="nav-link {% if app.request.attributes.get('_route') ==  'contact'  %}active{% endif %} ms-5" 
