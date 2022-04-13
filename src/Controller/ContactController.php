@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ContactType;
+use App\Repository\PhotoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mime\Email;
@@ -14,7 +15,7 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact", name="contact")
      */
-    public function index(Request $request, MailerInterface $mailer)
+    public function index(Request $request, MailerInterface $mailer, PhotoRepository $photoRepository)
     {
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
@@ -49,6 +50,7 @@ class ContactController extends AbstractController
         }
 
         return $this->render('contact/index.html.twig', [
+            'photos' => $photoRepository->findAll(),
             'form' => $form->createView()
         ]);
     }
