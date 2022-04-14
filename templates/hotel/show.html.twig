@@ -122,7 +122,7 @@
                         <p class="card-text">à {{ hotel.ville }}</p>
                         {% if app.user and hotel.gerant == app.user  %}
                              <a 
-                            class="btn" 
+                            class="btn m-3" 
                             href="{{ path('app_reservation_index', {'gerant':app.user.id}) }}"
                             >Voir les réservations</a>
                         {% else %}

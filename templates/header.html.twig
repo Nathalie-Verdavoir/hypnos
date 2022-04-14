@@ -85,7 +85,7 @@
                       <li class="nav-item">
                         <a 
                         class="nav-link {% if app.request.attributes.get('_route') ==  'app_photo_index'  %}active{% endif %} ms-5" 
-                        href="{{ path('app_photo_index') }}"
+                        href="{{ path('app_photo_index', {'hotel' : app.user.hotel.id}) }}"
                         >Photos de mon Hôtel</a>
                       </li>
                     {% endif %}
