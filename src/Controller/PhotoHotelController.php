@@ -16,11 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/photo-hotel')]
 class PhotoHotelController extends AbstractController
 {
-    #[Route('/', name: 'app_photo_index', methods: ['GET'])]
-    public function index(PhotoRepository $photoRepository): Response
+    #[Route('/hotel/{hotel}', name: 'app_photo_index', methods: ['GET'])]
+    public function index(Hotel $hotel, PhotoRepository $photoRepository): Response
     {
+        if ($hotel->getGerant() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
         return $this->render('photo-hotel/index.html.twig', [
-            'photos' => $photoRepository->findAll(),
+            'photos' => $photoRepository->findByHotel($hotel),
         ]);
     }
 
