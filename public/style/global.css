@@ -174,7 +174,7 @@ a:hover {
   margin: auto;
   padding-top: 1rem;
   padding-inline: 1rem;
-  background-color: var(--color-beige-1);
+  background-color: var(--color-beige-2);
   border-radius: 5px;
   text-align: center;
 }
@@ -212,6 +212,15 @@ a:hover {
   
   background-size: 200% auto;
   background-image: linear-gradient(to right, var(--color-beige-2) 0%, var(--color-green-1) 31%, var(--color-green-3) 60%, var(--color-green-4) 100%);
+}
+
+.card-footer.old {
+  padding: 0.5rem 1rem;
+  background-color: var(--color-beige-1);
+  border-top: 1px solid rgba(0,0,0,.125);
+  
+  background-size: 200% auto;
+  background-image: linear-gradient(to right, var(--color-beige-2) 0%,  var(--color-green-4) 100%);
 }
 
 .card-footer > p {

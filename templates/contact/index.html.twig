@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<h2 class="card-title">Contactez-nous</h2>
 <div class="card larg contact-form p-2"> 
     <div class="row g-0">
         <div class="col-lg-6">
@@ -8,7 +9,6 @@
         </div>
         <div class="col-lg-6">
             <div class="card-body">
-                <h3 class="card-title">Contactez-nous</h3>
                 {{ form_start(form) }}
                     <div class="form-group">
                         {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}

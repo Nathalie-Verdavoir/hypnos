@@ -8,16 +8,18 @@ use App\Form\PhotoChambreType;
 use App\Repository\ChambresRepository;
 use App\Repository\PhotoRepository;
 use Gedmo\Sluggable\Util\Urlizer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Security("is_granted('ROLE_GERANT')", statusCode: 404)]
 #[Route('/photo-chambre/{chambre}')]
 class PhotoChambreController extends AbstractController
 {
-    #[Route('/', name: 'app_photo_chambre_index', methods: ['GET'])]
+    #[Route('/index', name: 'app_photo_chambre_index', methods: ['GET'])]
     public function index($chambre,PhotoRepository $photoRepository, ChambresRepository $chambresRepository): Response
     {
         if ($chambresRepository->find($chambre)->getHotel()->getGerant() !== $this->getUser()) {
@@ -31,6 +33,9 @@ class PhotoChambreController extends AbstractController
     #[Route('/new', name: 'app_photo_chambre_new', methods: ['GET', 'POST'])]
     public function new(Request $request, PhotoRepository $photoRepository, $chambre, ChambresRepository $chambresRepository): Response
     {
+        if ($chambresRepository->find($chambre)->getHotel()->getGerant() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
         $photos= [];
         $form = $this->createForm(PhotoChambreType::class, $photos);
         $form->handleRequest($request);
@@ -70,16 +75,22 @@ class PhotoChambreController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_photo_chambre_show', methods: ['GET'])]
-    public function show(Photo $photo): Response
+    public function show(Photo $photo, $chambre, ChambresRepository $chambresRepository): Response
     {
+        if ($chambresRepository->find($chambre)->getHotel()->getGerant() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
         return $this->render('photo-chambre/show.html.twig', [
             'photo' => $photo,
         ]);
     }
 
     #[Route('/edit/{cover}', name: 'app_photo_chambre_edit', methods: ['GET', 'POST'])]
-    public function edit($chambre, PhotoRepository $photoRepository, $cover): Response
+    public function edit(PhotoRepository $photoRepository, $cover, $chambre, ChambresRepository $chambresRepository): Response
     {  
+        if ($chambresRepository->find($chambre)->getHotel()->getGerant() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
         $photoOfThisChambre = $photoRepository->findByChambre($chambre);
             foreach($photoOfThisChambre as $photo)
             {
@@ -99,8 +110,11 @@ class PhotoChambreController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_photo_chambre_delete', methods: ['POST'])]
-    public function delete(Request $request, Photo $photo, PhotoRepository $photoRepository,$chambre): Response
+    public function delete(Request $request, Photo $photo, PhotoRepository $photoRepository, $chambre, ChambresRepository $chambresRepository): Response
     {
+        if ($chambresRepository->find($chambre)->getHotel()->getGerant() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
         if ($this->isCsrfTokenValid('delete'.$photo->getId(), $request->request->get('_token'))) {
             $folder = $this->getParameter('kernel.project_dir').'/public/uploads/photos/';
             $path = $folder . $photo->getLien();
