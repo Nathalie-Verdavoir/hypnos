@@ -18,8 +18,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class PhotoChambreController extends AbstractController
 {
     #[Route('/', name: 'app_photo_chambre_index', methods: ['GET'])]
-    public function index($chambre,PhotoRepository $photoRepository): Response
+    public function index($chambre,PhotoRepository $photoRepository, ChambresRepository $chambresRepository): Response
     {
+        if ($chambresRepository->find($chambre)->getHotel()->getGerant() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
         return $this->render('photo-chambre/index.html.twig', [
             'photos' => $photoRepository->findByChambre($chambre),
         ]);
@@ -67,7 +70,7 @@ class PhotoChambreController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_photo_chambre_show', methods: ['GET'])]
-    public function show($chambre,Photo $photo): Response
+    public function show(Photo $photo): Response
     {
         return $this->render('photo-chambre/show.html.twig', [
             'photo' => $photo,
