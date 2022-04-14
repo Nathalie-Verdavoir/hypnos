@@ -12,9 +12,7 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class ContactController extends AbstractController
 {
-    /**
-     * @Route("/contact", name="contact")
-     */
+    #[Route('/contact', name: 'contact')]
     public function index(Request $request, MailerInterface $mailer, PhotoRepository $photoRepository)
     {
         $form = $this->createForm(ContactType::class);

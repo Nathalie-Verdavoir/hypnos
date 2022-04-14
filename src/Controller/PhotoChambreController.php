@@ -93,8 +93,6 @@ class PhotoChambreController extends AbstractController
                 
             }
             
-        
-
             return $this->redirectToRoute('app_photo_chambre_index', [
                 'chambre' => $chambre,
             ], Response::HTTP_SEE_OTHER);

@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Reservation;
-use App\Entity\Chambres;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,26 +36,7 @@ class ReservationController extends AbstractController
             'reservations' => $reservationRepository->findAllByClient($client),
         ]);
     }
-/*
-    #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ReservationRepository $reservationRepository): Response
-    {
-        $reservation = new Reservation();
-        $form = $this->createForm(ReservationType::class, $reservation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-            $reservationRepository->add($reservation);
-            return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('reservation/new.html.twig', [
-            'reservation' => $reservation,
-            'form' => $form,
-        ]);
-    }
-*/
+    
     #[Route('/new/{chambre}', name: 'app_reservation_new_chambre', methods: ['GET', 'POST'])]
     public function newResa(Request $request, ReservationRepository $reservationRepository): Response
     {
