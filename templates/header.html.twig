@@ -42,9 +42,8 @@
           <div class="collapse navbar-collapse" id="navbarScroll">
             <ul
               class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
-            >
               <li class="nav-item">
-                <a class="nav-link {% if app.request.attributes.get('_route') ==  'app_accueil'  %}active{% endif %} ms-5" 
+                <a class="nav-link {% if app.request.attributes.get('_route') ==  'app_accueil' or app.request.get('routeName') ==  'app_accueil' %}active{% endif %} ms-5" 
                   aria-current="page"
                   id="/hotel/" 
                   href="{{ path('app_accueil') }}"
