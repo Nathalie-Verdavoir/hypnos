@@ -16,7 +16,6 @@ class ChambresType extends AbstractType
             ->add('description')
             ->add('prix')
             ->add('booking')
-            ->add('hotel')
         ;
     }
 

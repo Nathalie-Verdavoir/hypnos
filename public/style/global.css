@@ -1,51 +1,52 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Life+Savers&family=Petit+Formal+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Nunito+Sans:ital,wght@1,300&family=Raleway:ital,wght@1,100&display=swap');
 
 :root {
     --color-beige-1: #d0ccb6; /* var(--color-beige-1); */
-    --color-beige-2: #b0ae88; /* var(--color-beige-2); */
+    --color-beige-2: #ffffff66; /* var(--color-beige-2); */
     --color-beige-3: #858562; /* var(--color-beige-3); */
     --color-grey: #3e3c48; /* var(--color-grey); */
-    --color-drak-grey: #262430; /* var(--color-drak-grey); */
+    --color-dark-grey: #262430; /* var(--color-dark-grey); */
     --color-green-1: #beef9e; /* var(--color-green-1); */
     --color-green-2: #a6c36f; /* var(--color-green-2); */
     --color-green-3: #828c51; /* var(--color-green-3); */
-    --color-green-4: #335145; /* var(--color-green-4); */
+    --color-green-4: #335245; /* var(--color-green-4); */
     --color-green-5: #1e352f; /* var(--color-green-5); */
 }
 
 * {
-    scrollbar-width: thin;
-    scrollbar-color: rgb(145, 145, 148) rgba(0, 0, 0, 0);
-  
-  }
-  
-  /* Works on Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 12px;
-  }
+  font-size: 32px; 
+  letter-spacing: 0.06em;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-green-2) var(--color-green-5);
+}
 
-  *::-webkit-scrollbar-track {
-    background: rgba(131, 131, 131, 0);
-  }
-  
-  *::-webkit-scrollbar-thumb {
-    background-color: rgb(145, 145, 148);
-    border-radius: 20px;
-    border: 3px solid rgba(0, 0, 0, 0);
-  }
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-beige-1);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-green-2);
+  border-radius: 20px;
+  border: 1px solid var(--color-green-5);
+}
 
 html, 
 body {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
+	font-size: 1rem;
 	font: inherit;
 	vertical-align: baseline;
 }
 
 body {
-    background-color: var(--color-green-2);
+    background-color: var(--color-beige-1);
     color: var(--color-green-4);
     font-weight: bolder;
 }
@@ -54,15 +55,35 @@ body>* {
   font-family: 'Dancing Script', cursive;
 }
 
+header {
+  background-image: url(/images/bg-nav.png);
+}
+
+body > header > nav > div > button > span {
+  background-color: var(--color-green-4);
+}
+
+.admin-buttons {
+    position: absolute;
+    top: 1rem;
+    right: 6rem;
+    z-index: 100;
+}
+
+main {
+  min-height: 70vh;
+}
+
 .logo {
     display: inline;
     width: 10vw;
-    margin: 5rem;
+    margin: 0;
 }
 
 h1 {
-    font-size: 6rem;
-    color: var(--color-drak-grey);
+    font-size: 5rem;
+    color: var(--color-dark-grey);
+
 }
 
 h1.title {
@@ -71,42 +92,211 @@ h1.title {
 
 h2 {
   font-size: 4rem;
-  color: var(--color-drak-grey);
+  color: var(--color-dark-grey);
 }
 
-.navbar ,
-.fond-gris {
+h3 {
+  font-size: 3rem;
+  color: var(--color-dark-grey);
+}
+
+h2,
+h3,
+h4 {
+  text-align: center;
+}
+
+.green-1-text {
+  color: var(--color-green-2);
+}
+
+.beige-1-text {
+  color: var(--color-beige-1);
+}
+
+.grey-text {
+  color: var(--color-grey);
+}
+
+.shadow {
+  box-shadow: 0 0 20px var(--color-beige-1);
+  border-radius: 5px;
+}
+
+.navbar {
     width: auto;
-    font-size: 3rem;
-    background-color: var(--color-green-3);
+    font-size: 1.5rem;
+  background-color: var(--color-beige-2);
     color:  var(--color-green-1);
+}
+
+.fond-gris {
+  width: auto;
+  font-size: 1.5rem;
+  background-color: var(--color-green-5);
+  color: var(--color-green-1);
+}
+
+.container.large-width {
+  min-width: 95vw;
+}
+
+.scroll {
+  overflow-y:scroll;
+  height:90vh;
+}
+
+#navbarScroll > ul > li > a {
+  color: var(--color-green-5);
+  background-size: 200% auto;
+  box-shadow: 10px 10px 5px  var(--color-green-5);
+  border-radius: 5px;
+  padding-inline: 1rem;
+  background-image: linear-gradient(to right, var(--color-beige-1) 0%, var(--color-green-4) 100%);
+}
+
+#navbarScroll > ul > li > a.active {
+  color: var(--color-green-5);
+  border-right: 1px solid var(--color-green-1);
+  border-bottom: 1px solid var(--color-green-1);
+  background-size: 200% auto;
+  box-shadow: 10px 10px 5px  var(--color-green-5);
+  border-radius: 5px;
+  background-image: linear-gradient(to right, var(--color-beige-2) 0%, var(--color-green-1) 31%, var(--color-green-3) 60%, var(--color-green-4) 100%);
+}
+
+a:hover {
+  color: var(--color-green-5);
+}
+
+.fond-clair {
+  width: 60vw;
+  margin: auto;
+  padding-top: 1rem;
+  padding-inline: 1rem;
+  background-color: var(--color-beige-2);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.card {
+  margin-left: 1rem;
+  box-shadow: 10px 10px 5px var(--color-beige-3);
+}
+
+.card-body {
+  text-align: center;
+}
+
+.card-text {
+  font-size: larger;
+}
+
+.card.small,
+.card.reservations {
+  margin-left: auto;
+  width: 100%;
+}
+
+.card-img-top.slider {
+  height: 40vh;
+  width: 100%;
+  margin-top:0;
+  margin-inline: auto;
+}
+
+.card-footer {
+  padding: 0.5rem 1rem;
+  background-color: var(--color-beige-1);
+  border-top: 1px solid rgba(0,0,0,.125);
+  
+  background-size: 200% auto;
+  background-image: linear-gradient(to right, var(--color-beige-2) 0%, var(--color-green-1) 31%, var(--color-green-3) 60%, var(--color-green-4) 100%);
+}
+
+.card-footer.old {
+  padding: 0.5rem 1rem;
+  background-color: var(--color-beige-1);
+  border-top: 1px solid rgba(0,0,0,.125);
+  
+  background-size: 200% auto;
+  background-image: linear-gradient(to right, var(--color-beige-2) 0%,  var(--color-green-4) 100%);
+}
+
+.card-footer > p {
+  font-size: 1rem;
+}
+
+.col-12 {
+  margin-top: 1rem;
 }
 
 .btn {
-    font-size: 2rem;
+    font-size: 1.8rem;
     background-color: var(--color-green-5);
     border: 0;
     color:  var(--color-green-1);
-    margin: 1rem;
+    box-shadow: 0 0 20px var(--color-beige-1);
+}
+
+.btn.iconic {
+  font-size: 1rem;
+  background-color: var(--color-green-5);
+  border: 0;
+  color:  var(--color-green-1);
+}
+
+.btn-primary.disabled {
+  background-color: var(--color-green-4);
+  color:  var(--color-green-2);
 }
 
 .btn:hover {
-  font-size: 2rem;
   background-color: var(--color-green-5);
   border: 0;
   color: var(--color-beige-3);
-  margin: 1rem;
 }
 
+table.table {
+  margin: auto;
+  width: 90%;
+  border-color: var(--color-green-4);
+  background-color: var(--color-beige-2);
+  border-radius: 8px 8px 0px 0px ;
+}
+
+table, 
 label,
 input,
 select {
-  font-family: 'Petit Formal Script', cursive;
+  font-family: 'Nunito Sans', sans-serif;
     font-size: 1.5rem;
 }
 
+th,
+td,
+td > a {
+  font-size: 1rem;
+}
+
+#daterange {
+  margin: auto;
+  width: 80%;
+}
+
+/*validator message */
+
+div > ul > li {
+  color: red;
+  font-size: 1.5rem;
+}
+
+footer {
+  padding-top: 1rem;
+}
+
 footer > * {
-  font-family: 'Life Savers', cursive;
+  font-family: 'Raleway', sans-serif;
 }
 
 .list-group-item, 
@@ -117,4 +307,202 @@ footer > * {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.carousel-indicators.hotels {
+  font-size: 2rem;
+  position: relative;
+}
+
+.img-fluid.chambre {
+  height: 650px;
+}
+
+.img-fluid.chambre.small {
+  height: 500px;
+}
+
+/*forms*/
+form {
+    display: inline;
+}
+
+#chambreSelector {
+  width: 70%;
+}   
+
+.photo-show {
+  border-radius: 8px;
+  display: block;
+  margin: auto;
+  width: 80vw;
+}
+
+.card.reservation{
+  width: 100%;
+}
+
+.card-img-top.reservation.photo-show {
+  width:90%;
+  height: 50%;
+}
+
+.card.larg {
+  width: 50vw;
+  margin: auto;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+
+.card.larg.contact-form {
+  width: 80%;
+}
+
+.img-contact {
+  width: 100%;
+}
+
+.card-text {
+  font-family: 'Nunito Sans', sans-serif;
+}
+.card-img-top {
+  width: 80%;
+  height: 15vh;
+  margin-top:2rem;
+  margin-inline: auto;
+}
+
+.card-img-top.big {
+  height: auto;
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+  width: 5rem;
+  height: 5rem;
+}
+
+.etage-1 {
+ margin : 5rem;
+ z-index: 30;
+ transform: translate(50%, 50%);  
+
+}
+
+.etage-2 {
+  margin : 3rem;
+  z-index: 20;
+  transform: translate(25%, 25%);  
+
+}
+
+.etage-3 {
+  margin : 1rem;
+  z-index: 10;  background-size: 200% auto;
+  background-image: linear-gradient(to right, var(--color-beige-2) 0%, var(--color-beige-2) 100%);
+
+}
+
+.bg-grey {
+  color: var(--color-green-1);
+  background-color: var(--color-grey);
+}
+
+/*calendriers*/
+.daterangepicker td.off.disabled {
+  background-color: var(--color-green-4);
+}
+
+.daterangepicker td.active {
+  color: var(--color-green-4);
+  background-color: var(--color-green-2);
+}
+
+.daterangepicker td.in-range {
+  background-color: var(--color-green-1);
+}
+
+.calendar-time {
+  display: none;
+}
+
+/* animations */
+.announcement {
+  overflow: hidden;
+}
+
+.announcement > :first-child {  
+ display: inline-block;
+ padding-left: 100vw;
+ white-space: nowrap;
+ animation: announce 45s infinite linear;
+}
+  
+.announcement-2 > :first-child {  
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 30vw;
+  animation: announce 20s infinite linear;
+}
+
+/* change transition duration to control the speed of fade effect */
+.carousel-item.announcement-2 {
+  opacity: 1;
+  transition: opacity 0s ease-in-out 0s;
+}
+
+@keyframes announce {
+    0% {
+      transform: translate3d(0,0,0);      /* position initiale à droite */
+    }
+    100% {
+      transform: translate3d(-100%,0,0);  /* position finale à gauche */
+    }
+}
+
+@media screen and (min-width: 991px) {
+
+  * {
+    font-size: 24px;
+  }
+
+  .logo {
+    margin: 1vw;
+  }
+
+  .card-img-top.reservation.photo-show {
+    width:90%;
+    height: 15vh;
+  }
+
+  h1 {
+    font-size: 6rem;
+    color: var(--color-dark-grey);
+  }
+
+  h2 {
+    font-size: 3rem;
+    color: var(--color-dark-grey);
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    color: var(--color-dark-grey);
+  }
+
+  .card-text {
+    font-size: 1rem;
+  }
+
+  .admin-buttons {
+    right: 1rem;
+  }
+
+  .col-12 {
+    margin-top: 0;
+  }
+  
+  .img-contact {
+    width: auto;
+    max-width: 100%;
+  }
 }

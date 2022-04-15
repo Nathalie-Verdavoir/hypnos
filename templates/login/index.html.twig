@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+ <h2>Connexion</h2>
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    <div class="fond-clair shadow">
+        <form action="{{ path('login') }}" method="post">
+            <label for="username">Adresse mail:</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+            <br>
+            <label for="password">Mot de passe:</label>
+            <input type="password" id="password" name="_password"/>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            {# If you want to control the URL the user is redirected to on success#}
+
+            {% if app.request.get('id') %}
+            <input type="hidden" name="_target_path" value="{{ path(app.request.get('to'), {'id': app.request.get('id') ? app.request.get('id') : null,
+            
+            'resa_chambre': app.request.get('resa_chambre'),
+            'resa_debut': app.request.get('resa_debut'),
+            'resa_fin': app.request.get('resa_fin'),
+            
+            }) }}"/> 
+            {% endif %}
+            <br>
+            <button class="btn m-3" type="submit">Continuer</button>
+        </form>
+    </div>
+    <div class="d-flex  flex-wrap mt-5">
+        {% for i in 0..3 %}
+            <div class="d-flex col-12 col-lg-3 g-0">
+                {{ include('accueil/_slider.html.twig') }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

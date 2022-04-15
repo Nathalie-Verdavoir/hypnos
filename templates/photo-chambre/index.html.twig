@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Photo index{% endblock %}
+
+{% block body %}
+    <h2>Photos de la chambre</h2>
+    <a class="btn btn-primary m-3" href="{{ path('app_photo_chambre_new', {'chambre': app.request.get('chambre')}) }}">
+        Ajouter des photos
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-box-arrow-in-down" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1h-2z"/>
+            <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+        </svg>
+    </a>
+    <a class="btn btn-primary m-3" href="{{ path('app_chambres_index', {'id': app.request.get('chambre')}) }}" title="Retour à la liste des chambres">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        </svg>
+    </a>
+<div class="container">
+  <div class="row align-items-start">
+     {% if app.request and app.request.get('chambre') %}
+     
+        {% for photo in photos %}
+            {% if photo.chambres.id == app.request.get('chambre') %}
+            <div class="col col-12 col-lg-3 g-2">
+                <div class="card card-photo-hotel m-2 ">
+                    <img src="{{ asset('/uploads/photos/')  }}{{ photo.lien}}" class="card-img-top" alt="photo de l'hôtel" title="{{ photo.lien }}">
+                    <div class="card-body">
+                    <a class="btn btn-primary iconic" href="{{ path('app_photo_chambre_show', {'chambre': app.request.get('chambre'),'id': photo.id}) }}" title="Voir">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                            </svg>
+                        </a>
+                        
+                        {% if not photo.cover %}
+                            <a class="btn btn-primary iconic" href="{{ path('app_photo_chambre_edit', {'chambre': app.request.get('chambre'),'cover': photo.id}) }}"  title="Choisir comme couverture">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-richtext-fill" viewBox="0 0 16 16">
+                                    <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM7 4.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047l1.888.974V7.5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V7s1.54-1.274 1.639-1.208zM5 9h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z"/>
+                                </svg>
+                            </a>
+                        {% else %}
+                            <a class="btn btn-primary iconic disabled" href="{{ path('app_photo_chambre_edit', {'chambre': app.request.get('chambre'),'cover': photo.id}) }}"  title="Choisir comme couverture">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-richtext" viewBox="0 0 16 16">
+                                    <path d="M7 4.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047l1.888.974V7.5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V7s1.54-1.274 1.639-1.208zM5 9a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5z"/>
+                                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
+                                </svg>
+                            </a>
+                        {% endif %}
+                        {{ include('photo-chambre/_delete_form.html.twig') }}
+                    </div>
+                </div></div>
+            {% endif %}
+        {% else %}
+        
+               Aucune photo pour le moment...
+           
+        {% endfor %}
+       
+ {% endif %}
+ </div>
+                </div>   
+    
+{% endblock %}
