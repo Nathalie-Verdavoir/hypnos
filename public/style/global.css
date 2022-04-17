@@ -338,6 +338,22 @@ a {
 	left: 0;
 }
 
+.accordion-item,
+.accordion-button,
+.accordion-button:not(.collapsed),
+.accordion-button:focus,
+.accordion-button::after,
+.accordion-button:not(.collapsed)::after {
+  display: block;
+  text-align: center;
+  background-color: transparent;
+  color: var(--color-green-4);
+  font-weight: bolder;
+  font-size: 3rem;
+  border: 0;
+  box-shadow: unset;
+}
+
 /*forms*/
 form {
     display: inline;
@@ -483,6 +499,10 @@ form {
 
   .logo {
     margin: 1vw;
+  }
+
+  #accordionAccueil {
+    display: none;
   }
 
   .card-img-top.reservation.photo-show {
