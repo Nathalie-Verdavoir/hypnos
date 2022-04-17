@@ -338,6 +338,29 @@ a {
 	left: 0;
 }
 
+.menu-hotels {
+  display: none;
+}
+
+.hotels.carousel-indicators [data-bs-target] {
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  text-indent:0;
+}
+
+.hotels.carousel-indicators .active {
+  height: auto;
+  background-color: transparent;
+  box-shadow: 10px 10px 5px var(--color-beige-3);
+  border-radius: 20px;
+  border-left: 1px solid var(--color-beige-2);
+  border-top: 1px solid var(--color-beige-2);
+}
+
+.hotels.carousel-indicators>button>p{
+  margin: 0;
+}
+
 .accordion-item,
 .accordion-button,
 .accordion-button:not(.collapsed),
@@ -544,5 +567,9 @@ form {
 
   .svg-container { 
     width: 2vw;
+  }
+  
+  .menu-hotels {
+    display:block;
   }
 }
