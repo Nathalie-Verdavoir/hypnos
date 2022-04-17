@@ -6,14 +6,15 @@
     <h2>Les Hôtels</h2>
     {% if hotels|length > 0 %}
     <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
-        <div class="carousel-indicators hotels">
+    
+        <div class="carousel-indicators hotels m-5">
         {% set slide = 0 %}
         {% for hotel in hotels %}
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{slide}}" class="{{ hotel  is same as(hotels[0]) ? "active" : ""}}" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{slide}}" class="{{ hotel  is same as(hotels[0]) ? "active" : ""}} fs-4" aria-current="true" aria-label="Slide 1"><span class="menu-hotels">{{hotel.nom}}</span><p class=" fs-4">{{hotel.ville}}</p></button>
             {% set slide = slide + 1 %}
         {% endfor %}
         </div>
-        <div class="carousel-inner">
+        <div class="carousel-inner mt-5">
         {% for hotel in hotels %}
         <div class="carousel-item {{ hotel  is same as(hotels[0]) ? "active" : ""}}">
             <div class="card larg">
