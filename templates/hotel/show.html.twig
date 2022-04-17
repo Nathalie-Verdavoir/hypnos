@@ -125,7 +125,7 @@
                             class="btn m-3" 
                             href="{{ path('app_reservation_index', {'gerant':app.user.id}) }}"
                             >Voir les réservations</a>
-                        {% elseif 'ROLE_GERANT' in app.user.roles  %}
+                        {% elseif app.user and 'ROLE_GERANT' in app.user.roles  %}
                             Impossible de voir les réservations de cet Hôtel.
                         {% else %}
                             <p class="card-text border"><small class="text-muted">Chambre</small></p>
