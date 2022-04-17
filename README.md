@@ -4,9 +4,12 @@
 
 ### Déployez en local
 
-Clonez le projet sur votre ficher htdocs de xampp et créer votre base de données grâce qu ficher sql fourni.
+Clonez le projet sur votre ficher htdocs de xampp et créer votre base de données grâce au ficher sql fourni.
 
-Vous devrez commencer par ajouter un compte admin dans la table user avec un mot de passe pré encodé avec **Bcrypt** : <https://www.bcrypt.fr/> J'ai d'ailleurs ajouté le script spécifique dans les documents joints.
+Si vous démarrez de zéro, vous devrez commencer par ajouter un compte admin dans la table user avec un mot de passe pré encodé avec **Bcrypt** : <https://www.bcrypt.fr/>
+La commande sql est la suivante :
+INSERT INTO `user` VALUES (1,NULL,'UNE ADRESSE MAIL','[\"ROLE_ADMIN\"]','MOT DE PASSE ENCRYPTE','LE NOM','LE PRENOM');
+La valeur la plus importante tant le role, pensez à bien échapé les doubles quotes pour évité les problèmes de correspondance dans symfony.
 
 Ajoutez les fichier de configuration des variables d'environnement (.env, .env.local).
 
@@ -24,25 +27,18 @@ Pour plus d'informations, vous pouvez lire la documentations symfony :
 
 ## 2-Documents complémentaires joints au projet présents dans le dossier
 
-+ 1-hypnos-bdd.sql
++ [1-hypnos-bdd.sql](https://github.com/Nathalie-Verdavoir/hypnos/blob/documents/documents-complementaires/1-hypnos-bdd.sql)
 
-+ 2-wireframes.pdf
++ [2-wireframes.pdf](https://github.com/Nathalie-Verdavoir/hypnos/blob/documents/documents-complementaires/2-wireframes.pdf)
 
-+ 3-CHARTE.png
++ [3-CHARTE.png](https://github.com/Nathalie-Verdavoir/hypnos/blob/documents/documents-complementaires/3-CHARTE.png)
 
-+ 4-Diagramme de cas d'utlisation.PNG
++ [4-Diagramme de cas d'utlisation.PNG](https://github.com/Nathalie-Verdavoir/hypnos/blob/documents/documents-complementaires/4-Diagramme%20de%20cas%20d'utlisation.PNG)
 
-+ 5-DS1 RESERVER UNE CHAMBRE.png
++ [5-DS1 RESERVER UNE CHAMBRE.png](https://github.com/Nathalie-Verdavoir/hypnos/blob/documents/documents-complementaires/5-DS1%20RESERVER%20UNE%20CHAMBRE.png)
 
-+ 6-DS2 VOIR LES RESERVATIONS.png
++ [6-DS2 VOIR LES RESERVATIONS.png](https://github.com/Nathalie-Verdavoir/hypnos/blob/documents/documents-complementaires/6-DS2%20VOIR%20LES%20RESERVATIONS.png)
 
-+ 7-hypnos_schema_bdd.png
++ [7-hypnos_schema_bdd.png](https://github.com/Nathalie-Verdavoir/hypnos/blob/documents/documents-complementaires/7-hypnos_schema_bdd.png)
   
-## 3-Test de l'envoi de mail
-
-Malheureusement Mailgun utilisé ici pour l'envoi de mail aux recruteurs, n'est configurable en version sandbox (gratuite) que pour des mails vérifiés directement dans le compte utilisatuer mailgun. C'est donc ma boite mail qui reçoit tous les mails pour cette version de l'application
-
-J'ai tout de même àjouté la ligne configurant l'envoi sur la boite du recruteur mais je l'ai commentée.
-
-ligne 24  du MailerController.php:
-``->to($annonce->getRecruteur()->getUserid()->getEmail())``
++ [8-DOCUMENTATION-TECHNIQUE.pdf](https://github.com/Nathalie-Verdavoir/hypnos/blob/documents/documents-complementaires/8-DOCUMENTATION-TECHNIQUE.pdf)

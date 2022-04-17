@@ -162,8 +162,8 @@ const resetDatePicker = () => $(function () {
     }).on("apply.daterangepicker",function(e,picker){
 
         // Get the selected bound dates.
-        startDate = picker.startDate.format('MM/DD/YYYY')
-        endDate = picker.endDate.format('MM/DD/YYYY')
+        startDate = picker.startDate.format('DD/MM/YYYY')
+        endDate = picker.endDate.format('DD/MM/YYYY')
     
         // Compare the dates again.
         var clearInput = false;
@@ -178,8 +178,8 @@ const resetDatePicker = () => $(function () {
     
             // To clear selected range (on the calendar).
 
-            const today = new Date()
-            const tomorrow = new Date(today)
+            const today = new Date().format('DD/MM/YYYY')
+            const tomorrow = new Date(today).format('DD/MM/YYYY')
             tomorrow.setDate(tomorrow.getDate() + 1)
             $(this).data('daterangepicker').setStartDate(today);
             $(this).data('daterangepicker').setEndDate(tomorrow);
