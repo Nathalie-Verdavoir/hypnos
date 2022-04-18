@@ -130,6 +130,14 @@ h4 {
     color:  var(--color-green-1);
 }
 
+.navbar-nav {
+  align-items: flex-end;
+}
+
+.nav-link {
+  font-size: 3rem;
+}
+
 .fond-gris {
   width: auto;
   font-size: 1.5rem;
@@ -522,6 +530,10 @@ form {
 
   .logo {
     margin: 1vw;
+  }
+
+  .nav-link {
+    font-size: 1.5rem;
   }
 
   #accordionAccueil {
