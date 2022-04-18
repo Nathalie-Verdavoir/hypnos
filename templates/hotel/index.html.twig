@@ -14,12 +14,12 @@
                 type="button" 
                 data-bs-target="#carouselExampleIndicators" 
                 data-bs-slide-to="{{slide}}" 
-                class="{{ hotel  is same as(hotels[0]) ? "active" : ""}} fs-3 m-2 w-auto" 
+                class="{{ hotel  is same as(hotels[0]) ? "active" : ""}} fs-4 m-2 w-auto" 
                 aria-current="true" 
                 aria-label="Slide 1"
             >
                 <span class="menu-hotels">{{hotel.nom}}</span>
-                <p class="fs-1">{{hotel.ville}}</p>
+                <p class="fs-4">{{hotel.ville}}</p>
             </button>
             {% set slide = slide + 1 %}
         {% endfor %}

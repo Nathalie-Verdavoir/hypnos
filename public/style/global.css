@@ -70,13 +70,21 @@ body > header > nav > div > button > span {
     z-index: 100;
 }
 
+body > header > nav > div > button {
+  position: absolute;
+  padding: 1rem;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+}
+
 main {
   min-height: 70vh;
 }
 
 .logo {
     display: inline;
-    width: 10vw;
+    width: 15vw;
     margin: 0;
 }
 
@@ -136,6 +144,10 @@ h4 {
 
 .nav-link {
   font-size: 3rem;
+}
+
+.navbar-toggler-icon {
+  margin-bottom: 5%;
 }
 
 .fond-gris {
@@ -306,7 +318,9 @@ footer {
 footer > * {
   font-family: 'Raleway', sans-serif;
 }
-
+body > footer > div > div > a {
+  font-size: 1rem;
+}
 .list-group-item, 
 .list-group-item.active {
   background-color: transparent;
@@ -320,6 +334,7 @@ a {
 .carousel-indicators.hotels {
   font-size: 2rem;
   position: relative;
+  flex-wrap: wrap;
 }
 
 .img-fluid.chambre {
