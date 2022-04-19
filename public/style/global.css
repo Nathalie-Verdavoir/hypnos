@@ -631,4 +631,8 @@ form {
   .fond-clair {
     width: 60vw;
   }
+
+  .hotels.carousel-indicators [data-bs-target] {
+    height: calc(4rem + 1.5vw);
+  }
 }

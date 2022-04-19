@@ -71,7 +71,7 @@ Dans l'onglet Resources vous ajouterez l'Add-on de base de données. J'ai choisi
   
 + [8-DOCUMENTATION-TECHNIQUE.pdf](https://github.com/Nathalie-Verdavoir/hypnos/blob/documents/documents-complementaires/8-DOCUMENTATION-TECHNIQUE.pdf)
 
-+ [9-Manuel-d-utilisation.pdf](https://github.com/Nathalie-Verdavoir/hypnos/blob/documents/documents-complementaires/9-Manuel-d-utilisation.pdf)
++ [9-Manuel-d-utilisation.pdf](https://github.com/Nathalie-Verdavoir/hypnos/blob/master/documents-complementaires/9-Manuel-d-utilisation.pdf)
 
-+ [10-Manuel-d-utilisation.html (avec animations)](https://github.com/Nathalie-Verdavoir/hypnos/blob/documents/documents-complementaires/10-Manuel-d-utilisation.html)
++ [10-Manuel-d-utilisation.html (avec animations)](https://github.com/Nathalie-Verdavoir/hypnos/blob/master/documents-complementaires/10-Manuel-d-utilisation.html)
   
