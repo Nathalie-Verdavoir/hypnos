@@ -356,12 +356,8 @@ a {
   flex-wrap: wrap;
 }
 
-.img-fluid.chambre {
-  height: 650px;
-}
-
 .img-fluid.chambre.small {
-  height: 500px;
+  height: 35vh;
 }
 
 .svg-container { 
@@ -630,6 +626,10 @@ form {
 
   .fond-clair {
     width: 60vw;
+  }
+
+  .img-fluid.chambre.small {
+    height: 50vh;
   }
 
   .hotels.carousel-indicators [data-bs-target] {
