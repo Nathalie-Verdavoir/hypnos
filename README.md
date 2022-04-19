@@ -1,6 +1,6 @@
 # Hypnos
 
-![Le logo](https://github.com/Nathalie-Verdavoir/hypnos/blob/documents/public/images/logoGithub.png)
+![Le logo](https://raw.githubusercontent.com/Nathalie-Verdavoir/hypnos/master/public/images/logoGithub.png)
 
 ## 1-Un projet symfony
 
