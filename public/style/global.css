@@ -385,14 +385,14 @@ a {
 }
 
 .hotels.carousel-indicators [data-bs-target] {
+  background-color: transparent;
+  height: calc(2rem + 1.5vw);
   box-sizing: border-box;
   flex: 1 1 auto;
   text-indent:0;
 }
 
 .hotels.carousel-indicators .active {
-  height: auto;
-  background-color: transparent;
   box-shadow: 10px 10px 5px var(--color-beige-3);
   border-radius: 20px;
   border-left: 1px solid var(--color-beige-2);
