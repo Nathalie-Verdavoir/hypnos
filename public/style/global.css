@@ -79,6 +79,7 @@ body > header > nav > div > button {
 }
 
 main {
+  margin-bottom: 1%;
   min-height: 70vh;
 }
 
@@ -89,7 +90,7 @@ main {
 }
 
 h1 {
-    font-size: 5rem;
+    font-size: 3rem;
     color: var(--color-dark-grey);
 
 }
@@ -99,7 +100,7 @@ h1.title {
 }
 
 h2 {
-  font-size: 4rem;
+  font-size: 3rem;
   color: var(--color-dark-grey);
 }
 
@@ -190,7 +191,7 @@ a:hover {
 }
 
 .fond-clair {
-  width: 60vw;
+  width: 80vw;
   margin: auto;
   padding-top: 1rem;
   padding-inline: 1rem;
@@ -308,15 +309,37 @@ div > ul > li {
 }
 
 footer {
-  padding-top: 1rem;
+  background-color: var(--color-green-5);
+  color: #d0ccb6;
+}
+
+footer.row {
+  padding: 0;
 }
 
 footer > * {
   font-family: 'Raleway', sans-serif;
 }
+
+footer>.col-12{
+  margin-top: 0;
+}
+.title-footer {
+  color: var(--color-green-2);
+}
+
+.plan-link {
+  color: var(--color-green-1);
+}
+
+.plan-link:hover {
+  color: var(--color-beige-1);
+}
+
 body > footer > div > div > a {
   font-size: 1rem;
 }
+
 .list-group-item, 
 .list-group-item.active {
   background-color: transparent;
@@ -563,7 +586,7 @@ form {
   }
 
   h2 {
-    font-size: 3rem;
+    font-size: 4rem;
     color: var(--color-dark-grey);
   }
 
@@ -599,5 +622,9 @@ form {
   
   .menu-hotels {
     display:block;
+  }
+
+  .fond-clair {
+    width: 60vw;
   }
 }
