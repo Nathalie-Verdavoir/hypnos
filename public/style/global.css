@@ -393,7 +393,7 @@ a {
 }
 
 .hotels.carousel-indicators .active {
-  box-shadow: 10px 10px 5px var(--color-beige-3);
+  box-shadow: 3px 3px 5px var(--color-beige-3);
   border-radius: 20px;
   border-left: 1px solid var(--color-beige-2);
   border-top: 1px solid var(--color-beige-2);
