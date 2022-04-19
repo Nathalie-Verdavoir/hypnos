@@ -10,7 +10,6 @@
         <a class="btn btn-primary m-3" href="{{ path('app_hotel_edit', {'id': hotel.id}) }}" title="Editer cet Hôtel">
             {% include 'boutons/edit.html.twig' %}
         </a>
-        {{ include('hotel/_delete_form.html.twig') }}
     {% else %}
         <a class="btn m-3" href="{{ path('app_hotel_index') }}" title="Retour à la liste des Hôtels">
             {% include 'boutons/return.html.twig' %}

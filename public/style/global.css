@@ -208,10 +208,6 @@ a:hover {
   text-align: center;
 }
 
-.card-text {
-  font-size: larger;
-}
-
 .card.small,
 .card.reservations {
   margin-left: auto;
@@ -426,7 +422,7 @@ form {
 }
 
 .card.larg {
-  width: 50vw;
+  width: 80vw;
   margin: auto;
   margin-top: 3vh;
   margin-bottom: 3vh;
@@ -442,6 +438,7 @@ form {
 
 .card-text {
   font-family: 'Nunito Sans', sans-serif;
+  font-size: medium;
 }
 .card-img-top {
   width: 80%;
@@ -577,6 +574,10 @@ form {
 
   .card-text {
     font-size: 1rem;
+  }
+
+  .card.larg {
+    width: 50vw;
   }
 
   .admin-buttons {

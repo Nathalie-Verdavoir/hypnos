@@ -4,12 +4,12 @@
 
 {% block body %}
     <h2>Photo</h2>
-    <a class="btn btn-primary iconic"  href="{{ path('app_photo_index') }}" title="Retour à la liste des photos">
+    <a class="btn btn-primary iconic"  href="{{ path('app_photo_index', {'hotel' : photo.hotel.id}) }}" title="Retour à la liste des photos">
        {% include 'boutons/return.html.twig' %}
     </a>
     {% if app.user.hotel %}
         {% if not photo.cover %}
-            <a class="btn btn-primary iconic" href="{{ path('app_photo_edit', {'id': photo.hotel.id,'cover': photo.id}) }}" title="Choisir comme couverture">
+            <a class="btn btn-primary iconic" href="{{ path('app_photo_edit', {'id': photo.hotel.id,'hotel' : photo.hotel,'cover': photo.id}) }}" title="Choisir comme couverture">
                 {% include 'boutons/cover.html.twig' with {'disabled' : false } %}
             </a>
         {% endif %}

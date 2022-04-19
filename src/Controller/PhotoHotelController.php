@@ -124,6 +124,8 @@ class PhotoHotelController extends AbstractController
             $photoRepository->remove($photo);
         }
 
-        return $this->redirectToRoute('app_photo_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_photo_index', [
+            'hotel' => $photo->getHotel()->getId(),
+        ], Response::HTTP_SEE_OTHER);
     }
 }
