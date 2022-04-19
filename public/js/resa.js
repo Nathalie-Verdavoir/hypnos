@@ -100,6 +100,40 @@ const fillForm = (picker) => {
     $(`#montant`).text(dayCount*price + ' €');
 }
 
+const applyRange = (e,picker) => {
+    // Get the selected bound dates.
+    startDate = picker.startDate.format('DD/MM/YYYY')
+    endDate = picker.endDate.format('DD/MM/YYYY')
+
+    // Compare the dates again.
+    var clearInput = false;
+    for(i=0;i<disabledArr.length;i++){
+        if(startDate<disabledArr[i] && endDate>disabledArr[i]){
+            clearInput = true;
+        }
+    }
+
+    // If a disabled date is in between the bounds, clear the range.
+    if(clearInput){
+
+        // To clear selected range (on the calendar).
+
+        const today = new Date().format('DD/MM/YYYY')
+        const tomorrow = new Date(today).format('DD/MM/YYYY')
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        $(this).data('daterangepicker').setStartDate(today);
+        $(this).data('daterangepicker').setEndDate(tomorrow);
+
+        // To clear input field and keep calendar opened.
+        $(this).val("").focus();
+
+        // Alert user!
+        alert("Your range selection includes disabled dates!");
+    }else{
+        fillForm(picker);
+    }
+}
+
 //build daterange picket and add event on it
 const resetDatePicker = () => $(function () {
     $('input[name="daterange"]').daterangepicker({
@@ -159,41 +193,12 @@ const resetDatePicker = () => $(function () {
         ],
         firstDay: 1
       }
-    }).on("apply.daterangepicker",function(e,picker){
-
-        // Get the selected bound dates.
-        startDate = picker.startDate.format('DD/MM/YYYY')
-        endDate = picker.endDate.format('DD/MM/YYYY')
-    
-        // Compare the dates again.
-        var clearInput = false;
-        for(i=0;i<disabledArr.length;i++){
-            if(startDate<disabledArr[i] && endDate>disabledArr[i]){
-                clearInput = true;
-            }
-        }
-    
-        // If a disabled date is in between the bounds, clear the range.
-        if(clearInput){
-    
-            // To clear selected range (on the calendar).
-
-            const today = new Date().format('DD/MM/YYYY')
-            const tomorrow = new Date(today).format('DD/MM/YYYY')
-            tomorrow.setDate(tomorrow.getDate() + 1)
-            $(this).data('daterangepicker').setStartDate(today);
-            $(this).data('daterangepicker').setEndDate(tomorrow);
-    
-            // To clear input field and keep calendar opened.
-            $(this).val("").focus();
-    
-            // Alert user!
-            alert("Your range selection includes disabled dates!");
-        }else{
-            fillForm(picker);
-        }
-    });
+    }).on("apply.daterangepicker",function(e,picker){ // EVENT click 'ok' button 
+        applyRange(e,picker)
+    }).on("hide.daterangepicker",function(e,picker){ // EVENT close calendars by clicking out of it 
+        applyRange(e,picker)
   });
+});
 
 let initPrice = true; // to update price according chambre changes except on init
 
