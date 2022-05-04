@@ -9,6 +9,7 @@ use App\Form\ChambresType;
 use App\Form\ReservationType;
 use App\Repository\ChambresRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/chambres')]
 class ChambresController extends AbstractController
 {
+    #[Security("is_granted('ROLE_GERANT')", statusCode: 404)]
     #[Route('/', name: 'app_chambres_index', methods: ['GET'])]
     public function index(ChambresRepository $chambresRepository): Response
     {
@@ -25,6 +27,7 @@ class ChambresController extends AbstractController
         ]);
     }
 
+    #[Security("is_granted('ROLE_GERANT')", statusCode: 404)]
     #[Route('/new', name: 'app_chambres_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ChambresRepository $chambresRepository): Response
     {
@@ -71,7 +74,9 @@ class ChambresController extends AbstractController
             
             $entityManager->persist($reservation);
             $entityManager->flush();
-            return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_reservation_client_index', [
+                'client' => $user->getId(),
+            ], Response::HTTP_SEE_OTHER);
         }
         
         
@@ -81,7 +86,8 @@ class ChambresController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
+    
+    #[Security("is_granted('ROLE_GERANT')", statusCode: 404)]
     #[Route('/{id}/edit', name: 'app_chambres_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Chambres $chambre, ChambresRepository $chambresRepository): Response
     {
@@ -99,6 +105,7 @@ class ChambresController extends AbstractController
         ]);
     }
 
+    #[Security("is_granted('ROLE_GERANT')", statusCode: 404)]
     #[Route('/{id}', name: 'app_chambres_delete', methods: ['POST'])]
     public function delete(Request $request, Chambres $chambre, ChambresRepository $chambresRepository): Response
     {

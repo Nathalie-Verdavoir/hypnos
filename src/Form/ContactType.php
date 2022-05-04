@@ -34,6 +34,7 @@ class ContactType extends AbstractType
                     'Je souhaite commander un service supplémentaire' => 'SERVICE',
                     'Je souhaite en savoir plus sur une suite' => 'INFOS',
                     'J’ai un souci avec cette application' => 'BUG',
+                    'Je veux supprimer mon compte et mes données personnelles enregistrées' => 'SUPPRESSION',
                 ],
             ])
             ->add('message', TextareaType::class, [
