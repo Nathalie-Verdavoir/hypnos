@@ -10,6 +10,9 @@
             {% include 'boutons/add-photos.html.twig' %}
         </span>
     </a>
+    <a class="btn m-3" href="{{ path('app_hotel_show', { 'id' : app.user.getHotel.getId })}}" title="Retour à la liste des Hôtels">
+            {% include 'boutons/return.html.twig' %}
+        </a>
 <div class="container">
   <div class="row align-items-start">
      {% if app.user and app.user.getHotel %}

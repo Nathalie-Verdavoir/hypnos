@@ -16,7 +16,9 @@
             </span>
         </span>
     </a>
-    
+    <a class="btn m-3" href="{{ path('app_hotel_show', { 'id' : app.user.getHotel.getId })}}" title="Retour à la liste des Hôtels">
+            {% include 'boutons/return.html.twig' %}
+        </a>
     {% if chambres|length > 0 %}
     
         <div id="carouselPhoto" class="carousel slide py-5" data-bs-ride="carousel">
