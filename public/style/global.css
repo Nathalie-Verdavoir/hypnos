@@ -141,10 +141,12 @@ h4 {
 
 .navbar-nav {
   align-items: flex-end;
+  flex-wrap: wrap;
 }
 
 .nav-link {
-  font-size: 3rem;
+  font-size: 2rem;
+  margin-top: 0.4rem;
 }
 
 .navbar-toggler-icon {

@@ -10,6 +10,23 @@
         <a class="btn btn-primary m-3" href="{{ path('app_hotel_edit', {'id': hotel.id}) }}" title="Editer cet Hôtel">
             {% include 'boutons/edit.html.twig' %}
         </a>
+        <a 
+        class="btn btn-primary m-3" 
+        href="{{ path('app_photo_index', {'hotel' : app.user.hotel.id}) }}"
+        title="Gérer les photos de mon hôtel"
+        >{% include 'boutons/edit-photos.html.twig' %}
+        </a>
+        {% if app.user.hotel and app.user.hotel.chambres|length > 0 %}
+                        <a 
+                        class="btn btn-primary m-3" 
+                        href="{{ path('app_chambres_index') }}"
+                        >Mes Chambres</a>
+                    {% else %}
+                        <a 
+                        class="btn btn-primary m-3" 
+                        href="{{ path('app_chambres_new') }}"
+                        >Créer ma première Chambre</a>
+                    {% endif %}
     {% else %}
         <a class="btn m-3" href="{{ path('app_hotel_index') }}" title="Retour à la liste des Hôtels">
             {% include 'boutons/return.html.twig' %}

@@ -79,7 +79,7 @@
                   <a 
                     class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_index' or app.request.attributes.get('_route') ==  'app_hotel_show' %}active{% endif %} ms-5" 
                     href="{{ path('app_hotel_index') }}"
-                  >Nos Hôtels</a>
+                  >Nos&nbsp;Hôtels</a>
                 </li>
               {% endif %}
               {% if app.user and "ROLE_CLIENT" in app.user.roles  %}
@@ -87,7 +87,7 @@
                   <a 
                     class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_index'  %}active{% endif %} ms-5" 
                     href="{{ path('app_hotel_index') }}"
-                  >Nos Hôtels</a>
+                  >Nos&nbsp;Hôtels</a>
                 </li>
               {% endif %}
                {% if app.user %}
@@ -101,30 +101,11 @@
                     </li>
                       <li class="nav-item">
                         <a 
-                        class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_show'  %}active{% endif %} ms-5" 
+                        class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_show' 
+                                            or app.request.attributes.get('_route') ==  'app_photo_index'
+                                            or app.request.attributes.get('_route') ==  'app_chambres_index'  %}active{% endif %} ms-5" 
                         href="{{ path('app_hotel_show', {'id': app.user.hotel.id}) }}"
-                        >Mon Hôtel</a>
-                      </li>
-                      <li class="nav-item">
-                        <a 
-                        class="nav-link {% if app.request.attributes.get('_route') ==  'app_photo_index'  %}active{% endif %} ms-5" 
-                        href="{{ path('app_photo_index', {'hotel' : app.user.hotel.id}) }}"
-                        >Photos de mon Hôtel</a>
-                      </li>
-                    {% endif %}
-                    {% if app.user.hotel and app.user.hotel.chambres|length > 0 %}
-                      <li class="nav-item">
-                        <a 
-                        class="nav-link {% if app.request.attributes.get('_route') ==  'app_chambres_index'  %}active{% endif %} ms-5" 
-                        href="{{ path('app_chambres_index') }}"
-                        >Mes Chambres</a>
-                      </li>
-                    {% else %}
-                      <li class="nav-item">
-                        <a 
-                        class="nav-link {% if app.request.attributes.get('_route') ==  'app_chambres_new'  %}active{% endif %} ms-5" 
-                        href="{{ path('app_chambres_new') }}"
-                        >Créer ma première Chambre</a>
+                        >Mon&nbsp;Hôtel</a>
                       </li>
                     {% endif %}
                   {% elseif "ROLE_ADMIN" in app.user.roles %}
@@ -132,13 +113,13 @@
                       <a 
                       class="nav-link {% if app.request.attributes.get('_route') ==  'app_register_gerant'  %}active{% endif %} ms-5" 
                       href="{{ path('app_register_gerant') }}"
-                      >Ajouter un gérant</a>
+                      >Ajouter&nbsp;un&nbsp;gérant</a>
                     </li>
                     <li class="nav-item">
                         <a 
                         class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_new'  %}active{% endif %} ms-5" 
                         href="{{ path('app_hotel_new') }}"
-                        >Créer un Hôtel</a>
+                        >Créer&nbsp;un&nbsp;Hôtel</a>
                       </li>
                   {% elseif "ROLE_CLIENT" in app.user.roles %}
                     <li class="nav-item">
@@ -153,7 +134,7 @@
                       <a 
                       class="nav-link {% if app.request.attributes.get('_route') ==  'contact'  %}active{% endif %} ms-5" 
                       href="{{ path('contact') }}"
-                      >Contactez-nous</a>
+                      >Contacts</a>
                     </li>
                   {% endif %}
               {% else %}
@@ -161,7 +142,7 @@
                       <a 
                       class="nav-link {% if app.request.attributes.get('_route') ==  'contact'  %}active{% endif %} ms-5" 
                       href="{{ path('contact') }}"
-                      >Contactez-nous</a>
+                      >Contacts</a>
                     </li>
               {% endif %}
 
