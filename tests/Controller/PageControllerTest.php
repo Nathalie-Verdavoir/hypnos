@@ -19,9 +19,15 @@ class PageControllerTest extends WebTestCase
         $this->assertSelectorTextContains('nav','Hypnos');
     }
 
-    public function testAuthPageIsRestricted () {
+    public function testReservationPageIsRestricted () {
         $client = static::createClient();
         $client->request('GET', '/reservation');
+        $this->assertResponseRedirects();
+    }
+
+    public function testAdminPageIsRestricted () {
+        $client = static::createClient();
+        $client->request('ANY', '/admin');
         $this->assertResponseRedirects();
     }
 }
