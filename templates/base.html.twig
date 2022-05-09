@@ -30,12 +30,14 @@
                     id:  {{app.user ? app.user.id : 'null'}},
                     };
                 </script>
-            {% if app.request.get('chambre') %}
-                <script type="text/javascript">
-                    chambre = {
-                    id:  {{ (app.request.get('chambre') matches '{^[\d\.]+$}') is same as(0) ? app.request.get('chambre').id : app.request.get('chambre')}},
-                    };
-                </script>
+            {% if app.request.attributes.get('_route') !=  'app_photo_chambre_index' %}
+                {% if app.request.get('chambre')  %}
+                    <script type="text/javascript">
+                        chambre = {
+                        id:  {{ (app.request.get('chambre') matches '{^[\d\.]+$}') is same as(0) ? app.request.get('chambre').id : app.request.get('chambre')}},
+                        };
+                    </script>
+                {% endif %}
             {% endif %}
         {% endblock %}
     </head>
