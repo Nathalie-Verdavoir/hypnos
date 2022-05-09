@@ -5,7 +5,7 @@
 {% block body %}
  <h2>Connexion</h2>
     {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="validator">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
     <div class="fond-clair shadow">
         <form action="{{ path('login') }}" method="post">

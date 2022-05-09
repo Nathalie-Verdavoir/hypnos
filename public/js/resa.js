@@ -61,7 +61,7 @@ const fetchInfoResaChambre = chambreTo =>  $.getJSON({
 
 
 //fill daterange with infos of early booking from url(set before login redirection)
-if(get_query('resa_debut')){
+if(get_query('resa_debut') && !window.location.href.match('login')){
     startDate = new Date(get_query('resa_debut')*1000);
     endDate =  new Date(get_query('resa_fin')*1000);
     setTimeout(function () {$(`#chambreSelector option[value='${get_query('resa_chambre')}']`).attr('selected','') }, 500);

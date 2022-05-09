@@ -304,7 +304,7 @@ td > a {
 }
 
 /*validator message */
-
+.validator,
 div > ul > li {
   color: red;
   font-size: 1.5rem;
