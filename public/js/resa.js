@@ -23,15 +23,14 @@ function get_query(param){
 
 //ask infos of existing reservations and prices to API 
 const fetchInfoResaChambre = chambreTo =>  $.getJSON({
-    url: "/api/dates/reservations", 
+    url: "/api/dates/chambres/"+chambreTo, 
     success: function(result){
         resetTextBooking();
         disabledArr = [];
         //set chambre field
         $(`#reservation_chambre option[value='${chambreTo}']`).prop('selected', true);
         //set all disabled dates 
-        result.forEach(resa => {
-            if(resa.chambre.id==chambreTo){
+        result["reservations"].forEach(resa => {
                 let debut = new Date(resa.debut);
                 let fin =  new Date(resa.fin);
                 let duree = (fin - debut)/ 86400000;
@@ -40,21 +39,11 @@ const fetchInfoResaChambre = chambreTo =>  $.getJSON({
                     if (currentMonth < 10) { currentMonth = '0' + currentMonth; }
                     disabledArr.push(currentMonth+'/'+debut.getDate()+'/'+debut.getFullYear());
                     debut.setDate(debut.getDate() + 1)
-                }
-            } 
+                
+                } 
         }); 
-        //set prices
-        if(chambresPrice.length==0){
-            $.getJSON({
-                url: "/api/dates/chambres", 
-                success: function(result){
-                    chambresPrice = result;
-                    if(window.location.href.match('resa_debut')) { 
-                        fillForm( $('#daterange').data('daterangepicker'));
-                    }
-                }
-            })
-        }
+        //set price
+        chambresPrice = result["prix"];
         emptyDatePicker();
     }
 });
@@ -92,12 +81,7 @@ const fillForm = (picker) => {
         start.setDate(start.getDate() + 1)
     }
     $(`#nuitee`).text(dayCount + ' ' + (dayCount>1 ? 'nuitées' : 'nuitée'));
-    chambresPrice.forEach(chambre => {
-        if(chambre.id==$('#chambreSelector').val()){
-            price=chambre.prix
-        }
-    });
-    $(`#montant`).text(dayCount*price + ' €');
+    $(`#montant`).text(dayCount*chambresPrice + ' €');
 }
 
 const applyRange = (e,picker) => {

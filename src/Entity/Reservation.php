@@ -20,13 +20,12 @@ class Reservation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups(["read"])]
     private $id;
 
     #[ORM\Column(type: 'date')]
     #[Groups(["read"])]
     #[Assert\NotBlank(message:'Veuillez saisir une valeur')]
-    #[Assert\DateTimeInterface(message:'Veuillez saisir une date')]
+    #[Assert\Type("\DateTimeInterface",message:'Veuillez saisir une date')]
     #[Assert\GreaterThan("today",message:'Veuillez saisir une date future')]
     private $debut;
 
@@ -38,7 +37,6 @@ class Reservation
 
     #[ORM\ManyToOne(targetEntity: Chambres::class, inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(["read"])]
     private $chambre;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'reservations')]

@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
     collectionOperations: ['get'],
     itemOperations: ['get'],
     routePrefix: '/dates',
-    normalizationContext: ['groups' => ['read']],
+    normalizationContext: ['groups' => ['read'], "enable_max_depth"=>true],
 )]
 #[ORM\Entity(repositoryClass: ChambresRepository::class)]
 class Chambres
@@ -46,6 +46,7 @@ class Chambres
     private $booking;
 
     #[ORM\OneToMany(mappedBy: 'chambre', targetEntity: Reservation::class, orphanRemoval: true)]
+    #[Groups(["read"])]
     private $reservations;
 
     public function __construct()

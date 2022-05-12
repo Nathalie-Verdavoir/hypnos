@@ -7,3 +7,5 @@ api_platform:
         versions: [3]
     defaults:
         pagination_enabled: false
+    eager_loading:
+      force_eager: false
