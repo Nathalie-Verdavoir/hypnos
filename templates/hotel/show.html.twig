@@ -3,36 +3,152 @@
 {% block title %}Hotel{% endblock %}
 
 {% block body %}
-    <h1>Hotel</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ hotel.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ hotel.nom }}</td>
-            </tr>
-            <tr>
-                <th>Ville</th>
-                <td>{{ hotel.ville }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ hotel.description }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ hotel.adresse }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h2>{{ hotel.nom }} Hotel</h2>
+      
+    {% if app.user and app.user.hotel and app.user.hotel.id == app.request.get('id') %}
+        <a class="btn btn-primary m-3" href="{{ path('app_hotel_edit', {'id': hotel.id}) }}" title="Editer cet Hôtel">
+            {% include 'boutons/edit.html.twig' %}
+        </a>
+        <a 
+        class="btn btn-primary m-3" 
+        href="{{ path('app_photo_index', {'hotel' : app.user.hotel.id}) }}"
+        title="Gérer les photos de mon hôtel"
+        >{% include 'boutons/edit-photos.html.twig' %}
+        </a>
+        {% if app.user.hotel and app.user.hotel.chambres|length > 0 %}
+                        <a 
+                        class="btn btn-primary m-3" 
+                        href="{{ path('app_chambres_index') }}"
+                        >Mes Chambres</a>
+                    {% else %}
+                        <a 
+                        class="btn btn-primary m-3" 
+                        href="{{ path('app_chambres_new') }}"
+                        >Créer ma première Chambre</a>
+                    {% endif %}
+    {% else %}
+        <a class="btn m-3" href="{{ path('app_hotel_index') }}" title="Retour à la liste des Hôtels">
+            {% include 'boutons/return.html.twig' %}
+        </a>
+    {% endif %}
+    <div class="container large-width">
+        <div class="row align-items-start">
+            <div class="col-12 col-lg-6 left-col">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title border bg-grey p-3">{{ hotel.nom }}</h3>
+                        <p class="card-text">à {{ hotel.ville }}</p>
+                        <p class="card-text border"><small class="text-muted">Infos</small></p>
+                        <p class="card-text">{{ hotel.description }}</p>
+                        <p class="card-text border"><small class="text-muted">Adresse</small></p>
+                        <p class="card-text">{{ hotel.adresse }}</p>
+                    </div> {# fin du texte haut de la card de l'hotel #}
+                    <div class="card-img-bottom" >
+                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                {% for pic in hotel.photo %}
+                                <div class="carousel-item {{ pic  is same as(hotel.photo[0]) ? "active" : ""}}">
+                                <img src="{{ asset('uploads/photos/') }}{{ pic.lien }}" class="d-block w-100" alt="photo de l'hôtel">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div> {# fin de l'image basse de la card de l'hotel #}
+                </div> {# fin de la card de l'hotel #}
+            </div> {# fin de la left-col #}
+            <div class="col-12 col-lg-3 text-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="m-auto border bg-grey p-3">Les Chambres</h3>
+                        <div class="scroll">
+                        <div class="container">
+                            <div class="row align-items-start">
+                                {% for chambre in hotel.getChambres() %}
+                                    <div class="card small col-12">
+                                        <a class="card-img-top big" href="{{ path('app_chambres_show', {'id': chambre.id}) }}" title="Voir">   
+                                            {% if chambre.photo|length > 0 %}
+                                                {% for pic in chambre.photo %}
+                                                    {% if pic.cover %}
+                                                        <img src="{{ asset('uploads/photos/') }}{{pic.lien}}" class="w-100" alt="photo de la chambre">
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                <img src="{{ asset('uploads/photos/') }}nopic.jpg" class="w-100" alt="aucune photo disponible">
+                                            {% endif %}      
+                                        </a>
+                                        <div class="card-body">
+                                            <a class="card-img-top big" href="{{ path('app_chambres_show', {'id': chambre.id}) }}" title="Voir">   
+                                                <h3 class="card-title">{{ chambre.titre }}</h3>
+                                                <p class="card-text">{{ chambre.description }}</p>
+                                                <p class="card-text">{{ chambre.prix }}
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="align-baseline bi bi-currency-euro" viewBox="0 0 16 16">
+                                                        <path d="M4 9.42h1.063C5.4 12.323 7.317 14 10.34 14c.622 0 1.167-.068 1.659-.185v-1.3c-.484.119-1.045.17-1.659.17-2.1 0-3.455-1.198-3.775-3.264h4.017v-.928H6.497v-.936c0-.11 0-.219.008-.329h4.078v-.927H6.618c.388-1.898 1.719-2.985 3.723-2.985.614 0 1.175.05 1.659.177V2.194A6.617 6.617 0 0 0 10.341 2c-2.928 0-4.82 1.569-5.244 4.3H4v.928h1.01v1.265H4v.928z"/>
+                                                    </svg>
+                                                </p>
+                                            </a>
+                                            <a class="btn btn-primary iconic" target="_blank" href="{{ chambre.booking }}" title="Aller sur le site partenaire">
+                                                {% include 'boutons/booking.html.twig' %}
+                                            </a>  
+                                            <a class="btn btn-primary iconic" href="{{ path('app_chambres_show', {'id': chambre.id}) }}" title="Voir">
+                                                {% include 'boutons/voir.html.twig' %}
+                                            </a>    
+                                            {% if app.user and app.user.hotel and chambre.hotel == app.user.hotel %}      
+                                                <a class="btn btn-primary iconic" href="{{ path('app_chambres_edit', {'id': chambre.id}) }}" title="Editer cette chambre">
+                                                    {% include 'boutons/edit.html.twig' %}
+                                                </a>
+                                                <a class="btn btn-primary iconic" href="{{ path('app_photo_chambre_index', {'chambre': chambre.id}) }}" title="Gérer les photos de cette chambre">
+                                                    {% include 'boutons/edit-photos.html.twig' %}
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        </div>
 
-    <a href="{{ path('app_hotel_index') }}">back to list</a>
-
-    <a href="{{ path('app_hotel_edit', {'id': hotel.id}) }}">edit</a>
-
-    {{ include('hotel/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-3 text-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title border bg-grey p-3">Réservations</h3>
+                        <p class="card-text">à {{ hotel.ville }}</p>
+                        {% if app.user and hotel.gerant == app.user  %}
+                             <a 
+                            class="btn m-3" 
+                            href="{{ path('app_reservation_index', {'gerant':app.user.id}) }}"
+                            >Voir les réservations</a>
+                        {% elseif app.user and 'ROLE_GERANT' in app.user.roles  %}
+                            Impossible de voir les réservations de cet Hôtel.
+                        {% else %}
+                            <p class="card-text border"><small class="text-muted">Chambre</small></p>
+                            <p class="card-text">
+                                <select name="chambreSelector" id="chambreSelector">
+                                    <option value="">--Choisir une chambre--</option>
+                                    {% for chambre in hotel.getChambres %}
+                                    <option value="{{chambre.id}}">{{ chambre.titre}}</option>
+                                    {% endfor %}
+                                </select>
+                            </p>
+                            <p class="card-text border"><small class="text-muted">Dates</small></p>
+                            <div class="input-group input-daterange"> <label class=""></label> 
+                                <input type="text" id="daterange" name="daterange" value="" readonly /> </div>
+                                {{ include('reservation/_form.html.twig') }} 
+                            </div> {# fin du texte haut de la card de la réservation #}
+                        {% endif %}  
+                    </div> 
+                </div>{# fin de la card de la réservation #}
+            </div>
+    </div>
 {% endblock %}

@@ -7,26 +7,34 @@ use App\Entity\Hotel;
 use App\Form\PhotoHotelType;
 use App\Repository\PhotoRepository;
 use Gedmo\Sluggable\Util\Urlizer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/photo-hotel')]
+#[Security("is_granted('ROLE_GERANT')", statusCode: 404)]
+#[Route('/photo-hotel/{hotel}')]
 class PhotoHotelController extends AbstractController
 {
     #[Route('/', name: 'app_photo_index', methods: ['GET'])]
-    public function index(PhotoRepository $photoRepository): Response
+    public function index(Hotel $hotel, PhotoRepository $photoRepository): Response
     {
+        if ($hotel->getGerant() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
         return $this->render('photo-hotel/index.html.twig', [
-            'photos' => $photoRepository->findAll(),
+            'photos' => $photoRepository->findByHotel($hotel),
         ]);
     }
 
     #[Route('/new', name: 'app_photo_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, PhotoRepository $photoRepository): Response
+    public function new(Hotel $hotel, Request $request, PhotoRepository $photoRepository): Response
     {
+        if ($hotel->getGerant() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
         $photos= [];
         $form = $this->createForm(PhotoHotelType::class, $photos);
         $form->handleRequest($request);
@@ -66,16 +74,22 @@ class PhotoHotelController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_photo_show', methods: ['GET'])]
-    public function show(Photo $photo): Response
+    public function show(Hotel $hotel, Photo $photo): Response
     {
+        if ($hotel->getGerant() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
         return $this->render('photo-hotel/show.html.twig', [
             'photo' => $photo,
         ]);
     }
 
     #[Route('/{id}/edit/{cover}', name: 'app_photo_edit', methods: ['GET', 'POST'])]
-    public function edit(Hotel $id, Photo $photo, PhotoRepository $photoRepository, $cover): Response
+    public function edit(Hotel $hotel, Hotel $id, PhotoRepository $photoRepository, $cover): Response
     {
+        if ($hotel->getGerant() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
         
         $photoOfThisHotel = $photoRepository->findByHotel($id);
             foreach($photoOfThisHotel as $photo)
@@ -90,16 +104,17 @@ class PhotoHotelController extends AbstractController
                 
             }
             
-        
-
         return $this->render('photo-hotel/index.html.twig', [
             'photos' => $photoRepository->findAll(),
         ]);
     }
 
     #[Route('/{id}', name: 'app_photo_delete', methods: ['POST'])]
-    public function delete(Request $request, Photo $photo, PhotoRepository $photoRepository): Response
+    public function delete(Hotel $hotel, Request $request, Photo $photo, PhotoRepository $photoRepository): Response
     {
+        if ($hotel->getGerant() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
         if ($this->isCsrfTokenValid('delete'.$photo->getId(), $request->request->get('_token'))) {
             $folder = $this->getParameter('kernel.project_dir').'/public/uploads/photos/';
             $path = $folder . $photo->getLien();
@@ -109,6 +124,8 @@ class PhotoHotelController extends AbstractController
             $photoRepository->remove($photo);
         }
 
-        return $this->redirectToRoute('app_photo_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_photo_index', [
+            'hotel' => $photo->getHotel()->getId(),
+        ], Response::HTTP_SEE_OTHER);
     }
 }

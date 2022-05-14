@@ -1,0 +1,158 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Hypnos{% endblock %}
+
+{% block body %}
+    <h2>Bienvenue !</h2>
+    <div class="container large-width">
+        <div class="row align-items-start">
+            <div class="col-12 col-lg-2 left-col d-none d-lg-inline">
+                 {{ include('hotel/_aside_hotels.html.twig') }}
+            </div>
+            <div class="col-12 col-lg-6 left-col m-0">
+                <img class="logo mx-auto d-block" src="{{ asset('images/logo.PNG') }}" alt="Logo Hypnos" />
+                <h1 class="title mx-auto d-block">Hypnos</h1>
+                <p class="card-text p-3">Le Groupe « Les Hôtels Hypnos » est une entreprise familiale mais surtout une identité, 
+                cultivée depuis la création de l’entreprise en 1992.</p>
+                <p class="card-text p-3">En 2017, un nouveau label a été inauguré pour marquer la « Révolution » de l’entreprise, résolument tournée vers l’avenir, une collection d'hôtels, de resorts, de restaurants, de bars, de clubs, de spas et d'espaces de travail.</p>
+                
+                
+                
+                <div class="accordion" id="accordionAccueil">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading1">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                Moxy Lille City
+                            </button>
+                        </h2>
+                        <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1" data-bs-parent="#accordionAccueil">
+                            <div class="accordion-body">
+                                <p class="card-text">La collection Signature met à l’honneur des lieux de vie expérientiels regroupant hébergement luxueux, espaces « Food & Beverage » pointus et des laboratoires d’idées, d’univers où la famille Machefert laisse libre cours à son imagination et à son amour inconditionnel pour le voyage.</p>
+                                <p class="card-text">Ce lancement a été renforcé par des programmes de rénovation couvrant 9 établissements en 2017 et 8 établissements en 2018 sur les 20 hôtels du Groupe à Paris, Saint-Tropez et Marrakech.</p>   
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                The Garden
+                            </button>
+                        </h2>
+                        <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordionAccueil">
+                            <div class="accordion-body">
+                                <p class="card-text">At Strasbourg Centre - The Garden, you’ll find contemporary style, an eco-friendly ethos, and a prestigious location in the heart of the city.</p>
+                                <p class="card-text">If you’re here to work, you’re in the right place. The electric H bus line can whisk you to the European Parliament in a matter of minutes, and there's easy access to the Archipel-Wacken business district and the Palais des Congrès convention centre. Curious about the city? Climb the cathedral tower and explore the canals of Petite France on the UNESCO-listed Grande Île, just a short walk away. Nearby strasbourg station has direct trains to the airport and cities all over France.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                                Le Grand Balcon
+                            </button>
+                        </h2>
+                        <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#accordionAccueil">
+                            <div class="accordion-body">
+                                <p class="card-text">Furnished with natural materials, our quiet guest rooms all have free Wi-Fi, quality bedding and tiled bathrooms with powerful showers. Premium rooms add a sofa bed for families, while separate living rooms and private terraces make our Suites the perfect place for a romantic retreat.</p>
+                                <p class="card-text">Tropical plants and living walls flourish in all our public spaces, while the restaurant and lounge bar have secluded garden terraces that invite you to linger over your buffet breakfast or a drink after work. Our LOTUS meeting room has garden views, and space for 45 guests. Or you can relax and enjoy a swim, a steam in our hammam, or a massage in the spa.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading4">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                                Le Boutique
+                            </button>
+                        </h2>
+                        <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordionAccueil">
+                            <div class="accordion-body">
+                                <p class="card-text">Cet hôtel dispose de 4 chambres dans une maison de ville de style bourgeois, en plein cœur de Bordeaux. Une décoration unique et soignée, des jacuzzis privatifs, et une terrasse idéale pour prendre un verre en début de soirée, voilà de quoi vous combler !</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading5">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                                Saxe Lafayette
+                            </button>
+                        </h2>
+                        <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#accordionAccueil">
+                            <div class="accordion-body">
+                                <p class="card-text">Exemplary service, contemporary comforts and a prime central location.</p>
+                                <p class="card-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading6">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                                Azur Riviera
+                            </button>
+                        </h2>
+                        <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6" data-bs-parent="#accordionAccueil">
+                            <div class="accordion-body">
+                                <p class="card-text">Exemplary service, contemporary comforts and a prime central location.</p>
+                                <p class="card-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading7">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                                La Closerie
+                            </button>
+                        </h2>
+                        <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading7" data-bs-parent="#accordionAccueil">
+                            <div class="accordion-body">
+                                <p class="card-text">Exemplary service, contemporary comforts and a prime central location.</p>
+                                <p class="card-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                
+                
+                
+                
+                <div class="d-none d-lg-block" id="accordionAccueil">
+                    <p>Moxy Lille City</p>
+                    <p class="card-text">La collection Signature met à l’honneur des lieux de vie expérientiels regroupant hébergement luxueux, espaces « Food & Beverage » pointus et des laboratoires d’idées, d’univers où la famille Machefert laisse libre cours à son imagination et à son amour inconditionnel pour le voyage.</p>
+                    <p class="card-text">Ce lancement a été renforcé par des programmes de rénovation couvrant 9 établissements en 2017 et 8 établissements en 2018 sur les 20 hôtels du Groupe à Paris, Saint-Tropez et Marrakech.</p>
+                    <p>The Garden</p>
+                    <p class="card-text">At Strasbourg Centre - The Garden, you’ll find contemporary style, an eco-friendly ethos, and a prestigious location in the heart of the city.</p>
+                    <p class="card-text">If you’re here to work, you’re in the right place. The electric H bus line can whisk you to the European Parliament in a matter of minutes, and there's easy access to the Archipel-Wacken business district and the Palais des Congrès convention centre. Curious about the city? Climb the cathedral tower and explore the canals of Petite France on the UNESCO-listed Grande Île, just a short walk away. Nearby strasbourg station has direct trains to the airport and cities all over France.</p>
+                    <p>Le Grand Balcon</p>
+                    <p class="card-text">Furnished with natural materials, our quiet guest rooms all have free Wi-Fi, quality bedding and tiled bathrooms with powerful showers. Premium rooms add a sofa bed for families, while separate living rooms and private terraces make our Suites the perfect place for a romantic retreat.</p>
+                    <p class="card-text">Tropical plants and living walls flourish in all our public spaces, while the restaurant and lounge bar have secluded garden terraces that invite you to linger over your buffet breakfast or a drink after work. Our LOTUS meeting room has garden views, and space for 45 guests. Or you can relax and enjoy a swim, a steam in our hammam, or a massage in the spa.</p>
+                    <p>Le Boutique</p>
+                    <p class="card-text">Cet hôtel dispose de 4 chambres dans une maison de ville de style bourgeois, en plein cœur de Bordeaux. Une décoration unique et soignée, des jacuzzis privatifs, et une terrasse idéale pour prendre un verre en début de soirée, voilà de quoi vous combler !</p>
+                    <p>Saxe Lafayette</p>
+                    <p class="card-text">Exemplary service, contemporary comforts and a prime central location.</p>
+                    <p class="card-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    <p>Azur Riviera</p>
+                    <p class="card-text">Exemplary service, contemporary comforts and a prime central location.</p>
+                    <p class="card-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    <p>La Closerie</p>
+                    <p class="card-text">Exemplary service, contemporary comforts and a prime central location.</p>
+                    <p class="card-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4 g-0">
+                {% for i in 0..4 %}
+                <div class="d-flex {{ i is not same as(0) ? "d-none d-lg-inline" : "d-lg-inline" }}">
+                    {{ include('accueil/_slider.html.twig') }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

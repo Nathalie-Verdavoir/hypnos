@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservations{% endblock %}
+
+{% block body %}
+    <h2>Les Réservations{{ app.user and "ROLE_GERANT" in app.user.roles ? ' - ' ~  app.user.hotel : ""}}</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Nuitée(s)</th>
+                <th>Prix total</th>
+                <th>Chambre</th>
+                <th>Client</th>
+                <th>Mail</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            {% if reservation %}
+                <tr>
+                    <td>{{ reservation.debut ? reservation.debut|date('d.m.Y') : '' }}</td>
+                    <td>{{ reservation.fin ? reservation.fin|date('d.m.Y') : '' }}</td>
+                    {% set difference = date(reservation.fin).diff(date(reservation.debut)) %}
+                    {% set leftDays = difference.days %}
+                    <td>{{ leftDays }}</td>
+                    <td>{{ leftDays*reservation.chambre.prix }} €</td>
+                    <td>{{ reservation.chambre }}
+                    </td>
+                    <td>{{ reservation.client.nom }} {{ reservation.client.prenom }}</td>
+                    <td>{{ reservation.client.email }}</td>
+                    <td>
+                        <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
+                        <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                    <tr>
+                        <td colspan="4">Pas de réservation pour le moment</td>
+                    </tr> 
+            {% endif %} 
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

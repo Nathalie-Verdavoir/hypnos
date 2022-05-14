@@ -3,9 +3,70 @@
 {% block title %}New Hotel{% endblock %}
 
 {% block body %}
-    <h1>Mon Hôtel</h1>
-
-    {{ include('hotel/_form.html.twig') }}
-
-    <a href="{{ path('app_hotel_index') }}">Retour à la liste</a>
+    <h2>Ajouter un nouvel Hôtel</h2>
+    <div class="container">
+        {{ form_start(form) }}
+        <div class="row m-2">
+            <div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
+                {{ form_label(form.nom, 'Le nom de l\'hôtel') }}
+            </div>
+            <div class="col-12 col-lg-3">
+                {{ form_widget(form.nom) }}
+            </div>
+        </div>
+         {{ form_errors(form.nom) }}
+        <div class="row m-2">
+            <div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
+                {{ form_label(form.ville, 'La ville') }}
+            </div>
+            <div class="col-12 col-lg-3">
+                {{ form_widget(form.ville) }}
+            </div>
+        </div>
+         {{ form_errors(form.ville) }}
+        <div class="row m-2">
+            <div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
+                {{ form_label(form.description, 'Sa description') }}
+            </div>
+            <div class="col-12 col-lg-3">
+                {{ form_widget(form.description) }}
+            </div>
+        </div>
+         {{ form_errors(form.description) }}
+        <div class="row m-2">
+            <div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
+                {{ form_label(form.adresse, 'L\'adresse') }}
+            </div>
+            <div class="col-12 col-lg-3">
+                {{ form_widget(form.adresse) }}
+            </div>
+        </div>
+         {{ form_errors(form.adresse) }}
+        <div class="row m-2">
+            <div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
+                {{ form_label(form.gerant, 'Son gérant') }}
+            </div>
+            <div class="col-12 col-lg-3">
+                {{ form_widget(form.gerant) }}
+            </div>
+        </div>
+         {{ form_errors(form.gerant) }}
+        
+        <div class="row m-2">
+            <div class="col-3 col-lg-3"></div>
+            <div class="col-9 col-lg-3"> 
+                <button type="submit" class="btn m-3 d-inline-flex align-items-center">
+                    <span class="col inline">
+                        {{ button_label|default('Enregistrer') }}
+                    </span>
+                    <span class="col inline">
+                        {% include 'boutons/save.html.twig' %} 
+                    </span>
+                </button>
+            </div>
+        </div>
+           
+        {{ form_end(form) }}
+    </div>
+    
 {% endblock %}

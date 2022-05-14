@@ -1,0 +1,46 @@
+{% if hotels|length > 0 %}
+    
+        {% for hotel in hotels %}
+            <div class="card m-3">
+                {% if hotel.photo|length > 0 %}
+                    {% for pic in hotel.photo %}
+                        {% if pic.cover %}
+                            <img src="{{ asset('uploads/photos/') }}{{pic.lien}}" class="card-img-top m-0 h-auto w-100 p-0" alt="photo de la hotel">
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <img src="{{ asset('uploads/photos/') }}nopic.jpg" class="card-img-top m-0 h-auto w-100 p-0" alt="aucune photo disponible">
+                {% endif %}
+                <div class="card-body p-0">
+                    <h3 class="card-title">{{ hotel.nom }}</h3>
+                        <div class="container">
+                            <div class="row align-items-start">
+                                <div class="col col-12 col-lg-6 g-2">
+                                    <p class="card-text">{{ hotel.ville }}</p>
+                                </div>
+                                <div class="col col-12 col-lg-6 g-2">
+                                    <a class="btn btn-primary iconic m-1" href="{{ path('app_hotel_show', {'id': hotel.id}) }}" title="Voir">
+                                        {% include 'boutons/voir.html.twig' %}
+                                    </a>       
+                                    {% if app.user and app.user.hotel and app.user.hotel is same as(hotel) %} 
+                                        <a class="btn btn-primary iconic m-1" href="{{ path('app_hotel_edit', {'id': hotel.id}) }}" title="Editer cette hotel">
+                                            {% include 'boutons/edit.html.twig' %}
+                                        </a>
+                    
+                                        <a class="btn btn-primary iconic m-1" href="{{ path('app_photo_index', {'hotel': hotel.id}) }}" title="Voir les photos de cet hotel">
+                                            {% include 'boutons/edit-photos.html.twig' %}
+                                        </a>
+                                    {% endif %}
+                                </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+           
+            {% endfor %}
+          
+            
+            
+        {% else %}
+           Aucune photo 
+        {% endif %}

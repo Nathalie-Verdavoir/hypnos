@@ -3,11 +3,12 @@
 {% block title %}Edit Photo{% endblock %}
 
 {% block body %}
-    <h1>Edit Photo</h1>
+    <h2>Edit Photo</h2>
 
     {{ include('photo-hotel/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_photo_index') }}">Retour à la liste des photos</a>
-
+    <a class="btn m-3" href="{{ path('app_photo_index', {'hotel': app.request.get('hotel')}) }}" title="Retour à la liste des photos">
+        {% include 'boutons/return.html.twig' %}
+    </a>
     {{ include('photo-hotel/_delete_form.html.twig') }}
 {% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservations - Hypnos{% endblock %}
+
+{% block body %}
+    <h2>Vos Réservations</h2>
+    <div class="container">
+        <div class="row card-deck">
+            {% for reservation in reservations %}
+                    <div class="col col-12 col-lg-3 g-2 d-flex align-content-stretch flex-wrap">
+                        <div class="card reservation mb-2">
+                            {% for photo in reservation.chambre.photo %}
+                                {% if photo.cover %}
+                                    <img src="{{ asset('/uploads/photos/')  }}{{ photo.lien}}" class="card-img-top reservation photo-show" alt="photo de la chambre">
+                                {% endif %} 
+                            {% endfor %}
+                            <div class="card-body">
+                                <h4 class="card-title fw-bold green-1-text">
+                                    <a href="{{ path('app_chambres_show', {'id': reservation.chambre.id}) }}">
+                                        {{ reservation.chambre }}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class=" align-baseline  bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                                            <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+                                        </svg>
+                                    </a>
+                                </h4>
+                                <h4 class="card-title green-1-text">{{ reservation.chambre.hotel }}</h4>
+                                <h5 class="card-title green-1-text">à {{ reservation.chambre.hotel.ville }}</h5>
+                               </div>
+                            <div class="card-footer 
+                            {{ reservation.debut|date_modify('-3 day')|date('Y-m-d') < "now"|date('Y-m-d') ? 'old' : '' }}
+                             d-flex flex-column">  
+                                <p class="card-text">Réservée du {{ reservation.debut ? reservation.debut|date('d.m.Y') : '' }} au {{ reservation.fin ? reservation.fin|date('d.m.Y') : '' }} </p>
+                                {% set difference = date(reservation.fin).diff(date(reservation.debut)) %}
+                                {% set leftDays = difference.days %}
+                                <p class="card-text text-end">{{ leftDays }} nuitées pour un total de {{ leftDays*reservation.chambre.prix }} € </p>
+                                <span class="align-self-end">
+                                {% if reservation.debut|date_modify('-3 day')|date('Y-m-d') > "now"|date('Y-m-d') %}
+                                    {{ include('reservation/_delete_form.html.twig') }}
+                                {% else %} 
+                                    Impossible d'annuler cette réservation en ligne.
+                                {% endif %}  
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <h3>Aucune réservation</h3>
+                {% endfor %} 
+        </div>
+    </div>
+{% endblock %}

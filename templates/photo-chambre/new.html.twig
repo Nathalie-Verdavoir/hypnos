@@ -3,9 +3,12 @@
 {% block title %}New Photo{% endblock %}
 
 {% block body %}
-    <h1>Ajouter des Photos</h1>
+    <h2>Ajouter des Photos</h2>
 
     {{ include('photo-chambre/_form.html.twig') }}
 
-    <a href="{{ path('app_photo_chambre_index', {'chambre': app.request.get('chambre')}) }}">Retour à la liste des photos</a>
+    
+    <a class="btn m-3" href="{{ path('app_photo_chambre_index', {'chambre': app.request.get('chambre')}) }}" title="Retour à la liste des photos">
+        {% include 'boutons/return.html.twig' %}
+    </a>
 {% endblock %}
