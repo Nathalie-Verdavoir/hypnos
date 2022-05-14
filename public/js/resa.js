@@ -49,20 +49,9 @@ const fetchInfoResaChambre = chambreTo =>  $.getJSON({
 });
 
 
-//fill daterange with infos of early booking from url(set before login redirection)
-if(get_query('resa_debut') && !window.location.href.match('login')){
-    startDate = new Date(get_query('resa_debut')*1000);
-    endDate =  new Date(get_query('resa_fin')*1000);
-    setTimeout(function () {$(`#chambreSelector option[value='${get_query('resa_chambre')}']`).attr('selected','') }, 500);
-    fetchInfoResaChambre(get_query('resa_chambre'));
-}else{ //or with today and tomorrow dates
-    startDate = moment().startOf('day');
-    endDate = moment().startOf('day').add(1, 'day');
-}
-
 const emptyDatePicker = () => $(function () {
     $('input[name="daterange"]').daterangepicker();
-    resetDatePicker();
+    resetDatePicker();showPrice();
 });
 
 //fill hidden booking form with daterange infos (picker = $('#daterange').data('daterangepicker'))
@@ -202,6 +191,18 @@ const addEventOnChangeOnChambre = () => $(function () {
     $('input[name="daterange"]').get(0).click();
     $('.applyBtn').get(0).click();
  });
+
+//fill daterange with infos of early booking from url(set before login redirection)
+if(get_query('resa_debut') && !window.location.href.match('login')){
+    startDate = new Date(get_query('resa_debut')*1000);
+    endDate =  new Date(get_query('resa_fin')*1000);
+    setTimeout(function () {$(`#chambreSelector option[value='${get_query('resa_chambre')}']`).attr('selected','') }, 500);
+    fetchInfoResaChambre(get_query('resa_chambre'));
+    
+}else{ //or with today and tomorrow dates
+    startDate = moment().startOf('day');
+    endDate = moment().startOf('day').add(1, 'day');
+}
 
  $( document ).ready(function () {
     if(window.location.href.match('chambres/') && typeof chambre !== "undefined") {
