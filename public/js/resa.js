@@ -118,7 +118,7 @@ const applyRange = (e,picker) => {
     }
 }
 
-//build daterange picket and add event on it
+//build daterange picker and add event on it
 const resetDatePicker = () => $(function () {
     $('input[name="daterange"]').daterangepicker({
         isInvalidDate: function(arg){
