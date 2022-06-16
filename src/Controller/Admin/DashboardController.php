@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
-    #[Security("is_granted('ROLE_ADMIN')", statusCode: 404)]
+    #[Security("is_granted('ROLE_ADMIN')", statusCode: 403)]
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {

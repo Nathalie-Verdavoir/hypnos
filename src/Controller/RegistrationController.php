@@ -44,7 +44,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Security("is_granted( 'ROLE_ADMIN')", statusCode: 404)]
+    #[Security("is_granted( 'ROLE_ADMIN')", statusCode: 403)]
     #[Route('/register_gerant', name: 'app_register_gerant')]
     public function registerG(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
