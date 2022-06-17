@@ -1,3 +1,26 @@
+framework:
+    rate_limiter:
+        # define 2 rate limiters (one for username+IP, the other for IP)
+        username_ip_login:
+            policy: token_bucket
+            limit: 5
+            rate: { interval: '5 minutes' }
+
+        ip_login:
+            policy: sliding_window
+            limit: 50
+            interval: '15 minutes'
+
+services:
+    # our custom login rate limiter
+    app.login_rate_limiter:
+        class: Symfony\Component\Security\Http\RateLimiter\DefaultLoginRateLimiter
+        arguments:
+            # globalFactory is the limiter for IP
+            $globalFactory: '@limiter.ip_login'
+            # localFactory is the limiter for username+IP
+            $localFactory: '@limiter.username_ip_login'
+            
 security:
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
@@ -32,6 +55,22 @@ security:
                 # "login" is the name of the route created previously
                 login_path: login
                 check_path: login
+            
+            # by default, the feature allows 5 login attempts per minute
+            #login_throttling: null
+
+            # configure the maximum login attempts (per minute)
+            #login_throttling:
+                #max_attempts: 3
+
+            # configure the maximum login attempts in a custom period of time
+            #login_throttling:
+                #max_attempts: 3
+                #interval: '15 minutes'
+
+            # use a custom rate limiter via its service ID
+            login_throttling:
+                limiter: app.login_rate_limiter
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
