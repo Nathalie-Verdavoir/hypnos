@@ -21,19 +21,22 @@
                                 <div class="col col-12 col-lg-6 g-2">
                                     <a class="btn btn-primary iconic m-1" href="{{ path('app_hotel_show', {'id': hotel.id}) }}" title="Voir">
                                         {% include 'boutons/voir.html.twig' %}
-                                    </a>       
-                                    {% if app.user and app.user.hotel and app.user.hotel is same as(hotel) %} 
-                                        <a class="btn btn-primary iconic m-1" href="{{ path('app_hotel_edit', {'id': hotel.id}) }}" title="Editer cette hotel">
+                                    </a>
+                                </div>
+                                 {% if app.user and app.user.hotel and app.user.hotel is same as(hotel) %} 
+                                    <div class="col col-12 col-lg-6 g-2">
+                                        <a class="btn btn-primary iconic m-1" href="{{ path('app_hotel_edit', {'id': hotel.id}) }}" title="Editer cet hotel">
                                             {% include 'boutons/edit.html.twig' %}
                                         </a>
-                    
+                                    </div>
+                                    <div class="col col-12 col-lg-6 g-2">
                                         <a class="btn btn-primary iconic m-1" href="{{ path('app_photo_index', {'hotel': hotel.id}) }}" title="Voir les photos de cet hotel">
                                             {% include 'boutons/edit-photos.html.twig' %}
                                         </a>
-                                    {% endif %}
-                                </div>
-                    </div>
-                    </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
                 </div>
             </div>
            
