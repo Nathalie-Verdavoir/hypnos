@@ -15,5 +15,5 @@
         {% endif %}
         {{ include('photo-chambre/_delete_form.html.twig') }}
     {% endif %}
-    <img src="{{ asset('/uploads/photos/')  }}{{ photo.lien}}" class="photo-show">
+    <img src="https://res.cloudinary.com/hypnosimages/{{ photo.lien}}" class="photo-show">
 {% endblock %}

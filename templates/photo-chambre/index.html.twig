@@ -21,7 +21,7 @@
             {% if photo.chambres.id == app.request.get('chambre') %}
             <div class="col col-12 col-lg-3 g-2">
                 <div class="card card-photo-hotel m-2 ">
-                    <img src="{{ asset('/uploads/photos/')  }}{{ photo.lien}}" class="card-img-top" alt="photo de l'hôtel" title="{{ photo.lien }}">
+                    <img src="https://res.cloudinary.com/hypnosimages/{{ photo.lien}}" class="card-img-top" alt="photo de l'hôtel" title="{{ photo.lien }}">
                     <div class="card-body">
                         <a class="btn btn-primary iconic" href="{{ path('app_photo_chambre_show', {'chambre': app.request.get('chambre'),'id': photo.id}) }}" title="Voir">
                             {% include 'boutons/voir.html.twig' %}

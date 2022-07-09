@@ -4,7 +4,7 @@
         {% for photo in photos %}
            {% set randomPic = photos[random(0, photos|length - 1)] %}
             <div class="carousel-item mx-auto {{ slidev == 0 ? "active" : ""}}">
-                <img src="{{ asset('uploads/photos/') }}{{randomPic.lien}}" class="card-img-top slider " alt="photo de la hotel">
+                <img src="https://res.cloudinary.com/hypnosimages/{{randomPic.lien}}" class="card-img-top slider " alt="photo de la hotel">
                 <div class="card-img-overlay announcement-2 etage-1">
                     <h2 class="beige-1-text">{{ randomPic.hotel ? randomPic.hotel.nom : randomPic.chambres.hotel.nom}}</h2>
                 </div>

@@ -5,11 +5,11 @@
                 {% if hotel.photo|length > 0 %}
                     {% for pic in hotel.photo %}
                         {% if pic.cover %}
-                            <img src="{{ asset('uploads/photos/') }}{{pic.lien}}" class="card-img-top m-0 h-auto w-100 p-0" alt="photo de la hotel">
+                            <img src="https://res.cloudinary.com/hypnosimages/{{pic.lien}}" class="card-img-top m-0 h-auto w-100 p-0" alt="photo de la hotel">
                         {% endif %}
                     {% endfor %}
                 {% else %}
-                    <img src="{{ asset('uploads/photos/') }}nopic.jpg" class="card-img-top m-0 h-auto w-100 p-0" alt="aucune photo disponible">
+                    <img src="https://res.cloudinary.com/hypnosimages/nopic.jpg" class="card-img-top m-0 h-auto w-100 p-0" alt="aucune photo disponible">
                 {% endif %}
                 <div class="card-body p-0">
                     <h3 class="card-title">{{ hotel.nom }}</h3>

@@ -11,7 +11,7 @@
                         <div class="card reservation mb-2">
                             {% for photo in reservation.chambre.photo %}
                                 {% if photo.cover %}
-                                    <img src="{{ asset('/uploads/photos/')  }}{{ photo.lien}}" class="card-img-top reservation photo-show" alt="photo de la chambre">
+                                    <img src="https://res.cloudinary.com/hypnosimages/{{ photo.lien}}" class="card-img-top reservation photo-show" alt="photo de la chambre">
                                 {% endif %} 
                             {% endfor %}
                             <div class="card-body">

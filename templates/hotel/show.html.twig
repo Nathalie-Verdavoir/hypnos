@@ -49,7 +49,7 @@
                             <div class="carousel-inner">
                                 {% for pic in hotel.photo %}
                                 <div class="carousel-item {{ pic  is same as(hotel.photo[0]) ? "active" : ""}}">
-                                <img src="{{ asset('uploads/photos/') }}{{ pic.lien }}" class="d-block w-100" alt="photo de l'hôtel">
+                                <img src="https://res.cloudinary.com/hypnosimages/{{ pic.lien }}" class="d-block w-100" alt="photo de l'hôtel">
                                 </div>
                                 {% endfor %}
                             </div>
@@ -78,11 +78,11 @@
                                             {% if chambre.photo|length > 0 %}
                                                 {% for pic in chambre.photo %}
                                                     {% if pic.cover %}
-                                                        <img src="{{ asset('uploads/photos/') }}{{pic.lien}}" class="w-100" alt="photo de la chambre">
+                                                        <img src="https://res.cloudinary.com/hypnosimages/{{pic.lien}}" class="w-100" alt="photo de la chambre">
                                                     {% endif %}
                                                 {% endfor %}
                                             {% else %}
-                                                <img src="{{ asset('uploads/photos/') }}nopic.jpg" class="w-100" alt="aucune photo disponible">
+                                                <img src="https://res.cloudinary.com/hypnosimages/nopic.jpg" class="w-100" alt="aucune photo disponible">
                                             {% endif %}      
                                         </a>
                                         <div class="card-body">

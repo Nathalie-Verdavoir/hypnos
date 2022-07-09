@@ -32,11 +32,11 @@
                 {% if hotel.photo|length > 0 %}
                     {% for pic in hotel.photo %}
                         {% if pic.cover %}
-                            <img class="w-100" src="{{ asset('uploads/photos/') }}{{pic.lien}}" alt="photo de la hotel">
+                            <img class="w-100" src="https://res.cloudinary.com/hypnosimages/{{pic.lien}}" alt="photo de la hotel">
                         {% endif %}
                     {% endfor %}
                 {% else %}
-                    <img class="w-100" src="{{ asset('uploads/photos/') }}nopic.jpg" alt="aucune photo disponible">
+                    <img class="w-100" src="https://res.cloudinary.com/hypnosimages/nopic.jpg" alt="aucune photo disponible">
                 {% endif %}
                 </a>
                 <div class="card-body">
