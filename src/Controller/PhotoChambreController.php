@@ -126,6 +126,7 @@ class PhotoChambreController extends AbstractController
             if($result['result']=='ok'){
                 $this->addFlash('success', 'Votre image a été supprimée'.' ('.substr($path, 0,  strrpos($path, ".")).')');
                 $photoRepository->remove($photo);
+                
             }
         }
 
