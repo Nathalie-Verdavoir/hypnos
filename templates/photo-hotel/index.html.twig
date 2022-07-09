@@ -4,7 +4,7 @@
 
 {% block body %}
     <h2>Photos de mon Hôtel</h2>
-    <a class="btn btn-primary m-3 d-inline-flex align-items-center" href="{{ path('app_photo_new', {'hotel' : app.user.getHotel }) }}">
+    <a class="btn btn-primary m-3 d-inline-flex align-items-center" href="{{ path('app_photo_new', {'hotel' : app.user.getHotel.id }) }}">
             Ajouter des photos
         <span class="col inline">
             {% include 'boutons/add-photos.html.twig' %}
