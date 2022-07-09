@@ -4,5 +4,6 @@
 
 return array (
   'APP_ENV' => 'prod',
-  'CORS_ALLOW_ORIGIN'=>"*"
+  'CORS_ALLOW_ORIGIN'=>"*",
+  'LOCK_DSN'=>'flock'
 );
