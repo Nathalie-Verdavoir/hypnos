@@ -56,7 +56,7 @@ class PhotoChambreController extends AbstractController
                         $destination,
                         $newFilename . $newFileExt,
                         0777
-                    );$this->addFlash('success', 'Votre image a été enregistrée1');
+                    );
                     (new ImageUploader())->upload(  $destination.'/'.$newFilename.$newFileExt,["public_id" => $newFilename]);
                     /** @var Chambres $chambres */
                     $chambres = $chambresRepository->find($chambre);
