@@ -6,6 +6,7 @@ use App\Entity\Photo;
 use App\Entity\Hotel;
 use App\Form\PhotoHotelType;
 use App\Repository\PhotoRepository;
+use App\Service\ImageUploader;
 use Gedmo\Sluggable\Util\Urlizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
+#[Security("is_granted('ROLE_GERANT')", statusCode: 404)]
 #[Route('/photo-hotel/{hotel}')]
 class PhotoHotelController extends AbstractController
 {
@@ -48,23 +49,29 @@ class PhotoHotelController extends AbstractController
                     /** @var UploadedFile $uploadedFile */
                     $destination = $this->getParameter('kernel.project_dir').'/public/uploads/photos';
                     $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    $newFilename = Urlizer::urlize($originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+                    $newFilename = Urlizer::urlize($originalFilename).'-'.uniqid();
+                    $newFileExt = '.'.$uploadedFile->guessExtension();
                     $uploadedFile->move(
                         $destination,
-                        $newFilename,
+                        $newFilename . $newFileExt,
                         0777
                     );
+                    (new ImageUploader())->upload(  $destination.'/'.$newFilename.$newFileExt,["public_id" => $newFilename]);
                     /** @var User $gerant */
                     $gerant = $this->getUser();
                     /** @var Hotel $hotel */
                     $hotel = $gerant->getHotel();
                     $photo->setHotel($hotel);
                     $photo->setCover(false);
-                    $photo->setLien($newFilename);
+                    $photo->setLien($newFilename.$newFileExt);
                     $photoRepository->add($photo);
+                    $filesystem = new Filesystem();
+                    $filesystem->remove($destination.'/'.$newFilename.$newFileExt);
                 }
             }
-            return $this->redirectToRoute('app_photo_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_photo_index', [
+                'hotel' => $photo->getHotel()->getId(),
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('photo-hotel/new.html.twig', [
