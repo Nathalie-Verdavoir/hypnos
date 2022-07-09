@@ -1,5 +1,5 @@
 # Hypnos
-[Accéder au projet en ligne](http://hypnos-les-hotels.herokuapp.com/){: .btn}
+[Accéder au projet en ligne](http://hypnos-les-hotels.herokuapp.com/)
 ![Le logo](https://raw.githubusercontent.com/Nathalie-Verdavoir/hypnos/master/public/images/logoGithub.png)
 
 ## 1-Un projet symfony
