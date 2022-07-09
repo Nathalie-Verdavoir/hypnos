@@ -7,6 +7,7 @@ use App\Entity\Chambres;
 use App\Form\PhotoChambreType;
 use App\Repository\ChambresRepository;
 use App\Repository\PhotoRepository;
+use App\Service\ImageUploader;
 use Gedmo\Sluggable\Util\Urlizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
+#[Security("is_granted('ROLE_GERANT')", statusCode: 404)]
 #[Route('/photo-chambre/{chambre}')]
 class PhotoChambreController extends AbstractController
 {
@@ -49,18 +50,22 @@ class PhotoChambreController extends AbstractController
                     /** @var UploadedFile $uploadedFile */
                     $destination = $this->getParameter('kernel.project_dir').'/public/uploads/photos';
                     $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    $newFilename = Urlizer::urlize($originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+                    $newFilename = Urlizer::urlize($originalFilename).'-'.uniqid();
+                    $newFileExt = '.'.$uploadedFile->guessExtension();
                     $uploadedFile->move(
                         $destination,
-                        $newFilename,
+                        $newFilename . $newFileExt,
                         0777
                     );
+                    (new ImageUploader())->upload(  $destination.'/'.$newFilename.$newFileExt,["public_id" => $newFilename]);
                     /** @var Chambres $chambres */
                     $chambres = $chambresRepository->find($chambre);
                     $photo->setChambres($chambres);
                     $photo->setCover(false);
-                    $photo->setLien($newFilename);
+                    $photo->setLien($newFilename.$newFileExt);
                     $photoRepository->add($photo);
+                    $filesystem = new Filesystem();
+                    $filesystem->remove($destination.'/'.$newFilename.$newFileExt);
                 }
             }
             return $this->redirectToRoute('app_photo_chambre_index', [
