@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Security("is_granted('ROLE_GERANT')", statusCode: 404)]
+#[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
 #[Route('/photo-hotel/{hotel}')]
 class PhotoHotelController extends AbstractController
 {
