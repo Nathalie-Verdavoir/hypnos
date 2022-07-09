@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/chambres')]
 class ChambresController extends AbstractController
 {
-    #[Security("is_granted('ROLE_GERANT')", statusCode: 404)]
+    #[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
     #[Route('/', name: 'app_chambres_index', methods: ['GET'])]
     public function index(ChambresRepository $chambresRepository): Response
     {
@@ -27,7 +27,7 @@ class ChambresController extends AbstractController
         ]);
     }
 
-    #[Security("is_granted('ROLE_GERANT')", statusCode: 404)]
+    #[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
     #[Route('/new', name: 'app_chambres_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ChambresRepository $chambresRepository): Response
     {
@@ -87,7 +87,7 @@ class ChambresController extends AbstractController
         ]);
     }
     
-    #[Security("is_granted('ROLE_GERANT')", statusCode: 404)]
+    #[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
     #[Route('/{id}/edit', name: 'app_chambres_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Chambres $chambre, ChambresRepository $chambresRepository): Response
     {
@@ -105,7 +105,7 @@ class ChambresController extends AbstractController
         ]);
     }
 
-    #[Security("is_granted('ROLE_GERANT')", statusCode: 404)]
+    #[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
     #[Route('/{id}', name: 'app_chambres_delete', methods: ['POST'])]
     public function delete(Request $request, Chambres $chambre, ChambresRepository $chambresRepository): Response
     {
