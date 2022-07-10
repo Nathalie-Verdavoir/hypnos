@@ -310,6 +310,23 @@ div > ul > li {
   font-size: 1.5rem;
 }
 
+/*flash message */
+.alert-success {
+    color: var(--color-green-5);
+    background-color: var(--color-green-1);
+    border-color: var(--color-green-2);
+    top: 5vh;
+    left: 5vh;
+    z-index: 100;
+    font-size: 1rem;
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+}
+.alert {
+  position: fixed;
+  margin: 0;
+}
+
 footer {
   background-color: var(--color-green-5);
   color: #d0ccb6;

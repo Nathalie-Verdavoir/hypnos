@@ -25,13 +25,12 @@
             <script type="text/javascript" src="{{ asset('js/resa.js') }}"></script>
            
                 <script type="text/javascript">
-
                     let user = {
                     id:  {{app.user ? app.user.id : 'null'}},
                     };
                 </script>
-            {% if app.request.attributes.get('_route') !=  'app_photo_chambre_index' %}
-                {% if app.request.get('chambre')  %}
+            {% if not app.request.attributes.get('_route') matches '{/photo/}'   %}
+                {% if app.request.get('chambre') %}
                     <script type="text/javascript">
                         chambre = {
                         id:  {{ (app.request.get('chambre') matches '{^[\d\.]+$}') is same as(0) ? app.request.get('chambre').id : app.request.get('chambre')}},
@@ -42,15 +41,22 @@
         {% endblock %}
     </head>
     <body>
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-        {% endfor %}
+       
         {% include 'header.html.twig' %}
         <main>
+         {% for message in app.flashes('success') %}
+            <span id="alert" class="alert alert-success d-inline">
+                {{ message }}
+            </span>
+        {% endfor %}
         {% block body %}{% endblock %}
         </main>
         {% include 'footer.html.twig' %}
+        <script type="text/javascript">
+            if(document.getElementById('alert')) {
+                 let alertMessage = document.getElementById('alert');
+                 setTimeout(() => {alertMessage.remove()}, 5000);
+            }
+        </script>
     </body>
 </html>
