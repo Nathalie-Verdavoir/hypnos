@@ -1,51 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Photos de mon Hôtel{% endblock %}
+{% block title %}Photos de mon Hôtel
+{% endblock %}
 
 {% block body %}
-    <h2>Photos de mon Hôtel</h2>
-    <a class="btn btn-primary m-3 d-inline-flex align-items-center" href="{{ path('app_photo_new', {'hotel' : app.user.getHotel.id }) }}">
-            Ajouter des photos
-        <span class="col inline">
-            {% include 'boutons/add-photos.html.twig' %}
-        </span>
-    </a>
-    <a class="btn m-3" href="{{ path('app_hotel_show', { 'id' : app.user.getHotel.getId })}}" title="Retour à la liste des Hôtels">
-            {% include 'boutons/return.html.twig' %}
-        </a>
-<div class="container">
-  <div class="row align-items-start">
-     {% if app.user and app.user.getHotel %}
-        {% for photo in photos %}
-            {% if photo.hotel == app.user.getHotel %}
-            <div class="col col-12 col-lg-3 g-2">
-                <div class="card card-photo-hotel m-2 ">
-                    <img src="https://res.cloudinary.com/hypnosimages/{{ photo.lien}}" class="card-img-top" alt="photo de l'hôtel" title="{{ photo.lien }}">
-                    <div class="card-body">
-                        <a class="btn btn-primary iconic" href="{{ path('app_photo_show', {'id': photo.id, 'hotel' : photo.hotel.id}) }}" title="Voir">
-                            {% include 'boutons/voir.html.twig' %}
-                        </a>
-                        {% if not photo.cover %}
-                            <a class="btn btn-primary iconic" href="{{ path('app_photo_edit', {'id': photo.hotel.id,'cover': photo.id,'hotel' : photo.hotel.id}) }}"  title="Choisir comme couverture">
-                                {% include 'boutons/cover.html.twig' with {'disabled' : false } %}
-                            </a>
-                        {% else %}
-                            <a class="btn btn-primary iconic disabled" href="{{ path('app_photo_edit', {'id': photo.hotel.id,'cover': photo.id,'hotel' : photo.hotel.id}) }}"  title="Choisir comme couverture">
-                                {% include 'boutons/cover.html.twig' with {'disabled' : true } %}
-                            </a>
-                        {% endif %}
-                        {{ include('photo-hotel/_delete_form.html.twig') }}
-                    </div>
-                </div></div>
-            {% endif %}
-        {% else %}
-        
-               Aucune photo pour le moment...
-           
-        {% endfor %}
-       
- {% endif %}
- </div>
-                </div>   
-    
+	<h2>Photos de mon Hôtel</h2>
+	<a class="btn btn-primary m-3 d-inline-flex align-items-center" href="{{ path('app_photo_new', {'hotel' : app.user.getHotel.id }) }}">
+		Ajouter des photos
+		<span class="col inline">
+			{% include 'boutons/add-photos.html.twig' %}
+		</span>
+	</a>
+	<a class="btn m-3" href="{{ path('app_hotel_show', { 'id' : app.user.getHotel.getId })}}" title="Retour à la liste des Hôtels">
+		{% include 'boutons/return.html.twig' %}
+	</a>
+	<div class="container">
+		<div class="row align-items-start">
+			{% if app.user and app.user.getHotel %}
+				{% for photo in photos %}
+					{% if photo.hotel == app.user.getHotel %}
+						<div class="col col-12 col-lg-3 g-2">
+							<div class="card card-photo-hotel m-2 ">
+								<img src="https://res.cloudinary.com/hypnosimages/{{ photo.lien}}" class="card-img-top" alt="photo de l'hôtel" title="{{ photo.lien }}">
+								<div class="card-body">
+									<a class="btn btn-primary iconic" href="{{ path('app_photo_show', {'id': photo.id, 'hotel' : photo.hotel.id}) }}" title="Voir">
+										{% include 'boutons/voir.html.twig' %}
+									</a>
+									{% if not photo.cover %}
+										<a class="btn btn-primary iconic" href="{{ path('app_photo_edit', {'id': photo.hotel.id,'cover': photo.id,'hotel' : photo.hotel.id}) }}" title="Choisir comme couverture">
+											{% include 'boutons/cover.html.twig' with {'disabled' : false } %}
+										</a>
+									{% else %}
+										<a class="btn btn-primary iconic disabled" href="{{ path('app_photo_edit', {'id': photo.hotel.id,'cover': photo.id,'hotel' : photo.hotel.id}) }}" title="Choisir comme couverture">
+											{% include 'boutons/cover.html.twig' with {'disabled' : true } %}
+										</a>
+									{% endif %}
+									{{ include('photo-hotel/_delete_form.html.twig') }}
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				{% else %}
+
+					Aucune photo pour le moment...
+
+				{% endfor %}
+
+			{% endif %}
+		</div>
+	</div>
+
 {% endblock %}

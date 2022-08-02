@@ -1,15 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Photo{% endblock %}
+{% block title %}Edit Photo
+{% endblock %}
 
 {% block body %}
-    <h2>Edit Photo</h2>
+	<h2>Edit Photo</h2>
 
-    {{ include('photo-hotel/_form.html.twig', {'button_label': 'Update'}) }}
+	{{ include('photo-hotel/_form.html.twig', {'button_label': 'Update'}) }}
 
-    
-<a class="btn m-3" href="{{ path('app_photo_chambre_index', {'chambre': app.request.get('chambre')}) }}" title="Retour à la liste des photos">
-        {% include 'boutons/return.html.twig' %}
-    </a>
-    {{ include('photo-hotel/_delete_form.html.twig') }}
+
+	<a class="btn m-3" href="{{ path('app_photo_chambre_index', {'chambre': app.request.get('chambre')}) }}" title="Retour à la liste des photos">
+		{% include 'boutons/return.html.twig' %}
+	</a>
+	{{ include('photo-hotel/_delete_form.html.twig') }}
 {% endblock %}

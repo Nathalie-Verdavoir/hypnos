@@ -15,18 +15,18 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom',TextType::class, [
+            ->add('nom', TextType::class, [
                 'required' => true,
             ])
-            ->add('prenom',TextType::class, [
+            ->add('prenom', TextType::class, [
                 'required' => true,
                 'label' => 'Prénom'
             ])
-            ->add('email',EmailType::class, [
+            ->add('email', EmailType::class, [
                 'required' => true,
                 'label' => 'Adresse Email'
             ])
-            ->add('objet',ChoiceType::class, [
+            ->add('objet', ChoiceType::class, [
                 'required' => true,
                 'choices'  => [
                     'Selectionnez un objet...' => null,
@@ -40,13 +40,11 @@ class ContactType extends AbstractType
             ->add('message', TextareaType::class, [
                 'required' => true,
                 'attr' => ['rows' => 6],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-        ]);
+        $resolver->setDefaults([]);
     }
 }

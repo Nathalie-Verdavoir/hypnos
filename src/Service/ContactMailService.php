@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Service;
 
 use Symfony\Component\Mailer\MailerInterface;
 
-class ContactMailService 
+class ContactMailService
 {
     private string $from;
     private string $to;
@@ -15,15 +16,15 @@ class ContactMailService
 
     public function __construct(array $contactFormData)
     {
-        $this->from = $contactFormData['nom'].' '.$contactFormData['prenom'].' <'.$contactFormData['email'].'>';
+        $this->from = $contactFormData['nom'] . ' ' . $contactFormData['prenom'] . ' <' . $contactFormData['email'] . '>';
         $this->to = 'gestion.hypnos@gmail.com';
-        $this->subject = $contactFormData['objet'].' '.$contactFormData['nom'].' '.$contactFormData['prenom'];
-        $this->text = 'Sender : '.$contactFormData['email'].\PHP_EOL.
-        $contactFormData['message'];
-        $this->confirmFrom = 'Hypnos <'.$contactFormData['email'].'>';
+        $this->subject = $contactFormData['objet'] . ' ' . $contactFormData['nom'] . ' ' . $contactFormData['prenom'];
+        $this->text = 'Sender : ' . $contactFormData['email'] . \PHP_EOL .
+            $contactFormData['message'];
+        $this->confirmFrom = 'Hypnos <' . $contactFormData['email'] . '>';
         $this->confirmTo = $contactFormData['email'];
-        $this->confirmText = 'Votre message a bien était envoyé'.\PHP_EOL.
-        'Récapitulatif du message : '.\PHP_EOL.$contactFormData['message'];
+        $this->confirmText = 'Votre message a bien était envoyé' . \PHP_EOL .
+            'Récapitulatif du message : ' . \PHP_EOL . $contactFormData['message'];
     }
     public function sendFromContactFormData(MailerInterface $mailer)
     {
@@ -34,4 +35,3 @@ class ContactMailService
         $mailService->sendMail($this->confirmFrom, $this->confirmTo, $this->subject, $this->confirmText);
     }
 }
-

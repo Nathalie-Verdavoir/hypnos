@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
-#[ApiResource( 
+#[ApiResource(
     collectionOperations: ['get'],
     itemOperations: ['get'],
     routePrefix: '/dates',
@@ -24,15 +24,15 @@ class Reservation
 
     #[ORM\Column(type: 'date')]
     #[Groups(["read"])]
-    #[Assert\NotBlank(message:'Veuillez saisir une valeur')]
-    #[Assert\Type("\DateTimeInterface",message:'Veuillez saisir une date')]
-    #[Assert\GreaterThan("today",message:'Veuillez saisir une date future')]
+    #[Assert\NotBlank(message: 'Veuillez saisir une valeur')]
+    #[Assert\Type("\DateTimeInterface", message: 'Veuillez saisir une date')]
+    #[Assert\GreaterThan("today", message: 'Veuillez saisir une date future')]
     private $debut;
 
     #[ORM\Column(type: 'date')]
     #[Groups(["read"])]
-    #[Assert\NotBlank(message:'Veuillez saisir une valeur')]
-    #[Assert\Expression( "this.getFin() >= this.getDebut()", message:"La date de fin doit être après la date de début")]
+    #[Assert\NotBlank(message: 'Veuillez saisir une valeur')]
+    #[Assert\Expression("this.getFin() >= this.getDebut()", message: "La date de fin doit être après la date de début")]
     private $fin;
 
     #[ORM\ManyToOne(targetEntity: Chambres::class, inversedBy: 'reservations')]

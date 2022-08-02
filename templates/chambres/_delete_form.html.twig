@@ -1,9 +1,9 @@
 <form method="post" action="{{ path('app_chambres_delete', {'id': chambre.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cette chambre?');">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ chambre.id) }}">
-    <button class="btn m-3 d-inline-flex align-items-center" title="Supprimer la chambre">
-            Supprimer
-        <span class="col inline">
-            {% include 'boutons/delete.html.twig' %}
-        </span>
-    </button>
+	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ chambre.id) }}">
+	<button class="btn m-3 d-inline-flex align-items-center" title="Supprimer la chambre">
+		Supprimer
+		<span class="col inline">
+			{% include 'boutons/delete.html.twig' %}
+		</span>
+	</button>
 </form>

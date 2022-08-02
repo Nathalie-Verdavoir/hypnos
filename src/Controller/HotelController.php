@@ -45,17 +45,17 @@ class HotelController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_hotel_show', methods: ['GET', 'POST'])]
-    public function show(Request $request,Hotel $hotel, EntityManagerInterface $entityManager,$id): Response
+    public function show(Request $request, Hotel $hotel, EntityManagerInterface $entityManager, $id): Response
     {
         $reservation = new Reservation();
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) { 
+        if ($form->isSubmitted() && $form->isValid()) {
             /** @var User $user */
             $user = $this->getUser();
-            if($user==null || !in_array('ROLE_USER', $user->getRoles()) ){
-                return $this->redirectToRoute('login', [ 
+            if ($user == null || !in_array('ROLE_USER', $user->getRoles())) {
+                return $this->redirectToRoute('login', [
                     'to' => 'app_hotel_show',
                     'id' => $id,
                     'resa_debut' => $reservation->getDebut()->getTimestamp(),
@@ -70,12 +70,11 @@ class HotelController extends AbstractController
                 'client' => $user->getId(),
             ], Response::HTTP_SEE_OTHER);
         }
-        
+
         return $this->render('hotel/show.html.twig', [
             'hotel' => $hotel,
             'form' => $form->createView(),
         ]);
-        
     }
 
     #[Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_GERANT')", statusCode: 403)]
@@ -100,7 +99,7 @@ class HotelController extends AbstractController
     #[Route('/{id}', name: 'app_hotel_delete', methods: ['POST'])]
     public function delete(Request $request, Hotel $hotel, HotelRepository $hotelRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$hotel->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $hotel->getId(), $request->request->get('_token'))) {
             $hotelRepository->remove($hotel);
         }
 

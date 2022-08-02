@@ -13,12 +13,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'contact')]
-    public function index(Request $request, PhotoRepository $photoRepository,MailerInterface $mailer)
+    public function index(Request $request, PhotoRepository $photoRepository, MailerInterface $mailer)
     {
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
-        
-        if($form->isSubmitted() && $form->isValid()) {
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $contactFormData = $form->getData();
             $contactMailService = new ContactMailService($contactFormData);
             $contactMailService->sendFromContactFormData($mailer);

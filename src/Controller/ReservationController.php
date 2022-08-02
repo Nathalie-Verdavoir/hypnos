@@ -24,7 +24,7 @@ class ReservationController extends AbstractController
         /** @var Hotel $hotel */
         $hotel = $user->getHotel();
         $reservations = [];
-        foreach( $hotel->getChambres() as $chambres) {
+        foreach ($hotel->getChambres() as $chambres) {
             $reservations = [...$reservations, ...$reservationRepository->findByChambre($chambres)];
         }
         return $this->render('reservation/index.html.twig', [
@@ -43,7 +43,7 @@ class ReservationController extends AbstractController
             'reservations' => $reservationRepository->findAllByClient($client),
         ]);
     }
-    
+
     #[Security("is_granted('ROLE_CLIENT')", statusCode: 403)]
     #[Route('/new/{chambre}', name: 'app_reservation_new_chambre', methods: ['GET', 'POST'])]
     public function newResa(Request $request, ReservationRepository $reservationRepository): Response
@@ -53,7 +53,7 @@ class ReservationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-             
+
             $reservationRepository->add($reservation);
             return $this->redirectToRoute('app_reservation_client_index', [
                 'client' => $this->getUser(),
@@ -108,11 +108,11 @@ class ReservationController extends AbstractController
         if ($reservation->getClient() !== $user) {
             throw $this->createAccessDeniedException();
         }
-        if ($this->isCsrfTokenValid('delete'.$reservation->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $reservation->getId(), $request->request->get('_token'))) {
             $reservationRepository->remove($reservation);
         }
 
-        if (in_array( 'ROLE_CLIENT' , $user->getRoles() )) {
+        if (in_array('ROLE_CLIENT', $user->getRoles())) {
             return $this->redirectToRoute('app_reservation_client_index', [
                 'client' => $user->getId(),
             ], Response::HTTP_SEE_OTHER);

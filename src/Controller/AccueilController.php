@@ -19,5 +19,4 @@ class AccueilController extends AbstractController
             'photos' => $photoRepository->findAll(),
         ]);
     }
-    
 }

@@ -8,25 +8,29 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PageControllerTest extends WebTestCase
 {
-    public function testAccueilPage () {
+    public function testAccueilPage()
+    {
         $client = static::createClient();
         $client->request('GET', '/');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
-    public function testNavbarAccueilPage () {
+    public function testNavbarAccueilPage()
+    {
         $client = static::createClient();
         $client->request('GET', '/');
-        $this->assertSelectorTextContains('nav','Hypnos');
+        $this->assertSelectorTextContains('nav', 'Hypnos');
     }
 
-    public function testReservationPageIsRestricted () {
+    public function testReservationPageIsRestricted()
+    {
         $client = static::createClient();
         $client->request('GET', '/reservation');
         $this->assertResponseRedirects();
     }
 
-    public function testAdminPageIsRestricted () {
+    public function testAdminPageIsRestricted()
+    {
         $client = static::createClient();
         $client->request('ANY', '/admin');
         $this->assertResponseRedirects();
@@ -48,5 +52,4 @@ class PageControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('header', 'user0-firstname');
     }
-
 }

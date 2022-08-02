@@ -21,16 +21,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    #[Assert\NotBlank(message:'Veuillez saisir une valeur')]
-    #[Assert\Email(message:'L\'email {{ value }} n\'est pas valide')]
+    #[Assert\NotBlank(message: 'Veuillez saisir une valeur')]
+    #[Assert\Email(message: 'L\'email {{ value }} n\'est pas valide')]
     private $email;
 
     #[ORM\Column(type: 'json', length: 180)]
     private $roles = [];
 
     #[ORM\Column(type: 'string')]
-    #[Assert\NotBlank(message:'Veuillez saisir une valeur')]
-    #[Assert\Regex(pattern:'/^(?=.*\d)(?=.*[A-Z])(?=.*[!#$%&*+\/=?^_`{|}~-])(?!.*(.)\1{2}).*[a-z].{8,}$/m', message:'Votre mot de passe doit comporter au moins huit caractères, dont des lettres majuscules et minuscules, un chiffre et un symbole.')]
+    #[Assert\NotBlank(message: 'Veuillez saisir une valeur')]
+    #[Assert\Regex(pattern: '/^(?=.*\d)(?=.*[A-Z])(?=.*[!#$%&*+\/=?^_`{|}~-])(?!.*(.)\1{2}).*[a-z].{8,}$/m', message: 'Votre mot de passe doit comporter au moins huit caractères, dont des lettres majuscules et minuscules, un chiffre et un symbole.')]
     private $password;
 
     #[ORM\Column(type: 'string', length: 40)]

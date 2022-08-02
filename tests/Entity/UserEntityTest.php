@@ -16,7 +16,7 @@ class UserEntityTest extends KernelTestCase
     private const INVALID_EMAIL_VALUE = 'BLABLAGMAIL';
 
     private const PASSWORD_REGEX_CONSTRAINT_MESSAGE = 'Votre mot de passe doit comporter au moins huit caractères, dont des lettres majuscules et minuscules, un chiffre et un symbole.';
-   
+
     private const VALID_EMAIL_VALUE = 'nathalie.verdavoir@laposte.com';
 
     private const VALID_PASSWORD_VALUE = 'Atchoumdu974!';
@@ -38,7 +38,7 @@ class UserEntityTest extends KernelTestCase
             ->setEmail(self::VALID_EMAIL_VALUE)
             ->setPassword(self::VALID_PASSWORD_VALUE);
 
-       $this->getValidatorErrors($user,0);
+        $this->getValidatorErrors($user, 0);
     }
 
 
@@ -49,11 +49,11 @@ class UserEntityTest extends KernelTestCase
         $user
             ->setEmail(self::VALID_EMAIL_VALUE);
 
-            $errors = $this->getValidatorErrors($user,1);
-            $this->assertEquals(self::NOT_BLANK_MESSAGE, $errors[0]->getMessage());
+        $errors = $this->getValidatorErrors($user, 1);
+        $this->assertEquals(self::NOT_BLANK_MESSAGE, $errors[0]->getMessage());
     }
 
-    
+
     public function testUserEntityIsInvalidBecauseNoEmail(): void
     {
         $user = new User();
@@ -61,11 +61,11 @@ class UserEntityTest extends KernelTestCase
         $user
             ->setPassword(self::VALID_PASSWORD_VALUE);
 
-            $errors = $this->getValidatorErrors($user,1);
-            $this->assertEquals(self::NOT_BLANK_MESSAGE, $errors[0]->getMessage());
+        $errors = $this->getValidatorErrors($user, 1);
+        $this->assertEquals(self::NOT_BLANK_MESSAGE, $errors[0]->getMessage());
     }
 
-    
+
     public function testUserEntityIsInvalidBecauseInvalidEmail(): void
     {
         $user = new User();
@@ -74,8 +74,8 @@ class UserEntityTest extends KernelTestCase
             ->setEmail(self::INVALID_EMAIL_VALUE)
             ->setPassword(self::VALID_PASSWORD_VALUE);
 
-            $errors = $this->getValidatorErrors($user,1);
-            $this->assertEquals(self::EMAIL_CONSTRAINT_MESSAGE, $errors[0]->getMessage());
+        $errors = $this->getValidatorErrors($user, 1);
+        $this->assertEquals(self::EMAIL_CONSTRAINT_MESSAGE, $errors[0]->getMessage());
     }
 
     /**
@@ -89,24 +89,25 @@ class UserEntityTest extends KernelTestCase
             ->setEmail(self::VALID_EMAIL_VALUE)
             ->setPassword($invalidPassword);
 
-            $errors = $this->getValidatorErrors($user,1);
-            $this->assertEquals(self::PASSWORD_REGEX_CONSTRAINT_MESSAGE, $errors[0]->getMessage());
+        $errors = $this->getValidatorErrors($user, 1);
+        $this->assertEquals(self::PASSWORD_REGEX_CONSTRAINT_MESSAGE, $errors[0]->getMessage());
     }
 
-    public function provideInvalidPasswords(): array{
+    public function provideInvalidPasswords(): array
+    {
         return [
             ['Atchoumdu974'], //no special character
-            
+
             ['Atchoumdu!'], //no numbers
-            
+
             ['At74!'], //less than 8 characters
-            
+
             ['atchoumdu974!'], //no uppercase
-            
+
             ['ATCHOUM974!'], //no lowercase
         ];
     }
-    private function getValidatorErrors(User $user, int $numberOfExpectedErrors) : ConstraintViolationList
+    private function getValidatorErrors(User $user, int $numberOfExpectedErrors): ConstraintViolationList
     {
         $errors = $this->validator->validate($user);
         $this->assertCount($numberOfExpectedErrors, $errors);

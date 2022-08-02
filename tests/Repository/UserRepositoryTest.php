@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class UserRepositoryTest extends WebTestCase 
+class UserRepositoryTest extends WebTestCase
 {
     public function setUp(): void
     {
@@ -17,14 +17,15 @@ class UserRepositoryTest extends WebTestCase
         $this->databaseTool = static::getContainer()->get(DatabaseToolCollection::class)->get();
         $this->entityManager = self::getContainer()->get(EntityManagerInterface::class);
     }
-    public function testCount() {
+    public function testCount()
+    {
 
         $this->databaseTool->loadFixtures([
             UserFixturesForUserRepositoryTest::class
         ]);
         self::bootKernel();
         $container = static::getContainer();
-        $users = $container->get(UserRepository::class)->count([]); 
+        $users = $container->get(UserRepository::class)->count([]);
         $this->assertEquals(12, $users);
     }
 }

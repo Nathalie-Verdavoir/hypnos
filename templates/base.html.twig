@@ -1,62 +1,68 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Site de présentation et de réservation des Hôtels Hypnos">
-        <meta name="keywords" content="Hotels, Lille, Strasbourg, Toulouse, Bordeaux, Lyon, Nice, Deauville, chambres, appartements">
-        <meta name="Robots" content="follow">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="{{ asset('images/favicon.PNG') }}">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-            <link href="{{ asset('style/global.css') }}" rel="stylesheet"/>
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Site de présentation et de réservation des Hôtels Hypnos">
+		<meta name="keywords" content="Hotels, Lille, Strasbourg, Toulouse, Bordeaux, Lyon, Nice, Deauville, chambres, appartements">
+		<meta name="Robots" content="follow">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link
+		rel="icon" href="{{ asset('images/favicon.PNG') }}">
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+			<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+			<link href="{{ asset('style/global.css') }}" rel="stylesheet"/>
+		{% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-            <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-            <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-            <script type="text/javascript" src="{{ asset('js/resa.js') }}"></script>
-           
-                <script type="text/javascript">
-                    let user = {
-                    id:  {{app.user ? app.user.id : 'null'}},
-                    };
-                </script>
-            {% if not app.request.attributes.get('_route') matches '{/photo/}'   %}
-                {% if app.request.get('chambre') %}
-                    <script type="text/javascript">
-                        chambre = {
-                        id:  {{ (app.request.get('chambre') matches '{^[\d\.]+$}') is same as(0) ? app.request.get('chambre').id : app.request.get('chambre')}},
-                        };
-                    </script>
-                {% endif %}
-            {% endif %}
-        {% endblock %}
-    </head>
-    <body>
-       
-        {% include 'header.html.twig' %}
-        <main>
-         {% for message in app.flashes('success') %}
-            <span id="alert" class="alert alert-success d-inline">
-                {{ message }}
-            </span>
-        {% endfor %}
-        {% block body %}{% endblock %}
-        </main>
-        {% include 'footer.html.twig' %}
-        <script type="text/javascript">
-            if(document.getElementById('alert')) {
-                 let alertMessage = document.getElementById('alert');
-                 setTimeout(() => {alertMessage.remove()}, 5000);
-            }
-        </script>
-    </body>
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+			<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+			<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+			<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+			<script type="text/javascript" src="{{ asset('js/resa.js') }}"></script>
+
+			<script type="text/javascript">
+				let user = {
+id: {{ app.user ? app.user.id : 'null' }}
+};
+			</script>
+			{% if not app.request.attributes.get('_route') matches '{/photo/}'   %}
+				{% if app.request.get('chambre') %}
+					<script type="text/javascript">
+						chambre = {
+id: {{ (app.request.get('chambre') matches '{^[\d\.]+$}') is same as(0) ? app.request.get('chambre').id : app.request.get('chambre') }}
+};
+					</script>
+				{% endif %}
+			{% endif %}
+		{% endblock %}
+	</head>
+	<body>
+
+		{% include 'header.html.twig' %}
+		<main>
+			{% for message in app.flashes('success') %}
+				<span id="alert" class="alert alert-success d-inline">
+					{{ message }}
+				</span>
+			{% endfor %}
+			{% block body %}{% endblock %}
+		</main>
+		{% include 'footer.html.twig' %}
+		<script type="text/javascript">
+			if (document.getElementById('alert')) {
+let alertMessage = document.getElementById('alert');
+setTimeout(() => {
+alertMessage.remove()
+}, 5000);
+}
+		</script>
+	</body>
 </html>

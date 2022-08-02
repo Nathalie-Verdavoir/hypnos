@@ -24,13 +24,12 @@ class HotelType extends AbstractType
                 'class' => User::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
-                    ->andWhere('u.roles = :val')
-                    ->setParameter('val','["ROLE_GERANT"]')
+                        ->andWhere('u.roles = :val')
+                        ->setParameter('val', '["ROLE_GERANT"]')
                         ->orderBy('u.id', 'ASC');
-                    },
-                    'choice_label' => 'nom',
-                ])
-        ;
+                },
+                'choice_label' => 'nom',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

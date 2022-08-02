@@ -15,8 +15,7 @@ class ChambresType extends AbstractType
             ->add('titre')
             ->add('description')
             ->add('prix')
-            ->add('booking')
-        ;
+            ->add('booking');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -1,76 +1,70 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les Hôtels{% endblock %}
+{% block title %}Les Hôtels
+{% endblock %}
 
 {% block body %}
-    <h2>Les Hôtels</h2>
-    {% if hotels|length > 0 %}
-    <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
-    
-        <div class="carousel-indicators hotels m-5">
-        {% set slide = 0 %}
-        {% for hotel in hotels %}
-            <button 
-                type="button" 
-                data-bs-target="#carouselExampleIndicators" 
-                data-bs-slide-to="{{slide}}" 
-                class="{{ hotel  is same as(hotels[0]) ? "active" : ""}} fs-4 m-2 w-auto" 
-                aria-current="true" 
-                aria-label="Slide 1"
-            >
-                <span class="menu-hotels">{{hotel.nom}}</span>
-                <p class="fs-1">{{hotel.ville}}</p>
-            </button>
-            {% set slide = slide + 1 %}
-        {% endfor %}
-        </div>
-        <div class="carousel-inner mt-5">
-        {% for hotel in hotels %}
-        <div class="carousel-item {{ hotel  is same as(hotels[0]) ? "active" : ""}}">
-            <div class="card larg">
-                <a  class="card-img-top big" href="{{ path('app_hotel_show', {'id': hotel.id}) }}" title="Voir">
-                {% if hotel.photo|length > 0 %}
-                    {% for pic in hotel.photo %}
-                        {% if pic.cover %}
-                            <img class="w-100" src="https://res.cloudinary.com/hypnosimages/{{pic.lien}}" alt="photo de la hotel">
-                        {% endif %}
-                    {% endfor %}
-                {% else %}
-                    <img class="w-100" src="https://res.cloudinary.com/hypnosimages/nopic.jpg" alt="aucune photo disponible">
-                {% endif %}
-                </a>
-                <div class="card-body">
-                    <a href="{{ path('app_hotel_show', {'id': hotel.id}) }}" title="Voir">
-                        <h3 class="card-title">{{ hotel.nom }}</h3>
-                        <p class="card-text">{{ hotel.description }}</p>
-                    </a>
-                    <a class="btn btn-primary iconic" href="{{ path('app_hotel_show', {'id': hotel.id}) }}" title="Voir">
-                        {% include 'boutons/voir.html.twig' %}
-                    </a>       
-                     {% if app.user and app.user.hotel and app.user.hotel is same as(hotel) %} 
-                        <a class="btn btn-primary iconic" href="{{ path('app_hotel_edit', {'id': hotel.id}) }}" title="Editer cet hotel">
-                            {% include 'boutons/edit.html.twig' %}
-                        </a>
-                    
-                    <a class="btn btn-primary iconic" href="{{ path('app_photo_index', {'hotel': hotel.id}) }}" title="Voir les photos de cet hotel">
-                        {% include 'boutons/edit-photos.html.twig' %}
-                    </a>
-                    {% endif %}
-                </div>
-            </div>
-            </div>
-            {% endfor %}
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-            </div>
-        {% else %}
-           Aucune photo 
-        {% endif %}
+	<h2>Les Hôtels</h2>
+	{% if hotels|length > 0 %}
+		<div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+			<div class="carousel-indicators hotels m-5">
+				{% set slide = 0 %}
+				{% for hotel in hotels %}
+					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{slide}}" class="{{ hotel is same as(hotels[0]) ? "active" : ""}} fs-4 m-2 w-auto" aria-current="true" aria-label="Slide 1">
+						<span class="menu-hotels">{{hotel.nom}}</span>
+						<p class="fs-1">{{hotel.ville}}</p>
+					</button>
+					{% set slide = slide + 1 %}
+				{% endfor %}
+			</div>
+			<div class="carousel-inner mt-5">
+				{% for hotel in hotels %}
+					<div class="carousel-item {{ hotel  is same as(hotels[0]) ? " active" : " "}}">
+						<div class="card larg">
+							<a class="card-img-top big" href="{{ path('app_hotel_show', {'id': hotel.id}) }}" title="Voir">
+								{% if hotel.photo|length > 0 %}
+									{% for pic in hotel.photo %}
+										{% if pic.cover %}
+											<img class="w-100" src="https://res.cloudinary.com/hypnosimages/{{pic.lien}}" alt="photo de la hotel">
+										{% endif %}
+									{% endfor %}
+								{% else %}
+									<img class="w-100" src="https://res.cloudinary.com/hypnosimages/nopic.jpg" alt="aucune photo disponible">
+								{% endif %}
+							</a>
+							<div class="card-body">
+								<a href="{{ path('app_hotel_show', {'id': hotel.id}) }}" title="Voir">
+									<h3 class="card-title">{{ hotel.nom }}</h3>
+									<p class="card-text">{{ hotel.description }}</p>
+								</a>
+								<a class="btn btn-primary iconic" href="{{ path('app_hotel_show', {'id': hotel.id}) }}" title="Voir">
+									{% include 'boutons/voir.html.twig' %}
+								</a>
+								{% if app.user and app.user.hotel and app.user.hotel is same as(hotel) %}
+									<a class="btn btn-primary iconic" href="{{ path('app_hotel_edit', {'id': hotel.id}) }}" title="Editer cet hotel">
+										{% include 'boutons/edit.html.twig' %}
+									</a>
+
+									<a class="btn btn-primary iconic" href="{{ path('app_photo_index', {'hotel': hotel.id}) }}" title="Voir les photos de cet hotel">
+										{% include 'boutons/edit-photos.html.twig' %}
+									</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+	{% else %}
+		Aucune photo
+	{% endif %}
 {% endblock %}
