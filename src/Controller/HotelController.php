@@ -60,7 +60,6 @@ class HotelController extends AbstractController
                     'id' => $id,
                     'resa_debut' => $reservation->getDebut()->getTimestamp(),
                     'resa_chambre' => $reservation->getChambre()->getId(),
-                    
                     'resa_fin' => $reservation->getFin()->getTimestamp(),
                 ], Response::HTTP_SEE_OTHER);
             }
