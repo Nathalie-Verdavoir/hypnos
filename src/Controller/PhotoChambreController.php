@@ -8,10 +8,9 @@ use App\Form\PhotoChambreType;
 use App\Repository\ChambresRepository;
 use App\Repository\PhotoRepository;
 use App\Service\ImageUploader;
-use Gedmo\Sluggable\Util\Urlizer;
+use App\Service\ManageImage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PhotoChambreController extends AbstractController
 {
     #[Route('/index', name: 'app_photo_chambre_index', methods: ['GET'])]
-    public function index($chambre,PhotoRepository $photoRepository, ChambresRepository $chambresRepository): Response
+    public function index($chambre, PhotoRepository $photoRepository, ChambresRepository $chambresRepository): Response
     {
         if ($chambresRepository->find($chambre)->getHotel()->getGerant() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
@@ -32,41 +31,28 @@ class PhotoChambreController extends AbstractController
     }
 
     #[Route('/new', name: 'app_photo_chambre_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, PhotoRepository $photoRepository, $chambre, ChambresRepository $chambresRepository): Response
+    public function new(Request $request, PhotoRepository $photoRepository, $chambre, ChambresRepository $chambresRepository, ManageImage $manageImage): Response
     {
         if ($chambresRepository->find($chambre)->getHotel()->getGerant() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
-        $photos= [];
+        $photos = [];
         $form = $this->createForm(PhotoChambreType::class, $photos);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $attachments = $form['images']->getData();
             if ($attachments) {
-                foreach($attachments as $uploadedFile)
-                {
+                foreach ($attachments as $uploadedFile) {
                     $photo = new Photo();
-                    /** @var UploadedFile $uploadedFile */
-                    $destination = $this->getParameter('kernel.project_dir').'/public/uploads/photos';
-                    $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    $newFilename = Urlizer::urlize($originalFilename).'-'.uniqid();
-                    $newFileExt = '.'.$uploadedFile->guessExtension();
-                    $uploadedFile->move(
-                        $destination,
-                        $newFilename . $newFileExt,
-                        0777
-                    );
-                    (new ImageUploader())->upload(  $destination.'/'.$newFilename.$newFileExt,["public_id" => $newFilename]);
+                    $imageLink = $manageImage->upload($uploadedFile);
                     /** @var Chambres $chambres */
                     $chambres = $chambresRepository->find($chambre);
-                    $photo->setChambres($chambres);
-                    $photo->setCover(false);
-                    $photo->setLien($newFilename.$newFileExt);
+                    $photo->setChambres($chambres)
+                        ->setCover(false)
+                        ->setLien($imageLink);
                     $photoRepository->add($photo);
                     $this->addFlash('success', 'Votre image a été enregistrée');
-                    $filesystem = new Filesystem();
-                    $filesystem->remove($destination.'/'.$newFilename.$newFileExt);
                 }
             }
             return $this->redirectToRoute('app_photo_chambre_index', [
@@ -93,26 +79,23 @@ class PhotoChambreController extends AbstractController
 
     #[Route('/edit/{cover}', name: 'app_photo_chambre_edit', methods: ['GET', 'POST'])]
     public function edit(PhotoRepository $photoRepository, $cover, $chambre, ChambresRepository $chambresRepository): Response
-    {  
+    {
         if ($chambresRepository->find($chambre)->getHotel()->getGerant() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
         $photoOfThisChambre = $photoRepository->findByChambre($chambre);
-            foreach($photoOfThisChambre as $photo)
-            {
-                if(intval($cover) === $photo->getId())
-                {
-                    $photo->setCover(true);
-                }else {
-                    $photo->setCover(false);
-                }
-                $photoRepository->add($photo);
-                
+        foreach ($photoOfThisChambre as $photo) {
+            if (intval($cover) === $photo->getId()) {
+                $photo->setCover(true);
+            } else {
+                $photo->setCover(false);
             }
-            
-            return $this->redirectToRoute('app_photo_chambre_index', [
-                'chambre' => $chambre,
-            ], Response::HTTP_SEE_OTHER);
+            $photoRepository->add($photo);
+        }
+
+        return $this->redirectToRoute('app_photo_chambre_index', [
+            'chambre' => $chambre,
+        ], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}', name: 'app_photo_chambre_delete', methods: ['POST'])]
@@ -121,11 +104,11 @@ class PhotoChambreController extends AbstractController
         if ($chambresRepository->find($chambre)->getHotel()->getGerant() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
-        if ($this->isCsrfTokenValid('delete'.$photo->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $photo->getId(), $request->request->get('_token'))) {
             $path = $photo->getLien();
-            $result = (new ImageUploader())->remove(substr($path, 0,  strrpos($path, ".")) );
-            if($result['result']=='ok'){
-                $this->addFlash('success', 'Votre image a été supprimée'.' ('.substr($path, 0,  strrpos($path, ".")).')');
+            $result = (new ImageUploader())->remove(substr($path, 0,  strrpos($path, ".")));
+            if ($result['result'] == 'ok') {
+                $this->addFlash('success', 'Votre image a été supprimée' . ' (' . substr($path, 0,  strrpos($path, ".")) . ')');
                 $photoRepository->remove($photo);
             }
         }

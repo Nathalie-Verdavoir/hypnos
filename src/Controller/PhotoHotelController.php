@@ -7,10 +7,9 @@ use App\Entity\Hotel;
 use App\Form\PhotoHotelType;
 use App\Repository\PhotoRepository;
 use App\Service\ImageUploader;
-use Gedmo\Sluggable\Util\Urlizer;
+use App\Service\ManageImage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,43 +30,30 @@ class PhotoHotelController extends AbstractController
     }
 
     #[Route('/new', name: 'app_photo_new', methods: ['GET', 'POST'])]
-    public function new(Hotel $hotel, Request $request, PhotoRepository $photoRepository): Response
+    public function new(Hotel $hotel, Request $request, PhotoRepository $photoRepository, ManageImage $manageImage): Response
     {
         if ($hotel->getGerant() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
-        $photos= [];
+        $photos = [];
         $form = $this->createForm(PhotoHotelType::class, $photos);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $attachments = $form['images']->getData();
             if ($attachments) {
-                foreach($attachments as $uploadedFile)
-                {
+                foreach ($attachments as $uploadedFile) {
                     $photo = new Photo();
-                    /** @var UploadedFile $uploadedFile */
-                    $destination = $this->getParameter('kernel.project_dir').'/public/uploads/photos';
-                    $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    $newFilename = Urlizer::urlize($originalFilename).'-'.uniqid();
-                    $newFileExt = '.'.$uploadedFile->guessExtension();
-                    $uploadedFile->move(
-                        $destination,
-                        $newFilename . $newFileExt,
-                        0777
-                    );
-                    (new ImageUploader())->upload(  $destination.'/'.$newFilename.$newFileExt,["public_id" => $newFilename]);
+                    $imageLink = $manageImage->upload($uploadedFile);
                     /** @var User $gerant */
                     $gerant = $this->getUser();
                     /** @var Hotel $hotel */
                     $hotel = $gerant->getHotel();
-                    $photo->setHotel($hotel);
-                    $photo->setCover(false);
-                    $photo->setLien($newFilename.$newFileExt);
+                    $photo->setHotel($hotel)
+                        ->setCover(false)
+                        ->setLien($imageLink);
                     $photoRepository->add($photo);
                     $this->addFlash('success', 'Votre image a été enregistrée');
-                    $filesystem = new Filesystem();
-                    $filesystem->remove($destination.'/'.$newFilename.$newFileExt);
                 }
             }
             return $this->redirectToRoute('app_photo_index', [
@@ -98,20 +84,17 @@ class PhotoHotelController extends AbstractController
         if ($hotel->getGerant() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
-        
+
         $photoOfThisHotel = $photoRepository->findByHotel($id);
-            foreach($photoOfThisHotel as $photo)
-            {
-                if(intval($cover) === $photo->getId())
-                {
-                    $photo->setCover(true);
-                }else {
-                    $photo->setCover(false);
-                }
-                $photoRepository->add($photo);
-                
+        foreach ($photoOfThisHotel as $photo) {
+            if (intval($cover) === $photo->getId()) {
+                $photo->setCover(true);
+            } else {
+                $photo->setCover(false);
             }
-            
+            $photoRepository->add($photo);
+        }
+
         return $this->render('photo-hotel/index.html.twig', [
             'photos' => $photoRepository->findAll(),
         ]);
@@ -123,11 +106,11 @@ class PhotoHotelController extends AbstractController
         if ($hotel->getGerant() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
-        if ($this->isCsrfTokenValid('delete'.$photo->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $photo->getId(), $request->request->get('_token'))) {
             $path = $photo->getLien();
-            $result = (new ImageUploader())->remove(substr($path, 0,  strrpos($path, ".")) );
-            if($result['result']=='ok'){
-                $this->addFlash('success', 'Votre image a été supprimée'.' ('.substr($path, 0,  strrpos($path, ".")).')');
+            $result = (new ImageUploader())->remove(substr($path, 0,  strrpos($path, ".")));
+            if ($result['result'] == 'ok') {
+                $this->addFlash('success', 'Votre image a été supprimée' . ' (' . substr($path, 0,  strrpos($path, ".")) . ')');
                 $photoRepository->remove($photo);
             }
         }

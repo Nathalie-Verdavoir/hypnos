@@ -33,3 +33,9 @@ services:
     App\Service\ImageUploader:
         arguments:
             - '@App\Service\CloudinaryContainer'
+    
+    App\Service\ManageImage:
+        bind:
+            # pass this value to any $projectDir argument for any service
+            # that's created in this file (including controller arguments)
+            $projectDir: '%kernel.project_dir%'
