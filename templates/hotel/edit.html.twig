@@ -1,15 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier mon Hôtel{% endblock %}
+{% block title %}Modifier mon Hôtel
+{% endblock %}
 
 {% block body %}
-    <h2>Modifier mon Hôtel</h2>
+	<h2>Modifier mon Hôtel</h2>
 
-    {{ include('hotel/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+	{{ include('hotel/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
-    {{ include('hotel/_delete_form.html.twig') }}
+	{{ include('hotel/_delete_form.html.twig') }}
 
-    <a class="btn m-3" href="{{ path('app_hotel_index') }}" title="Retour à la liste des Hôtels">
-        {% include 'boutons/return.html.twig' %}
-    </a>
+	<a class="btn m-3" href="{{ path('app_hotel_index') }}" title="Retour à la liste des Hôtels">
+		{% include 'boutons/return.html.twig' %}
+	</a>
 {% endblock %}

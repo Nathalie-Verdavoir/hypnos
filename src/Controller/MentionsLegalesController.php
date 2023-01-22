@@ -21,7 +21,4 @@ class MentionsLegalesController extends AbstractController
     {
         return $this->render('legals/cgu.html.twig');
     }
-
-
-    
 }

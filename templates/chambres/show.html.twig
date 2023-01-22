@@ -1,84 +1,94 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Chambres{% endblock %}
+{% block title %}Chambres
+{% endblock %}
 
 {% block body %}
-    <h2>{{ chambre.titre }}</h2>
-    <h3>{{ chambre.hotel }}</h3>
-    <h4>{{ chambre.hotel.ville }}</h4>
-    <div class="container large-width">
-        <div class="row align-items-start">
-            <div class="col-12 col-lg-6 text-center">
-                <div class="card m-auto">
-                    <div class="card-img-bottom p-1">
-                        {% if chambre.photo|length > 0 %}
-                            <div id="carouselPhoto" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-indicators">
-                                    {% set slide = 0 %}
-                                    {% for pic in chambre.photo %}
-                                        <button type="button" data-bs-target="#carouselPhoto" data-bs-slide-to="{{slide}}" class="{{ slide == 0 ? "active" : ""}}" aria-current="true" aria-label="Slide 1"></button>
-                                            {% set slide = slide + 1 %}
-                                    {% endfor %}
-                                </div>
-                                <div class="carousel-inner">
-                                    {% for pic in chambre.photo %}
-                                        {% if pic.cover %}
-                                        <div class="carousel-item active p-1">
-                                            <img src="https://res.cloudinary.com/hypnosimages/{{pic.lien}}" class="img-fluid chambre small" alt="photo de la chambre">
-                                        </div>
-                                        {% else %}
-                                        <div class="carousel-item">
-                                            <img src="https://res.cloudinary.com/hypnosimages/{{pic.lien}}" class="img-fluid chambre small" alt="photo de la chambre">
-                                        </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        {% endif %}
-                    </div>      
-                    <div class="card-body">
-                        <h5 class="card-title">{{ chambre.prix }} € / nuitée</h5>
-                        <p class="card-text">{{ chambre.description }}</p>
-                        <a class="btn btn-primary iconic" target="_blank" href="{{ chambre.booking }}" title="Aller sur le site partenaire">
-                            {% include 'boutons/booking.html.twig' %}
-                        </a>
-                        <a class="btn btn-primary iconic" href="{{ path('app_hotel_show', {"id" : chambre.hotel.id}) }}" title="Retour à l'hôtel">
-                           {% include 'boutons/return.html.twig' %}
-                        </a>
-                        {% if app.user and chambre.hotel.gerant == app.user  %}
-                            <a class="btn btn-primary iconic" href="{{ path('app_chambres_edit', {'id': chambre.id}) }}" title="Editer cette chambre">
-                                {% include 'boutons/edit.html.twig' %}
-                            </a>
-                            <a class="btn btn-primary iconic" href="{{ path('app_photo_chambre_index', {'chambre': chambre.id}) }}" title="Gérer les photos de cette chambre">
-                                {% include 'boutons/edit-photos.html.twig' %}
-                            </a>
-                        {% endif %}   
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-6 text-center">
-                <div class="card reservations">
-                    <div class="card-body">
-                        <h3 class="card-title border bg-grey p-3">Réservations</h3>
-                        <p class="card-text">à {{ chambre.hotel.ville }}</p>
-                        {% if app.user and chambre.hotel.gerant == app.user  %}
-                            A venir ... un calendrier montrant les reservations
-                        {% else %}
-                            <p class="card-text border"><small class="text-muted">Chambre</small></p>
-                            <p class="card-text">
-                                <select name="chambreSelector" id="chambreSelector">
-                                    <option value="{{chambre.id}}">{{ chambre.titre}}</option>
-                                </select>
-                            </p>
-                            <p class="card-text border"><small class="text-muted">Dates</small></p>  
-                            <div class="input-group input-daterange"> 
-                                <input type="text" id="daterange" name="daterange" value="" readonly /> </div>
-                                {{ include('reservation/_form.html.twig') }} 
-                            </div> {# fin du texte haut de la card de la réservation #}
-                        {% endif %}
-                </div> {# fin de la card de la réservation #}
-            </div>
-        </div>
-    </div>
-        
+	<h2>{{ chambre.titre }}</h2>
+	<h3>{{ chambre.hotel }}</h3>
+	<h4>{{ chambre.hotel.ville }}</h4>
+	<div class="container large-width">
+		<div class="row align-items-start">
+			<div class="col-12 col-lg-6 text-center">
+				<div class="card m-auto">
+					<div class="card-img-bottom p-1">
+						{% if chambre.photo|length > 0 %}
+							<div id="carouselPhoto" class="carousel slide" data-bs-ride="carousel">
+								<div class="carousel-indicators">
+									{% set slide = 0 %}
+									{% for pic in chambre.photo %}
+										<button type="button" data-bs-target="#carouselPhoto" data-bs-slide-to="{{slide}}" class="{{ slide == 0 ? "active" : ""}}" aria-current="true" aria-label="Slide 1"></button>
+										{% set slide = slide + 1 %}
+									{% endfor %}
+								</div>
+								<div class="carousel-inner">
+									{% for pic in chambre.photo %}
+										{% if pic.cover %}
+											<div class="carousel-item active p-1">
+												<img src="https://res.cloudinary.com/hypnosimages/{{pic.lien}}" class="img-fluid chambre small" alt="photo de la chambre">
+											</div>
+										{% else %}
+											<div class="carousel-item">
+												<img src="https://res.cloudinary.com/hypnosimages/{{pic.lien}}" class="img-fluid chambre small" alt="photo de la chambre">
+											</div>
+										{% endif %}
+									{% endfor %}
+								</div>
+							</div>
+						{% endif %}
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">{{ chambre.prix }}
+							€ / nuitée</h5>
+						<p class="card-text">{{ chambre.description }}</p>
+						<a class="btn btn-primary iconic" target="_blank" href="{{ chambre.booking }}" title="Aller sur le site partenaire">
+							{% include 'boutons/booking.html.twig' %}
+						</a>
+						<a class="btn btn-primary iconic" href="{{ path('app_hotel_show', {"id" : chambre.hotel.id}) }}" title="Retour à l'hôtel">
+							{% include 'boutons/return.html.twig' %}
+						</a>
+						{% if app.user and chambre.hotel.gerant == app.user  %}
+							<a class="btn btn-primary iconic" href="{{ path('app_chambres_edit', {'id': chambre.id}) }}" title="Editer cette chambre">
+								{% include 'boutons/edit.html.twig' %}
+							</a>
+							<a class="btn btn-primary iconic" href="{{ path('app_photo_chambre_index', {'chambre': chambre.id}) }}" title="Gérer les photos de cette chambre">
+								{% include 'boutons/edit-photos.html.twig' %}
+							</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-lg-6 text-center">
+				<div class="card reservations">
+					<div class="card-body">
+						<h3 class="card-title border bg-grey p-3">Réservations</h3>
+						<p class="card-text">à
+							{{ chambre.hotel.ville }}</p>
+						{% if app.user and chambre.hotel.gerant == app.user  %}
+							A venir ... un calendrier montrant les reservations
+						{% else %}
+							<p class="card-text border">
+								<small class="text-muted">Chambre</small>
+							</p>
+							<p class="card-text">
+								<select name="chambreSelector" id="chambreSelector">
+									<option value="{{chambre.id}}">{{ chambre.titre}}</option>
+								</select>
+							</p>
+							<p class="card-text border">
+								<small class="text-muted">Dates</small>
+							</p>
+							<div class="input-group input-daterange">
+								<input type="text" id="daterange" name="daterange" value="" readonly/>
+							</div>
+							{{ include('reservation/_form.html.twig') }}
+						</div>
+						{# fin du texte haut de la card de la réservation #}
+					{% endif %}
+				</div>
+				{# fin de la card de la réservation #}
+			</div>
+		</div>
+	</div>
+
 {% endblock %}

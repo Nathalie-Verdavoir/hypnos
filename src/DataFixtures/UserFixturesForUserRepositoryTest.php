@@ -12,7 +12,7 @@ class UserFixturesForUserRepositoryTest extends Fixture
     public function load(ObjectManager $manager): void
     {
         //ADD 10 CLIENTS
-        for($i = 0; $i < 10; $i++){
+        for ($i = 0; $i < 10; $i++) {
             $user = (new User())
                 ->setNom("user$i-name")
                 ->setPrenom("user$i-firstname")
@@ -30,9 +30,9 @@ class UserFixturesForUserRepositoryTest extends Fixture
             ->setPassword("\$2y\$10\$m27uH2xu3MIpWTzBBWd11ubb9jXWmRWzhbMEU88wp5pm81XKkQvia") //0000
             ->setRoles(["ROLE_ADMIN"]);
         $manager->persist($user);
-        
+
         //ADD 1 HOTEL WITH 1 GERANT
-        
+
         $user = (new User())
             ->setNom("gerant-name")
             ->setPrenom("gerant-firstname")

@@ -1,19 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Photo{% endblock %}
+{% block title %}Photo
+{% endblock %}
 
 {% block body %}
-    <h2>Photo</h2>
-    <a class="btn btn-primary iconic"  href="{{ path('app_photo_chambre_index', {'chambre': app.request.get('chambre')}) }}" title="Retour à la liste des photos">
-        {% include 'boutons/return.html.twig' %}
-    </a>
-    {% if app.user.hotel %}
-        {% if not photo.cover %}
-            <a class="btn btn-primary iconic" href="{{ path('app_photo_chambre_edit', {'id': photo.chambres.id,'cover': photo.id,'chambre': app.request.get('chambre')}) }}" title="Choisir comme couverture">
-                {% include 'boutons/cover.html.twig' with {'disabled' : false } %}
-            </a>
-        {% endif %}
-        {{ include('photo-chambre/_delete_form.html.twig') }}
-    {% endif %}
-    <img src="https://res.cloudinary.com/hypnosimages/{{ photo.lien}}" class="photo-show">
+	<h2>Photo</h2>
+	<a class="btn btn-primary iconic" href="{{ path('app_photo_chambre_index', {'chambre': app.request.get('chambre')}) }}" title="Retour à la liste des photos">
+		{% include 'boutons/return.html.twig' %}
+	</a>
+	{% if app.user.hotel %}
+		{% if not photo.cover %}
+			<a class="btn btn-primary iconic" href="{{ path('app_photo_chambre_edit', {'id': photo.chambres.id,'cover': photo.id,'chambre': app.request.get('chambre')}) }}" title="Choisir comme couverture">
+				{% include 'boutons/cover.html.twig' with {'disabled' : false } %}
+			</a>
+		{% endif %}
+		{{ include('photo-chambre/_delete_form.html.twig') }}
+	{% endif %}
+	<img src="https://res.cloudinary.com/hypnosimages/{{ photo.lien}}" class="photo-show">
 {% endblock %}

@@ -1,65 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Chambres{% endblock %}
+{% block title %}New Chambres
+{% endblock %}
 
 {% block body %}
-    <h2>Créer une chambre</h2>
- <div class="container">
-        {{ form_start(form) }}
-        <div class="row m-2">
-            <div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
-                {{ form_label(form.titre, 'Titre') }}
-            </div>
-            <div class="col-12 col-lg-3">
-                {{ form_widget(form.titre) }}
-            </div>
-        </div>
-         {{ form_errors(form.titre) }}
-        <div class="row m-2">
-            <div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
-                {{ form_label(form.description, 'Sa description') }}
-            </div>
-            <div class="col-12 col-lg-3">
-                {{ form_widget(form.description) }}
-            </div>
-        </div>
-         {{ form_errors(form.description) }}
-        <div class="row m-2">
-            <div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
-                {{ form_label(form.prix, 'Son prix') }}
-            </div>
-            <div class="col-12 col-lg-3">
-                {{ form_widget(form.prix) }}
-            </div>
-        </div>
-         {{ form_errors(form.prix) }}
-        <div class="row m-2">
-            <div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
-                {{ form_label(form.booking, 'Booking') }}
-            </div>
-            <div class="col-12 col-lg-3">
-                {{ form_widget(form.booking) }}
-            </div>
-        </div>
-         {{ form_errors(form.booking) }}
-        <div class="row m-2">
-            <div class="col-3 col-lg-3"></div>
-            <div class="col-9 col-lg-3"> 
-                <button type="submit" class="btn m-3 d-inline-flex align-items-center">
-                    <span class="col inline">
-                        {{ button_label|default('Enregistrer') }}
-                    </span>
-                    <span class="col inline">
-                        {% include 'boutons/save.html.twig' %} 
-                    </span>
-                </button>
-                <a class="btn m-3" href="{{ path('app_chambres_index') }}" title="Retour à la liste des chambres">
-                    {% include 'boutons/return.html.twig' %}
-                </a>
-            </div>
-        </div>
-           
-        {{ form_end(form) }}
-    </div>
-    
+	<h2>Créer une chambre</h2>
+	<div class="container">
+		{{ form_start(form) }}
+		<div class="row m-2">
+			<div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
+				{{ form_label(form.titre, 'Titre') }}
+			</div>
+			<div class="col-12 col-lg-3">
+				{{ form_widget(form.titre) }}
+			</div>
+		</div>
+		{{ form_errors(form.titre) }}
+		<div class="row m-2">
+			<div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
+				{{ form_label(form.description, 'Sa description') }}
+			</div>
+			<div class="col-12 col-lg-3">
+				{{ form_widget(form.description) }}
+			</div>
+		</div>
+		{{ form_errors(form.description) }}
+		<div class="row m-2">
+			<div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
+				{{ form_label(form.prix, 'Son prix') }}
+			</div>
+			<div class="col-12 col-lg-3">
+				{{ form_widget(form.prix) }}
+			</div>
+		</div>
+		{{ form_errors(form.prix) }}
+		<div class="row m-2">
+			<div class="col-12 col-lg-3 d-flex flex-lg-row-reverse">
+				{{ form_label(form.booking, 'Booking') }}
+			</div>
+			<div class="col-12 col-lg-3">
+				{{ form_widget(form.booking) }}
+			</div>
+		</div>
+		{{ form_errors(form.booking) }}
+		<div class="row m-2">
+			<div class="col-3 col-lg-3"></div>
+			<div class="col-9 col-lg-3">
+				<button type="submit" class="btn m-3 d-inline-flex align-items-center">
+					<span class="col inline">
+						{{ button_label|default('Enregistrer') }}
+					</span>
+					<span class="col inline">
+						{% include 'boutons/save.html.twig' %}
+					</span>
+				</button>
+				<a class="btn m-3" href="{{ path('app_chambres_index') }}" title="Retour à la liste des chambres">
+					{% include 'boutons/return.html.twig' %}
+				</a>
+			</div>
+		</div>
+
+		{{ form_end(form) }}
+	</div>
+
 {% endblock %}

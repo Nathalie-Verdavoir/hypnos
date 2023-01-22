@@ -10,11 +10,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ApiResource( 
+#[ApiResource(
     collectionOperations: ['get'],
     itemOperations: ['get'],
     routePrefix: '/dates',
-    normalizationContext: ['groups' => ['read'], "enable_max_depth"=>true],
+    normalizationContext: ['groups' => ['read'], "enable_max_depth" => true],
 )]
 #[ORM\Entity(repositoryClass: ChambresRepository::class)]
 class Chambres

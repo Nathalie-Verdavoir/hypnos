@@ -45,10 +45,10 @@ class PhotoRepository extends ServiceEntityRepository
         }
     }
 
-     /**
-      * @return Photo[] Returns an array of Photo objects
-      */
-    
+    /**
+     * @return Photo[] Returns an array of Photo objects
+     */
+
     public function findByHotel($value)
     {
         return $this->createQueryBuilder('p')
@@ -56,24 +56,22 @@ class PhotoRepository extends ServiceEntityRepository
             ->setParameter('val', $value)
             ->orderBy('p.id', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     /**
-      * @return Photo[] Returns an array of Photo objects
-      */
-    
-      public function findByChambre($value)
-      {
-          return $this->createQueryBuilder('p')
-              ->andWhere('p.chambres = :val')
-              ->setParameter('val', $value)
-              ->orderBy('p.id', 'ASC')
-              ->getQuery()
-              ->getResult()
-          ;
-      }
+     * @return Photo[] Returns an array of Photo objects
+     */
+
+    public function findByChambre($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.chambres = :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 
     /*
     public function findOneBySomeField($value): ?Photo

@@ -11,22 +11,21 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class ResaValidator extends ConstraintValidator
-{ 
+{
     /**
-    * @var EntityManagerInterface
-    */
-   private $em;
+     * @var EntityManagerInterface
+     */
+    private $em;
 
-   /**
-    * UserEmailValidator constructor.
-    * @param EntityManagerInterface $entityManager
-    */
-   public function __construct(EntityManagerInterface $entityManager)
-   {
-       $this->em = $entityManager;
+    /**
+     * UserEmailValidator constructor.
+     * @param EntityManagerInterface $entityManager
+     */
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->em = $entityManager;
+    }
 
-   }
-    
     public function validate($value, Constraint $constraint)
     {
         /**  @var ReservationRepository $reservationRepository */
@@ -42,19 +41,19 @@ class ResaValidator extends ConstraintValidator
         $periodToCheck = new DatePeriod($start, $interval, $stop);
         $reservations = $reservationRepository->findByChambre($chambre);
         $InvalidDates = [];
-         foreach ($reservations as $resa) {
+        foreach ($reservations as $resa) {
             $periodUnavailable = new DatePeriod($resa->getDebut(), $interval, $resa->getFin());
             foreach ($periodToCheck as $dt)
-            foreach ($periodUnavailable as $dtu)
-                if($dt==$dtu){
-                    array_push($InvalidDates,$dt->format('d-M'));
-                }
+                foreach ($periodUnavailable as $dtu)
+                    if ($dt == $dtu) {
+                        array_push($InvalidDates, $dt->format('d-M'));
+                    }
         }
-        if(count($InvalidDates)>0) {
+        if (count($InvalidDates) > 0) {
             $this->context->buildViolation($constraint->message)
-                    ->setParameter('{{ chambre }}', $chambre)
-                    ->setParameter('{{ date }}', str_replace(["[","]","-"],' ',json_encode($InvalidDates)) )
-                    ->addViolation();
+                ->setParameter('{{ chambre }}', $chambre)
+                ->setParameter('{{ date }}', str_replace(["[", "]", "-"], ' ', json_encode($InvalidDates)))
+                ->addViolation();
         }
     }
 }

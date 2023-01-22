@@ -20,8 +20,7 @@ class PhotoChambreType extends AbstractType
                     'accept' => 'image/*',
                     'multiple' => 'multiple'
                 ]
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

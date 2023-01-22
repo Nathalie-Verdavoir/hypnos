@@ -45,10 +45,10 @@ class ReservationRepository extends ServiceEntityRepository
         }
     }
 
-     /**
-      * @return Reservation[] Returns an array of Reservation objects
-      */
-    
+    /**
+     * @return Reservation[] Returns an array of Reservation objects
+     */
+
     public function findByChambre($value)
     {
         return $this->createQueryBuilder('r')
@@ -56,25 +56,23 @@ class ReservationRepository extends ServiceEntityRepository
             ->setParameter('val', $value)
             ->orderBy('r.id', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    
 
-     /**
-      * @return Reservation[] Returns an array of Reservation objects
-      */
-    
-      public function findAllByClient($value)
-      {
-          return $this->createQueryBuilder('r')
-              ->andWhere('r.client = :val')
-              ->setParameter('val', $value)
-              ->orderBy('r.id', 'ASC')
-              ->getQuery()
-              ->getResult()
-          ;
-      }
+
+    /**
+     * @return Reservation[] Returns an array of Reservation objects
+     */
+
+    public function findAllByClient($value)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.client = :val')
+            ->setParameter('val', $value)
+            ->orderBy('r.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
     /*
     public function findOneBySomeField($value): ?Reservation
     {

@@ -1,37 +1,28 @@
 <header>
-  <div class="admin-buttons">
-    {% if app.user %}
-      {% if "ROLE_ADMIN" in app.user.roles %}
-        <a type="button" class="btn" href="/admin">Admin</a>
-      {% endif %}
-    {% endif %}
-    {% if not app.user %}
-      <a type="button" class="btn d-inline-flex align-items-center" href="/register">
-          <span class="d-none d-lg-inline">Créer un compte</span>
-          <span class="col inline">
-            <span class="svg-container">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="svg-content bi bi-person-plus-fill" viewBox="0 0 16 16">
-                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-              </svg>
-            </span>
-          </span>
-      </a>
-    {% endif %}
-    <a 
-      type="button" 
-      class="btn d-inline-flex align-items-center" 
-      href="{{ app.user ? 
-                path('logout') 
-                : 
-                path('login', {
-                  'to':app.request.attributes.get('_route')
-                })
-            }}"
-    > <span class="d-none d-lg-inline">{{ app.user ? 'Déconnexion' : 'Connexion' }}</span>
-      <span class="col inline">
-        <span class="svg-container">
-        {{ app.user ? 
+	<div class="admin-buttons">
+		{% if app.user %}
+			{% if "ROLE_ADMIN" in app.user.roles %}
+				<a type="button" class="btn" href="/admin">Admin</a>
+			{% endif %}
+		{% endif %}
+		{% if not app.user %}
+			<a type="button" class="btn d-inline-flex align-items-center" href="/register">
+				<span class="d-none d-lg-inline">Créer un compte</span>
+				<span class="col inline">
+					<span class="svg-container">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="svg-content bi bi-person-plus-fill" viewbox="0 0 16 16">
+							<path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+							<path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+						</svg>
+					</span>
+				</span>
+			</a>
+		{% endif %}
+		<a type="button" class="btn d-inline-flex align-items-center" href="{{ app.user ? path('logout') : path('login', { 'to':app.request.attributes.get('_route') }) }}">
+			<span class="d-none d-lg-inline">{{ app.user ? 'Déconnexion' : 'Connexion' }}</span>
+			<span class="col inline">
+				<span class="svg-container">
+					{{ app.user ? 
           '<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="svg-content bi bi-person-x-fill" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
           </svg>' 
@@ -41,122 +32,83 @@
             <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
           </svg>'
         }}
-        </span>
-      </span>
-    </a>
-  </div>
-  <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="{{ path('app_accueil') }}">
-            <img class="logo" src="{{ asset('images/logo.PNG') }}" alt="Logo Hypnos" />
-            <h1 class="title d-none d-lg-inline">Hypnos</h2>
-          </a>
-         
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarScroll"
-            aria-controls="navbarScroll"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon  btn d-inline-flex"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav my-2 p-3 mt-lg-5 navbar-nav-scroll">
-              <li class="nav-item">
-                <a 
-                  class="nav-link {% if app.request.attributes.get('_route') ==  'app_accueil' or app.request.get('routeName') ==  'app_accueil' %}active{% endif %} ms-5" 
-                  aria-current="page"
-                  id="/hotel/" 
-                  href="{{ path('app_accueil') }}"
-                >Accueil 
-                </a>
-              </li>
-              {% if not app.user %}
-                <li class="nav-item">
-                  <a 
-                    class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_index' or app.request.attributes.get('_route') ==  'app_hotel_show' %}active{% endif %} ms-5" 
-                    href="{{ path('app_hotel_index') }}"
-                  >Nos&nbsp;Hôtels</a>
-                </li>
-              {% endif %}
-              {% if app.user and "ROLE_CLIENT" in app.user.roles  %}
-                <li class="nav-item">
-                  <a 
-                    class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_index'  %}active{% endif %} ms-5" 
-                    href="{{ path('app_hotel_index') }}"
-                  >Nos&nbsp;Hôtels</a>
-                </li>
-              {% endif %}
-               {% if app.user %}
-                  {% if "ROLE_GERANT" in app.user.roles %}
-                    {% if app.user.hotel %}
-                    <li class="nav-item">
-                      <a 
-                      class="nav-link {% if app.request.attributes.get('_route') ==  'app_reservation_index'  %}active{% endif %} ms-5" 
-                      href="{{ path('app_reservation_index', {'gerant':app.user.id}) }}"
-                      >Réservations</a>
-                    </li>
-                      <li class="nav-item">
-                        <a 
-                        class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_show' 
-                                            or app.request.attributes.get('_route') ==  'app_photo_index'
-                                            or app.request.attributes.get('_route') ==  'app_chambres_index'  %}active{% endif %} ms-5" 
-                        href="{{ path('app_hotel_show', {'id': app.user.hotel.id}) }}"
-                        >Mon&nbsp;Hôtel</a>
-                      </li>
-                    {% endif %}
-                  {% elseif "ROLE_ADMIN" in app.user.roles %}
-                    <li class="nav-item">
-                      <a 
-                      class="nav-link {% if app.request.attributes.get('_route') ==  'app_register_gerant'  %}active{% endif %} ms-5" 
-                      href="{{ path('app_register_gerant') }}"
-                      >Ajouter&nbsp;un&nbsp;gérant</a>
-                    </li>
-                    <li class="nav-item">
-                        <a 
-                        class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_new'  %}active{% endif %} ms-5" 
-                        href="{{ path('app_hotel_new') }}"
-                        >Créer&nbsp;un&nbsp;Hôtel</a>
-                      </li>
-                  {% elseif "ROLE_CLIENT" in app.user.roles %}
-                    <li class="nav-item">
-                      <a 
-                      class="nav-link {% if app.request.attributes.get('_route') ==  'app_reservation_client_index'  %}active{% endif %} ms-5" 
-                      href="{{ path('app_reservation_client_index', {'client':app.user.id}) }}"
-                      >Réservations</a>
-                    </li>
-                  {% endif %}
-                  {% if "ROLE_GERANT" in app.user.roles or "ROLE_CLIENT" in app.user.roles %}
-                    <li class="nav-item">
-                      <a 
-                      class="nav-link {% if app.request.attributes.get('_route') ==  'contact'  %}active{% endif %} ms-5" 
-                      href="{{ path('contact') }}"
-                      >Contacts</a>
-                    </li>
-                  {% endif %}
-              {% else %}
-                <li class="nav-item">
-                      <a 
-                      class="nav-link {% if app.request.attributes.get('_route') ==  'contact'  %}active{% endif %} ms-5" 
-                      href="{{ path('contact') }}"
-                      >Contacts</a>
-                    </li>
-              {% endif %}
+				</span>
+			</span>
+		</a>
+	</div>
+	<nav class="navbar navbar-expand-lg navbar-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="{{ path('app_accueil') }}">
+				<img class="logo" src="{{ asset('images/logo.PNG') }}" alt="Logo Hypnos"/>
+				<h1 class="title d-none d-lg-inline">Hypnos</h2>
+			</a>
 
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <div class="fond-gris centre announcement"> 
-        <div> 
-            {% if app.user %}
-                {{ app.user ? app.user.prenom : '' }} Bienvenue  sur Hypnos !
-            {% else %}
-                Bienvenue sur Hypnos !
-            {% endif %} 
-        </div>
-    </div>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon  btn d-inline-flex"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarScroll">
+				<ul class="navbar-nav my-2 p-3 mt-lg-5 navbar-nav-scroll">
+					<li class="nav-item">
+						<a class="nav-link {% if app.request.attributes.get('_route') ==  'app_accueil' or app.request.get('routeName') ==  'app_accueil' %}active{% endif %} ms-5" aria-current="page" id="/hotel/" href="{{ path('app_accueil') }}">Accueil
+						</a>
+					</li>
+					{% if not app.user %}
+						<li class="nav-item">
+							<a class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_index' or app.request.attributes.get('_route') ==  'app_hotel_show' %}active{% endif %} ms-5" href="{{ path('app_hotel_index') }}">Nos&nbsp;Hôtels</a>
+						</li>
+					{% endif %}
+					{% if app.user and "ROLE_CLIENT" in app.user.roles  %}
+						<li class="nav-item">
+							<a class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_index'  %}active{% endif %} ms-5" href="{{ path('app_hotel_index') }}">Nos&nbsp;Hôtels</a>
+						</li>
+					{% endif %}
+					{% if app.user %}
+						{% if "ROLE_GERANT" in app.user.roles %}
+							{% if app.user.hotel %}
+								<li class="nav-item">
+									<a class="nav-link {% if app.request.attributes.get('_route') ==  'app_reservation_index'  %}active{% endif %} ms-5" href="{{ path('app_reservation_index', {'gerant':app.user.id}) }}">Réservations</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_show'
+										                                            or app.request.attributes.get('_route') ==  'app_photo_index'
+										                                            or app.request.attributes.get('_route') ==  'app_chambres_index'  %}active{% endif %} ms-5" href="{{ path('app_hotel_show', {'id': app.user.hotel.id}) }}">Mon&nbsp;Hôtel</a>
+								</li>
+							{% endif %}
+						{% elseif "ROLE_ADMIN" in app.user.roles %}
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') ==  'app_register_gerant'  %}active{% endif %} ms-5" href="{{ path('app_register_gerant') }}">Ajouter&nbsp;un&nbsp;gérant</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') ==  'app_hotel_new'  %}active{% endif %} ms-5" href="{{ path('app_hotel_new') }}">Créer&nbsp;un&nbsp;Hôtel</a>
+							</li>
+						{% elseif "ROLE_CLIENT" in app.user.roles %}
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') ==  'app_reservation_client_index'  %}active{% endif %} ms-5" href="{{ path('app_reservation_client_index', {'client':app.user.id}) }}">Réservations</a>
+							</li>
+						{% endif %}
+						{% if "ROLE_GERANT" in app.user.roles or "ROLE_CLIENT" in app.user.roles %}
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') ==  'contact'  %}active{% endif %} ms-5" href="{{ path('contact') }}">Contacts</a>
+							</li>
+						{% endif %}
+					{% else %}
+						<li class="nav-item">
+							<a class="nav-link {% if app.request.attributes.get('_route') ==  'contact'  %}active{% endif %} ms-5" href="{{ path('contact') }}">Contacts</a>
+						</li>
+					{% endif %}
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="fond-gris centre announcement">
+		<div>
+			{% if app.user %}
+				{{ app.user ? app.user.prenom : '' }}
+				Bienvenue  sur Hypnos !
+			{% else %}
+				Bienvenue sur Hypnos !
+			{% endif %}
+		</div>
+	</div>
 </header>

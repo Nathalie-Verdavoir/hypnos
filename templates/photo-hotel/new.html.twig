@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Photo{% endblock %}
+{% block title %}New Photo
+{% endblock %}
 
 {% block body %}
-    <h2>Ajouter des Photos</h2>
+	<h2>Ajouter des Photos</h2>
 
-    {{ include('photo-hotel/_form.html.twig') }}
+	{{ include('photo-hotel/_form.html.twig') }}
 
-    <a class="btn m-3" href="{{ path('app_photo_index', {'hotel': app.request.get('hotel')}) }}" title="Retour à la liste des photos">
-        {% include 'boutons/return.html.twig' %}
-    </a>
+	<a class="btn m-3" href="{{ path('app_photo_index', {'hotel': app.request.get('hotel')}) }}" title="Retour à la liste des photos">
+		{% include 'boutons/return.html.twig' %}
+	</a>
 {% endblock %}

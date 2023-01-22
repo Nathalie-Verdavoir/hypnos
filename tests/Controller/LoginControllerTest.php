@@ -7,14 +7,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LoginControllerTest extends WebTestCase
 {
-    public function testLoginPage () {
+    public function testLoginPage()
+    {
         $client = static::createClient();
         $client->request('GET', '/login');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-        $this->assertSelectorTextContains('h2','Connexion');
+        $this->assertSelectorTextContains('h2', 'Connexion');
     }
 
-    public function testLoginWithBadCredentials () {
+    public function testLoginWithBadCredentials()
+    {
         $client = static::createClient();
         $crawler = $client->request('GET', '/login');
         $form = $crawler->selectButton('Continuer')->form([
@@ -24,13 +26,14 @@ class LoginControllerTest extends WebTestCase
         $client->submit($form);
         $this->assertResponseRedirects();
         $client->followRedirect();
-        $this->assertSelectorTextContains('.validator','Invalid credentials.');
+        $this->assertSelectorTextContains('.validator', 'Invalid credentials.');
     }
 
     /**
      * @dataProvider provideAccountsToLog
      */
-    public function testLoginWithClient (string $username, string $element) {
+    public function testLoginWithClient(string $username, string $element)
+    {
         $client = static::createClient();
         $crawler = $client->request('GET', '/login');
         $form = $crawler->selectButton('Continuer')->form([
@@ -40,16 +43,17 @@ class LoginControllerTest extends WebTestCase
         $client->submit($form);
         $this->assertResponseRedirects();
         $client->followRedirect();
-        $this->assertSelectorTextContains('header',$element);
+        $this->assertSelectorTextContains('header', $element);
     }
 
-    public function provideAccountsToLog(): array{
+    public function provideAccountsToLog(): array
+    {
         return [
-            ['user0@domain.fr','user0-firstname'], //client
-            
-            ['admin@domain.fr','Admin'], //admin
-            
-            ['gerant@domain.fr','Mon Hôtel'], //Gerant
+            ['user0@domain.fr', 'user0-firstname'], //client
+
+            ['admin@domain.fr', 'Admin'], //admin
+
+            ['gerant@domain.fr', 'Mon Hôtel'], //Gerant
         ];
     }
 }
