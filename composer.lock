@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e9867d1e2b2c7467f96afc15827eade1",
+    "content-hash": "103391bfb15d4f9f6e6d25a06a4085b4",
     "packages": [
         {
             "name": "api-platform/core",
@@ -5304,16 +5304,16 @@
         },
         {
             "name": "symfony/lock",
-            "version": "v6.0.5",
+            "version": "v6.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/lock.git",
-                "reference": "0cf461029e7a16f34b55ac7399f36a4adb14a30c"
+                "reference": "5fcddddbfb46917d457d51f31914a4ca630bea7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/lock/zipball/0cf461029e7a16f34b55ac7399f36a4adb14a30c",
-                "reference": "0cf461029e7a16f34b55ac7399f36a4adb14a30c",
+                "url": "https://api.github.com/repos/symfony/lock/zipball/5fcddddbfb46917d457d51f31914a4ca630bea7e",
+                "reference": "5fcddddbfb46917d457d51f31914a4ca630bea7e",
                 "shasum": ""
             },
             "require": {
@@ -5361,7 +5361,7 @@
                 "semaphore"
             ],
             "support": {
-                "source": "https://github.com/symfony/lock/tree/v6.0.5"
+                "source": "https://github.com/symfony/lock/tree/v6.0.15"
             },
             "funding": [
                 {
@@ -5377,7 +5377,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-02-24T10:01:27+00:00"
+            "time": "2022-10-28T16:22:58+00:00"
         },
         {
             "name": "symfony/mailer",

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Chambres;
 use App\Entity\Hotel;
 use App\Entity\Reservation;
+use App\Entity\User;
 use App\Form\ChambresType;
 use App\Form\ReservationType;
 use App\Repository\ChambresRepository;
@@ -63,11 +64,11 @@ class ChambresController extends AbstractController
             $user = $this->getUser();
             if($user==null || !in_array('ROLE_USER', $user->getRoles()) ){
                 return $this->redirectToRoute('login', [ 
-                    'to' => 'app_hotel_show',
+                    'to' => 'app_chambres_show',
                     'id' => $id,
+                    'isChambreResa' => true,
                     'resa_debut' => $reservation->getDebut()->getTimestamp(),
                     'resa_chambre' => $reservation->getChambre()->getId(),
-                    
                     'resa_fin' => $reservation->getFin()->getTimestamp(),
                 ], Response::HTTP_SEE_OTHER);
             }
@@ -82,6 +83,7 @@ class ChambresController extends AbstractController
         
         return $this->render('chambres/show.html.twig', [
             'chambre' => $chambre,
+            'isChambreResa' => true,
             'id' => $id,
             'form' => $form->createView(),
         ]);
