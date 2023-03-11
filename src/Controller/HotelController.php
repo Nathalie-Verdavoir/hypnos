@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Controller\ModelManagerController\ModelManagerController;
 use App\Entity\Hotel;
 use App\Entity\Reservation;
+use App\Entity\User;
 use App\Form\HotelType;
 use App\Form\ReservationType;
 use App\Repository\HotelRepository;
