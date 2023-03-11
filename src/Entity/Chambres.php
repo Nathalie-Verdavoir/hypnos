@@ -3,12 +3,12 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
-
+use App\Entity\Traits\EntityPhotoTrait;
 use App\Repository\ChambresRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
     collectionOperations: ['get'],
@@ -19,6 +19,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ChambresRepository::class)]
 class Chambres
 {
+    use EntityPhotoTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -106,14 +108,6 @@ class Chambres
         $this->hotel = $hotel;
 
         return $this;
-    }
-
-    /**
-     * @return Collection<int, Photo>
-     */
-    public function getPhoto(): Collection
-    {
-        return $this->photo;
     }
 
     public function addPhoto(Photo $photo): self

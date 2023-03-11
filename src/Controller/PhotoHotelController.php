@@ -2,21 +2,22 @@
 
 namespace App\Controller;
 
-use App\Entity\Photo;
+use App\Controller\ModelManagerController\ModelManagerController;
 use App\Entity\Hotel;
+use App\Entity\Photo;
+use App\Entity\User;
 use App\Form\PhotoHotelType;
 use App\Repository\PhotoRepository;
 use App\Service\ImageUploader;
 use App\Service\ManageImage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Security("is_granted('ROLE_GERANT')", statusCode: 404)]
 #[Route('/photo-hotel/{hotel}')]
-class PhotoHotelController extends AbstractController
+class PhotoHotelController extends ModelManagerController
 {
     #[Route('/', name: 'app_photo_index', methods: ['GET'])]
     public function index(Hotel $hotel, PhotoRepository $photoRepository): Response
@@ -108,9 +109,9 @@ class PhotoHotelController extends AbstractController
         }
         if ($this->isCsrfTokenValid('delete' . $photo->getId(), $request->request->get('_token'))) {
             $path = $photo->getLien();
-            $result = (new ImageUploader())->remove(substr($path, 0,  strrpos($path, ".")));
+            $result = (new ImageUploader())->remove(substr($path, 0, strrpos($path, ".")));
             if ($result['result'] == 'ok') {
-                $this->addFlash('success', 'Votre image a été supprimée' . ' (' . substr($path, 0,  strrpos($path, ".")) . ')');
+                $this->addFlash('success', 'Votre image a été supprimée' . ' (' . substr($path, 0, strrpos($path, ".")) . ')');
                 $photoRepository->remove($photo);
             }
         }

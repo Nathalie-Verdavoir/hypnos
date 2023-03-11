@@ -3,10 +3,11 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
+use App\Entity\Traits\EntityIdTrait;
 use App\Repository\ReservationRepository;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 #[ApiResource(
@@ -17,10 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 )]
 class Reservation
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
+    use EntityIdTrait;
 
     #[ORM\Column(type: 'date')]
     #[Groups(["read"])]
@@ -42,11 +40,6 @@ class Reservation
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
     private $client;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getDebut(): ?\DateTimeInterface
     {

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\ModelManagerController\ModelManagerController;
 use App\Entity\Chambres;
 use App\Entity\Hotel;
 use App\Entity\Reservation;
@@ -11,13 +12,12 @@ use App\Form\ReservationType;
 use App\Repository\ChambresRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/chambres')]
-class ChambresController extends AbstractController
+class ChambresController extends ModelManagerController
 {
     #[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
     #[Route('/', name: 'app_chambres_index', methods: ['GET'])]
@@ -59,11 +59,11 @@ class ChambresController extends AbstractController
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
         $reservation->setClient($this->getUser());
-        if ($form->isSubmitted() && $form->isValid()) { 
+        if ($form->isSubmitted() && $form->isValid()) {
             /** @var User $user */
             $user = $this->getUser();
-            if($user==null || !in_array('ROLE_USER', $user->getRoles()) ){
-                return $this->redirectToRoute('login', [ 
+            if ($user == null || !in_array('ROLE_USER', $user->getRoles())) {
+                return $this->redirectToRoute('login', [
                     'to' => 'app_chambres_show',
                     'id' => $id,
                     'isChambreResa' => true,
@@ -72,15 +72,15 @@ class ChambresController extends AbstractController
                     'resa_fin' => $reservation->getFin()->getTimestamp(),
                 ], Response::HTTP_SEE_OTHER);
             }
-            
-            $entityManager->persist($reservation);
-            $entityManager->flush();
+
+            $this->modelManagerAdapter->save($reservation, 'Reservations');
+
             return $this->redirectToRoute('app_reservation_client_index', [
                 'client' => $user->getId(),
             ], Response::HTTP_SEE_OTHER);
         }
-        
-        
+
+
         return $this->render('chambres/show.html.twig', [
             'chambre' => $chambre,
             'isChambreResa' => true,
@@ -88,7 +88,7 @@ class ChambresController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    
+
     #[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
     #[Route('/{id}/edit', name: 'app_chambres_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Chambres $chambre, ChambresRepository $chambresRepository): Response
@@ -111,7 +111,7 @@ class ChambresController extends AbstractController
     #[Route('/{id}', name: 'app_chambres_delete', methods: ['POST'])]
     public function delete(Request $request, Chambres $chambre, ChambresRepository $chambresRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$chambre->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $chambre->getId(), $request->request->get('_token'))) {
             $chambresRepository->remove($chambre);
         }
 

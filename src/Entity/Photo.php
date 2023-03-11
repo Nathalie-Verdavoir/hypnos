@@ -2,16 +2,14 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\EntityIdTrait;
 use App\Repository\PhotoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PhotoRepository::class)]
 class Photo
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
+    use EntityIdTrait;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $lien;
@@ -24,11 +22,6 @@ class Photo
 
     #[ORM\ManyToOne(targetEntity: Chambres::class, inversedBy: 'photo')]
     private $chambres;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getLien(): ?string
     {

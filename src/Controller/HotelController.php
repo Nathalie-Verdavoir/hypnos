@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\ModelManagerController\ModelManagerController;
 use App\Entity\Hotel;
 use App\Entity\Reservation;
 use App\Form\HotelType;
@@ -9,13 +10,12 @@ use App\Form\ReservationType;
 use App\Repository\HotelRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/hotel')]
-class HotelController extends AbstractController
+class HotelController extends ModelManagerController
 {
     #[Route('/', name: 'app_hotel_index', methods: ['GET'])]
     public function index(HotelRepository $hotelRepository): Response
@@ -64,8 +64,8 @@ class HotelController extends AbstractController
                 ], Response::HTTP_SEE_OTHER);
             }
             $reservation->setClient($this->getUser());
-            $entityManager->persist($reservation);
-            $entityManager->flush();
+            $this->modelManagerAdapter->save($reservation, 'Reservation');
+
             return $this->redirectToRoute('app_reservation_client_index', [
                 'client' => $user->getId(),
             ], Response::HTTP_SEE_OTHER);
