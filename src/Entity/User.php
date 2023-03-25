@@ -21,27 +21,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Assert\NotBlank(message: 'Veuillez saisir une valeur')]
     #[Assert\Email(message: 'L\'email {{ value }} n\'est pas valide')]
-    private $email;
+    private ?string $email;
 
     #[ORM\Column(type: 'json', length: 180)]
-    private $roles = [];
+    private array $roles = [];
 
     #[ORM\Column(type: 'string')]
     #[Assert\NotBlank(message: 'Veuillez saisir une valeur')]
     #[Assert\Regex(pattern: '/^(?=.*\d)(?=.*[A-Z])(?=.*[!#$%&*+\/=?^_`{|}~-])(?!.*(.)\1{2}).*[a-z].{8,}$/m', message: 'Votre mot de passe doit comporter au moins huit caractères, dont des lettres majuscules et minuscules, un chiffre et un symbole.')]
-    private $password;
+    private string $password;
 
     #[ORM\Column(type: 'string', length: 40)]
-    private $nom;
+    private ?string $nom;
 
     #[ORM\Column(type: 'string', length: 40)]
-    private $prenom;
+    private ?string $prenom;
 
     #[ORM\OneToOne(inversedBy: 'gerant', targetEntity: Hotel::class, cascade: ['persist', 'remove'])]
-    private $hotel;
+    private ?Hotel $hotel;
 
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Reservation::class, orphanRemoval: true)]
-    private $reservations;
+    private ArrayCollection $reservations;
+
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $isActive;
 
     public function __construct()
     {
@@ -179,8 +182,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function isDeleted(): bool
+    {
+        if (!$this->isActive) {
+            return true;
+        }
+        return false;
+    }
+
     public function __toString()
     {
         return $this->prenom . ' ' . $this->nom;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
     }
 }
