@@ -41,7 +41,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Hotel $hotel;
 
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Reservation::class, orphanRemoval: true)]
-    private ArrayCollection $reservations;
+    private $reservations;
 
     #[ORM\Column(type: 'boolean')]
     private ?bool $isActive;
