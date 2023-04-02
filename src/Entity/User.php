@@ -27,7 +27,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     #[ORM\Column(type: 'string')]
-    #[Assert\NotBlank(message: 'Veuillez saisir une valeur')]
     #[Assert\Regex(pattern: '/^(?=.*\d)(?=.*[A-Z])(?=.*[!#$%&*+\/=?^_`{|}~-])(?!.*(.)\1{2}).*[a-z].{8,}$/m', message: 'Votre mot de passe doit comporter au moins huit caractères, dont des lettres majuscules et minuscules, un chiffre et un symbole.')]
     private string $password;
 
@@ -36,6 +35,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 40)]
     private ?string $prenom;
+    private ?string $prenom_bis;
 
     #[ORM\OneToOne(inversedBy: 'gerant', targetEntity: Hotel::class, cascade: ['persist', 'remove'])]
     private ?Hotel $hotel;
@@ -200,10 +200,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->isActive;
     }
 
-    public function setIsActive(bool $isActive): self
+    public function setIsActive(bool $isActive = true): self
     {
         $this->isActive = $isActive;
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPrenomBis(): ?string
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * @param string|null $prenom_bis
+     */
+    public function setPrenomBis(?string $prenom_bis): void
+    {
+        $this->setPrenom($prenom_bis);
+        $this->prenom_bis = $prenom_bis;
     }
 }

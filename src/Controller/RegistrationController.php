@@ -21,8 +21,10 @@ class RegistrationController extends ModelManagerController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
+        $user->setIsActive();
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -30,10 +32,11 @@ class RegistrationController extends ModelManagerController
                     $form->get('plainPassword')->getData()
                 )
             );
+
             $user->setRoles(["ROLE_CLIENT"]);
             $this->modelManagerAdapter->save($user, 'Utilisateur');
 
-            return $this->redirectToRoute('app_accueil');
+            //   return $this->redirectToRoute('app_accueil');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -49,6 +52,7 @@ class RegistrationController extends ModelManagerController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
+        $user->setIsActive();
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
