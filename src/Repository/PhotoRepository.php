@@ -73,6 +73,17 @@ class PhotoRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findPhotosAndHotelsAndChambres()
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('h')
+            ->leftJoin('p.hotel', 'h')
+            ->addSelect('c')
+            ->leftJoin('p.chambres', 'c')
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
     /*
     public function findOneBySomeField($value): ?Photo
     {

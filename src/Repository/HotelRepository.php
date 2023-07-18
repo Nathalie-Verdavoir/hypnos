@@ -48,29 +48,34 @@ class HotelRepository extends ServiceEntityRepository
     // /**
     //  * @return Hotel[] Returns an array of Hotel objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllHotelsAndPics()
     {
         return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
+            ->addSelect('p')
+            ->leftJoin('h.photo', 'p')
+            ->addSelect('g')
+            ->leftJoin('h.gerant', 'g')
             ->orderBy('h.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Hotel
+
+    public function findHotelAndPics($value): ?Hotel
     {
         return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
+            ->addSelect('c')
+            ->leftJoin('h.chambres', 'c')
+            ->addSelect('ph')
+            ->leftJoin('c.photo', 'ph')
+            ->addSelect('p')
+            ->leftJoin('h.photo', 'p')
+            ->addSelect('g')
+            ->leftJoin('h.gerant', 'g')
+            ->andWhere('h.id = :val')
             ->setParameter('val', $value)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
+
 }

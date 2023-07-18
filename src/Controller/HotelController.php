@@ -9,7 +9,6 @@ use App\Entity\User;
 use App\Form\HotelType;
 use App\Form\ReservationType;
 use App\Repository\HotelRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +21,7 @@ class HotelController extends ModelManagerController
     public function index(HotelRepository $hotelRepository): Response
     {
         return $this->render('hotel/index.html.twig', [
-            'hotels' => $hotelRepository->findAll(),
+            'hotels' => $hotelRepository->findAllHotelsAndPics(),
         ]);
     }
 
@@ -46,8 +45,9 @@ class HotelController extends ModelManagerController
     }
 
     #[Route('/{id}', name: 'app_hotel_show', methods: ['GET', 'POST'])]
-    public function show(Request $request, Hotel $hotel, EntityManagerInterface $entityManager, $id): Response
+    public function show(Request $request, Hotel $hotel, HotelRepository $hotelRepository, $id): Response
     {
+        $hotel = $hotelRepository->findHotelAndPics($hotel);
         $reservation = new Reservation();
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
