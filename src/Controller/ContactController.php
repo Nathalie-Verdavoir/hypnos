@@ -27,7 +27,7 @@ class ContactController extends AbstractController
         }
 
         return $this->render('contact/index.html.twig', [
-            'photos' => $photoRepository->findAll(),
+            'photos' => $photoRepository->findPhotosAndHotelsAndChambres(),
             'form' => $form->createView()
         ]);
     }

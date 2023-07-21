@@ -80,6 +80,8 @@ class PhotoRepository extends ServiceEntityRepository
             ->leftJoin('p.hotel', 'h')
             ->addSelect('c')
             ->leftJoin('p.chambres', 'c')
+            ->addSelect('u')
+            ->leftJoin('h.gerant', 'u')
             ->orderBy('p.id', 'ASC')
             ->getQuery()
             ->getResult();
