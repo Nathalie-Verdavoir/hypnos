@@ -2,20 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\Photo;
 use App\Entity\Chambres;
+use App\Entity\Photo;
 use App\Form\PhotoChambreType;
 use App\Repository\ChambresRepository;
 use App\Repository\PhotoRepository;
 use App\Service\ImageUploader;
 use App\Service\ManageImage;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Security("is_granted('ROLE_GERANT')", statusCode: 404)]
+#[IsGranted(['ROLE_GERANT'], statusCode: 403)]
 #[Route('/photo-chambre/{chambre}')]
 class PhotoChambreController extends AbstractController
 {
@@ -106,9 +106,9 @@ class PhotoChambreController extends AbstractController
         }
         if ($this->isCsrfTokenValid('delete' . $photo->getId(), $request->request->get('_token'))) {
             $path = $photo->getLien();
-            $result = (new ImageUploader())->remove(substr($path, 0,  strrpos($path, ".")));
+            $result = (new ImageUploader())->remove(substr($path, 0, strrpos($path, ".")));
             if ($result['result'] == 'ok') {
-                $this->addFlash('success', 'Votre image a été supprimée' . ' (' . substr($path, 0,  strrpos($path, ".")) . ')');
+                $this->addFlash('success', 'Votre image a été supprimée' . ' (' . substr($path, 0, strrpos($path, ".")) . ')');
                 $photoRepository->remove($photo);
             }
         }

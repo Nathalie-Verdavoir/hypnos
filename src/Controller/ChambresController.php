@@ -11,15 +11,15 @@ use App\Form\ChambresType;
 use App\Form\ReservationType;
 use App\Repository\ChambresRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/chambres')]
 class ChambresController extends ModelManagerController
 {
-    #[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
+    #[IsGranted(['ROLE_GERANT'], statusCode: 403)]
     #[Route('/', name: 'app_chambres_index', methods: ['GET'])]
     public function index(ChambresRepository $chambresRepository): Response
     {
@@ -28,7 +28,7 @@ class ChambresController extends ModelManagerController
         ]);
     }
 
-    #[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
+    #[IsGranted(['ROLE_GERANT'], statusCode: 403)]
     #[Route('/new', name: 'app_chambres_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ChambresRepository $chambresRepository): Response
     {
@@ -89,7 +89,7 @@ class ChambresController extends ModelManagerController
         ]);
     }
 
-    #[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
+    #[IsGranted(['ROLE_GERANT'], statusCode: 403)]
     #[Route('/{id}/edit', name: 'app_chambres_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Chambres $chambre, ChambresRepository $chambresRepository): Response
     {
@@ -107,7 +107,7 @@ class ChambresController extends ModelManagerController
         ]);
     }
 
-    #[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
+    #[IsGranted(['ROLE_GERANT'], statusCode: 403)]
     #[Route('/{id}', name: 'app_chambres_delete', methods: ['POST'])]
     public function delete(Request $request, Chambres $chambre, ChambresRepository $chambresRepository): Response
     {

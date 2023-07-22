@@ -7,11 +7,11 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\PhotoRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class RegistrationController extends ModelManagerController
 {
@@ -45,7 +45,7 @@ class RegistrationController extends ModelManagerController
         ]);
     }
 
-    #[Security("is_granted( 'ROLE_ADMIN')", statusCode: 403)]
+    #[IsGranted(['ROLE_ADMIN'], statusCode: 403)]
     #[Route('/register_gerant', name: 'app_register_gerant')]
     public function registerG(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {

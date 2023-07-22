@@ -9,7 +9,6 @@ use App\Entity\User;
 use App\Form\HotelType;
 use App\Form\ReservationType;
 use App\Repository\HotelRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,7 +24,7 @@ class HotelController extends ModelManagerController
         ]);
     }
 
-    #[Security("is_granted('ROLE_ADMIN')", statusCode: 403)]
+    #[IsGranted('ROLE_ADMIN', statusCode: 403)]
     #[Route('/new', name: 'app_hotel_new', methods: ['GET', 'POST'])]
     public function new(Request $request, HotelRepository $hotelRepository): Response
     {
@@ -78,7 +77,8 @@ class HotelController extends ModelManagerController
         ]);
     }
 
-    #[Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_GERANT')", statusCode: 403)]
+    #[IsGranted(['ROLE_ADMIN', 'ROLE_GERANT'], statusCode: 403)]
+    //  #[Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_GERANT')", statusCode: 403)]
     #[Route('/{id}/edit', name: 'app_hotel_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Hotel $hotel, HotelRepository $hotelRepository): Response
     {
@@ -96,7 +96,7 @@ class HotelController extends ModelManagerController
         ]);
     }
 
-    #[Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_GERANT')", statusCode: 403)]
+    #[IsGranted(['ROLE_ADMIN', 'ROLE_GERANT'], statusCode: 403)]
     #[Route('/{id}', name: 'app_hotel_delete', methods: ['POST'])]
     public function delete(Request $request, Hotel $hotel, HotelRepository $hotelRepository): Response
     {

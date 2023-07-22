@@ -6,7 +6,6 @@ use App\Entity\Reservation;
 use App\Entity\User;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/reservation')]
 class ReservationController extends AbstractController
 {
-    #[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
+    #[IsGranted(['ROLE_GERANT'], statusCode: 403)]
     #[Route('/', name: 'app_reservation_index', methods: ['GET'])]
     public function index(ReservationRepository $reservationRepository): Response
     {
@@ -32,7 +31,7 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Security("is_granted('ROLE_CLIENT')", statusCode: 403)]
+    #[IsGranted(['ROLE_CLIENT'], statusCode: 403)]
     #[Route('/client/{client}', name: 'app_reservation_client_index', methods: ['GET'])]
     public function indexClient(ReservationRepository $reservationRepository, User $client): Response
     {
@@ -44,7 +43,7 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Security("is_granted('ROLE_CLIENT')", statusCode: 403)]
+    #[IsGranted(['ROLE_CLIENT'], statusCode: 403)]
     #[Route('/new/{chambre}', name: 'app_reservation_new_chambre', methods: ['GET', 'POST'])]
     public function newResa(Request $request, ReservationRepository $reservationRepository): Response
     {
@@ -66,7 +65,7 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
+    #[IsGranted(['ROLE_GERANT'], statusCode: 403)]
     #[Route('/{id}', name: 'app_reservation_show', methods: ['GET'])]
     public function show(Reservation $reservation): Response
     {
@@ -78,7 +77,7 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Security("is_granted('ROLE_GERANT')", statusCode: 403)]
+    #[IsGranted(['ROLE_GERANT'], statusCode: 403)]
     #[Route('/{id}/edit', name: 'app_reservation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Reservation $reservation, ReservationRepository $reservationRepository): Response
     {
@@ -99,7 +98,7 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Security("is_granted('ROLE_CLIENT')", statusCode: 403)]
+    #[IsGranted(['ROLE_CLIENT'], statusCode: 403)]
     #[Route('/{id}', name: 'app_reservation_delete', methods: ['POST'])]
     public function delete(Request $request, Reservation $reservation, ReservationRepository $reservationRepository): Response
     {

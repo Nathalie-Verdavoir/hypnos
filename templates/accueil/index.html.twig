@@ -8,8 +8,8 @@
     <div class="container large-width">
         <div class="row align-items-start">
             <div class="col-12 col-lg-2 left-col d-none d-lg-inline">
-                {% if app.user and app.user.hotel %}
-                    {% set user_hotel = app.user.hotel %}
+                {% if user is defined and user.hotel %}
+                    {% set user_hotel = user.hotel %}
                 {% endif %}
                 {{ include('hotel/_aside_hotels.html.twig') }}
             </div>
