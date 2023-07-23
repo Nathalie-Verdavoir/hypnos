@@ -17,10 +17,10 @@ class Photo
     #[ORM\Column(type: 'boolean')]
     private $cover;
 
-    #[ORM\ManyToOne(targetEntity: Hotel::class, inversedBy: 'photo')]
+    #[ORM\ManyToOne(targetEntity: Hotel::class, inversedBy: 'photo', fetch: 'EAGER')]
     private $hotel;
 
-    #[ORM\ManyToOne(targetEntity: Chambres::class, inversedBy: 'photo')]
+    #[ORM\ManyToOne(targetEntity: Chambres::class, inversedBy: 'photo', fetch: 'EAGER')]
     private $chambres;
 
     public function getLien(): ?string

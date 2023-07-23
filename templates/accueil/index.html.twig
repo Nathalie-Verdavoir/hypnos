@@ -8,10 +8,8 @@
     <div class="container large-width">
         <div class="row align-items-start">
             <div class="col-12 col-lg-2 left-col d-none d-lg-inline">
-                {% if user is defined and user.hotel %}
-                    {% set user_hotel = user.hotel %}
-                {% endif %}
-                {{ include('hotel/_aside_hotels.html.twig') }}
+
+                {{ render(path('app_aside_accueil')) }}
             </div>
             <div class="col-12 col-lg-6 left-col m-0">
                 <img class="logo mx-auto d-block" src="{{ asset('images/logo.PNG') }}" alt="Logo Hypnos"/>

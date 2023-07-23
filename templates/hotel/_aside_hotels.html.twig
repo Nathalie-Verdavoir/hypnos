@@ -26,7 +26,7 @@
                                 {% include 'boutons/voir.html.twig' %}
                             </a>
                         </div>
-                        {% if user_hotel is defined and user_hotel is same as(hotel) %}
+                        {% if user_hotel is defined and user_hotel.hotel is same as(hotel) %}
                             <div class="col col-12 col-lg-6 g-2">
                                 <a class="btn btn-primary iconic m-1"
                                    href="{{ path('app_hotel_edit', {'id': hotel.id}) }}" title="Editer cet hotel">

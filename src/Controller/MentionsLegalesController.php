@@ -10,13 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class MentionsLegalesController extends AbstractController
 {
 
-    #[Route('/mentions', name: 'app_mentions', methods: ['GET'])]
+    #[Route('/mentions', name: 'app_mentions', methods: ['GET'], priority: 1)]
     public function index(): Response
     {
         return $this->render('legals/mentions.html.twig');
     }
 
-    #[Route('/cgu', name: 'app_cgu', methods: ['GET'])]
+    #[Route('/cgu', name: 'app_cgu', methods: ['GET'], priority: 1)]
     public function indexCGU(): Response
     {
         return $this->render('legals/cgu.html.twig');

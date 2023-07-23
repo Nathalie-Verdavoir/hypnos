@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccueilController extends ModelManagerController
 {
 
-    #[Route('/', name: 'app_accueil', methods: ['GET'])]
+    #[Route('/', name: 'app_accueil', methods: ['GET'], priority: 2)]
     public function slide(HotelRepository $hotelRepository, PhotoRepository $photoRepository): Response
     {
 

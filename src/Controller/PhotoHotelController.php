@@ -97,7 +97,7 @@ class PhotoHotelController extends ModelManagerController
         }
 
         return $this->render('photo-hotel/index.html.twig', [
-            'photos' => $photoRepository->findAll(),
+            'photos' => $photoRepository->findPhotosAndHotelsAndChambres(),
         ]);
     }
 

@@ -4,7 +4,7 @@
   "minimum-stability": "stable",
   "prefer-stable": true,
   "require": {
-    "php": ">=8.0.2",
+    "php": ">=8.1",
     "ext-ctype": "*",
     "ext-iconv": "*",
     "api-platform/core": "3.1.*",
@@ -18,7 +18,7 @@
     "nelmio/cors-bundle": "^2.2",
     "phpdocumentor/reflection-docblock": "^5.3",
     "phpstan/phpdoc-parser": "^1.4",
-    "sensio/framework-extra-bundle": "^6.2",
+    "symfony/acl-bundle": "^2.3",
     "symfony/apache-pack": "^1.0",
     "symfony/asset": "6.3.*",
     "symfony/console": "6.3.*",

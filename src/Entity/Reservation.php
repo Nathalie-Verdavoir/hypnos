@@ -33,11 +33,11 @@ class Reservation
     #[Assert\Expression("this.getFin() >= this.getDebut()", message: "La date de fin doit être après la date de début")]
     private $fin;
 
-    #[ORM\ManyToOne(targetEntity: Chambres::class, inversedBy: 'reservations')]
+    #[ORM\ManyToOne(targetEntity: Chambres::class, inversedBy: 'reservations', fetch: 'EAGER')]
     #[ORM\JoinColumn(nullable: false)]
     private $chambre;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'reservations')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'reservations', fetch: 'EAGER')]
     #[ORM\JoinColumn(nullable: false)]
     private $client;
 

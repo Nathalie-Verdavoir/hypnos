@@ -37,17 +37,17 @@ class Chambres
     #[Groups(["read"])]
     private $prix;
 
-    #[ORM\ManyToOne(targetEntity: Hotel::class, inversedBy: 'chambres')]
+    #[ORM\ManyToOne(targetEntity: Hotel::class, inversedBy: 'chambres', fetch: 'EAGER')]
     #[ORM\JoinColumn(nullable: false)]
     private $hotel;
 
-    #[ORM\OneToMany(mappedBy: 'chambres', targetEntity: Photo::class)]
+    #[ORM\OneToMany(mappedBy: 'chambres', targetEntity: Photo::class, fetch: 'EAGER')]
     private $photo;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $booking;
 
-    #[ORM\OneToMany(mappedBy: 'chambre', targetEntity: Reservation::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'chambre', targetEntity: Reservation::class, orphanRemoval: true, fetch: 'EAGER')]
     #[Groups(["read"])]
     private $reservations;
 

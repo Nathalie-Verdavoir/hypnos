@@ -20,7 +20,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ChambresController extends ModelManagerController
 {
     #[IsGranted(['ROLE_GERANT'], statusCode: 403)]
-    #[Route('/', name: 'app_chambres_index', methods: ['GET'])]
+    #[Route('/', name: 'app_chambres_index', methods: ['GET'], priority: 2)]
     public function index(ChambresRepository $chambresRepository): Response
     {
         return $this->render('chambres/index.html.twig', [
@@ -29,7 +29,7 @@ class ChambresController extends ModelManagerController
     }
 
     #[IsGranted(['ROLE_GERANT'], statusCode: 403)]
-    #[Route('/new', name: 'app_chambres_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_chambres_new', methods: ['GET', 'POST'], priority: 2)]
     public function new(Request $request, ChambresRepository $chambresRepository): Response
     {
         $chambre = new Chambres();
@@ -52,7 +52,7 @@ class ChambresController extends ModelManagerController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_chambres_show', methods: ['GET', 'POST'])]
+    #[Route('/{id}', name: 'app_chambres_show', methods: ['GET', 'POST'], priority: 2)]
     public function show(Request $request, Chambres $chambre, EntityManagerInterface $entityManager, $id): Response
     {
         $reservation = new Reservation();
@@ -90,7 +90,7 @@ class ChambresController extends ModelManagerController
     }
 
     #[IsGranted(['ROLE_GERANT'], statusCode: 403)]
-    #[Route('/{id}/edit', name: 'app_chambres_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_chambres_edit', methods: ['GET', 'POST'], priority: 2)]
     public function edit(Request $request, Chambres $chambre, ChambresRepository $chambresRepository): Response
     {
         $form = $this->createForm(ChambresType::class, $chambre);
@@ -108,7 +108,7 @@ class ChambresController extends ModelManagerController
     }
 
     #[IsGranted(['ROLE_GERANT'], statusCode: 403)]
-    #[Route('/{id}', name: 'app_chambres_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_chambres_delete', methods: ['POST'], priority: 2)]
     public function delete(Request $request, Chambres $chambre, ChambresRepository $chambresRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $chambre->getId(), $request->request->get('_token'))) {

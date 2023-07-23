@@ -37,7 +37,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $prenom;
     private ?string $prenom_bis;
 
-    #[ORM\OneToOne(inversedBy: 'gerant', targetEntity: Hotel::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'gerant', targetEntity: Hotel::class, cascade: ['persist', 'remove'], fetch: 'EAGER')]
     private ?Hotel $hotel;
 
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Reservation::class, orphanRemoval: true)]

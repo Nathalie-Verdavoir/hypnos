@@ -12,11 +12,13 @@ use App\Repository\HotelRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/hotel')]
 class HotelController extends ModelManagerController
 {
-    #[Route('/', name: 'app_hotel_index', methods: ['GET'])]
+    #[Route('/', name: 'app_hotel_index', methods: ['GET'], priority: 2)]
+    //   #[IsGranted(new Expression('is_granted("ROLE_ADMIN") or is_granted("ROLE_GERANT")'))]
     public function index(HotelRepository $hotelRepository): Response
     {
         return $this->render('hotel/index.html.twig', [
@@ -24,8 +26,9 @@ class HotelController extends ModelManagerController
         ]);
     }
 
-    #[IsGranted('ROLE_ADMIN', statusCode: 403)]
-    #[Route('/new', name: 'app_hotel_new', methods: ['GET', 'POST'])]
+
+    #[Route('/new', name: 'app_hotel_new', methods: ['GET', 'POST'], priority: 2)]
+    #[IsGranted('create', 'hotel', '', 403)]
     public function new(Request $request, HotelRepository $hotelRepository): Response
     {
         $hotel = new Hotel();
@@ -37,13 +40,14 @@ class HotelController extends ModelManagerController
             return $this->redirectToRoute('app_hotel_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('hotel/new.html.twig', [
+        return $this->render('hotel/new.html.twig', [
             'hotel' => $hotel,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/{id}', name: 'app_hotel_show', methods: ['GET', 'POST'])]
+    #[Route('/{id}', name: 'app_hotel_show', methods: ['GET', 'POST'], priority: 2)]
+    #[IsGranted('view', 'hotel', '', 403)]
     public function show(Request $request, Hotel $hotel, HotelRepository $hotelRepository, $id): Response
     {
         $hotel = $hotelRepository->findHotelAndPics($hotel);
@@ -77,9 +81,9 @@ class HotelController extends ModelManagerController
         ]);
     }
 
-    #[IsGranted(['ROLE_ADMIN', 'ROLE_GERANT'], statusCode: 403)]
     //  #[Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_GERANT')", statusCode: 403)]
-    #[Route('/{id}/edit', name: 'app_hotel_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_hotel_edit', methods: ['GET', 'POST'], priority: 2)]
+    #[IsGranted('edit', 'hotel', '', 403)]
     public function edit(Request $request, Hotel $hotel, HotelRepository $hotelRepository): Response
     {
         $form = $this->createForm(HotelType::class, $hotel);
@@ -96,8 +100,9 @@ class HotelController extends ModelManagerController
         ]);
     }
 
-    #[IsGranted(['ROLE_ADMIN', 'ROLE_GERANT'], statusCode: 403)]
-    #[Route('/{id}', name: 'app_hotel_delete', methods: ['POST'])]
+
+    #[Route('/{id}', name: 'app_hotel_delete', methods: ['POST'], priority: 2)]
+    #[IsGranted('edit', 'hotel', '', 403)]
     public function delete(Request $request, Hotel $hotel, HotelRepository $hotelRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $hotel->getId(), $request->request->get('_token'))) {

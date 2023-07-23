@@ -9,20 +9,20 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Repository\HotelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
-class HeaderController extends AbstractController
+class AsideAccueilController extends AbstractController
 {
-    #[Route('/header', name: 'app_header', methods: ['GET'], priority: 3)]
-    public function header(#[CurrentUser] ?User $user): Response
+    #[Route('/aside', name: 'app_aside_accueil', methods: ['GET'], priority: 3)]
+    public function header(HotelRepository $hotelRepository): Response
     {
-        //$user = $this->getUser();
-        return $this->render('header.html.twig', [
-            'user' => $user,
+        $user = $this->getUser();
+        return $this->render('/hotel/_aside_hotels.html.twig', [
+            'hotels' => $hotelRepository->findAllHotelsAndPics(),
+            'user_hotel' => $user,
         ])->setSharedMaxAge(3600);
     }
 }

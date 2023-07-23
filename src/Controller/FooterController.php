@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FooterController extends ModelManagerController
 {
-    #[Route('/footer', name: 'app_footer', methods: ['GET'])]
+    #[Route('/footer', name: 'app_footer', methods: ['GET'], priority: 3)]
     public function footer(): Response
     {
 

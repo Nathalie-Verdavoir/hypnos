@@ -10,7 +10,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
-    #[Route('/login', name: 'login')]
+    #[Route('/login', name: 'login', priority: 2)]
     public function index(AuthenticationUtils $authenticationUtils, PhotoRepository $photoRepository): Response
     {
         // get the login error if there is one
@@ -20,9 +20,9 @@ class LoginController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('login/index.html.twig', [
-            'photos' => $photoRepository->findAll(),
+            'photos' => $photoRepository->findPhotosAndHotelsAndChambres(),
             'last_username' => $lastUsername,
-            'error'         => $error,
+            'error' => $error,
         ]);
     }
 }

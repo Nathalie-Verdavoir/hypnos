@@ -27,13 +27,13 @@ class Hotel
     #[ORM\Column(type: 'string', length: 255)]
     private $adresse;
 
-    #[ORM\OneToOne(mappedBy: 'hotel', targetEntity: User::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'hotel', targetEntity: User::class, cascade: ['persist', 'remove'], fetch: 'EAGER')]
     private $gerant;
 
-    #[ORM\OneToMany(mappedBy: 'hotel', targetEntity: Photo::class)]
+    #[ORM\OneToMany(mappedBy: 'hotel', targetEntity: Photo::class, fetch: 'EAGER')]
     private $photo;
 
-    #[ORM\OneToMany(mappedBy: 'hotel', targetEntity: Chambres::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'hotel', targetEntity: Chambres::class, orphanRemoval: true, fetch: 'EAGER')]
     private $chambres;
 
     public function __construct()
