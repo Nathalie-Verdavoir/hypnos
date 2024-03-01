@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Form\HotelType;
 use App\Form\ReservationType;
 use App\Repository\HotelRepository;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +19,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class HotelController extends ModelManagerController
 {
     #[Route('/', name: 'app_hotel_index', methods: ['GET'], priority: 2)]
-    //   #[IsGranted(new Expression('is_granted("ROLE_ADMIN") or is_granted("ROLE_GERANT")'))]
+    #[IsGranted(new Expression('is_granted("ROLE_ADMIN") or is_granted("ROLE_GERANT")'))]
     public function index(HotelRepository $hotelRepository): Response
     {
         return $this->render('hotel/index.html.twig', [
