@@ -99,12 +99,12 @@
 		</span>
                                         </button>
                                     </form>
-                                    {% if chambre.cleaningState is not defined %}
-                                        <span class="bg-primary"> Inconnu </span>
+                                    {% if chambre.cleaningState is same as 'clean' %}
+                                        <span class="bg-success">  Propre </span>
                                     {% elseif chambre.cleaningState is same as 'dirty' %}
                                         <span class="bg-warning">   Sale </span>
                                     {% else %}
-                                        <span class="bg-success">  Propre </span>
+                                        <span class="bg-primary"> Inconnu  </span>
                                     {% endif %}
                                 </div>
                                 {# end of card-body #}
