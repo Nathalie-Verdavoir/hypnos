@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Workflow\Registry;
 
 #[Route('/chambres')]
 class ChambresController extends ModelManagerController
@@ -114,6 +115,27 @@ class ChambresController extends ModelManagerController
     {
         if ($this->isCsrfTokenValid('delete' . $chambre->getId(), $request->request->get('_token'))) {
             $chambresRepository->remove($chambre);
+        }
+
+        return $this->redirectToRoute('app_chambres_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/clean/{id}', name: 'app_chambres_clean', methods: ['POST'], priority: 2)]
+    public function clean(Request $request, Chambres $chambre, ChambresRepository $chambresRepository, Registry $workflows): Response
+    {
+        if ($this->isCsrfTokenValid('clean' . $chambre->getId(), $request->request->get('_token'))) {
+            $workflow = $workflows->get($chambre);
+            if ($chambre->getCleaningState() === null || $chambre->getCleaningState() !== 'clean') {
+                if ($workflow->can($chambre, 'to_clean')) {
+                    $workflow->apply($chambre, 'to_clean');
+                    $chambresRepository->add($chambre);
+                }
+            } else {
+                if ($workflow->can($chambre, 'to_dirty')) {
+                    $workflow->apply($chambre, 'to_dirty');
+                    $chambresRepository->add($chambre);
+                }
+            }
         }
 
         return $this->redirectToRoute('app_chambres_index', [], Response::HTTP_SEE_OTHER);

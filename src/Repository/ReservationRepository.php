@@ -73,6 +73,19 @@ class ReservationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getResa($today, $chambre)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.debut < :today')
+            ->andWhere('r.fin > :today')
+            ->andWhere('r.chambre = :chambre')
+            ->setParameter('today', $today)
+            ->setParameter('chambre', $chambre)
+            ->orderBy('r.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
     /*
     public function findOneBySomeField($value): ?Reservation
     {

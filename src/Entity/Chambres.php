@@ -51,8 +51,8 @@ class Chambres
     #[Groups(["read"])]
     private $reservations;
 
-    #[ORM\Column(type: 'json')]
-    private $cleaningStates = [];
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $cleaningState = 'dirty';
 
     public function __construct()
     {
@@ -187,6 +187,18 @@ class Chambres
                 $reservation->setChambre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCleaningState(): ?string
+    {
+        return $this->cleaningState;
+    }
+
+    public function setCleaningState(string $cleaningState): self
+    {
+        $this->cleaningState = $cleaningState;
 
         return $this;
     }
