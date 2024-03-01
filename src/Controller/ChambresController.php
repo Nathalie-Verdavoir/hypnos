@@ -125,14 +125,14 @@ class ChambresController extends ModelManagerController
     {
         if ($this->isCsrfTokenValid('clean' . $chambre->getId(), $request->request->get('_token'))) {
             $workflow = $workflows->get($chambre);
-            if ($chambre->getCleaningState() === null || $chambre->getCleaningState() !== 'clean') {
-                if ($workflow->can($chambre, 'to_clean')) {
-                    $workflow->apply($chambre, 'to_clean');
+            if ($chambre->getCleaningState() === null || $chambre->getCleaningState() === 'clean') {
+                if ($workflow->can($chambre, 'to_dirty')) {
+                    $workflow->apply($chambre, 'to_dirty');
                     $chambresRepository->add($chambre);
                 }
             } else {
-                if ($workflow->can($chambre, 'to_dirty')) {
-                    $workflow->apply($chambre, 'to_dirty');
+                if ($workflow->can($chambre, 'to_clean')) {
+                    $workflow->apply($chambre, 'to_clean');
                     $chambresRepository->add($chambre);
                 }
             }
