@@ -51,10 +51,27 @@ class Chambres
     #[Groups(["read"])]
     private $reservations;
 
+    #[ORM\Column(type: 'json')]
+    private $cleaningStates = [];
+
     public function __construct()
     {
         $this->photo = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->cleaningStates = ["clean", "available"];
+    }
+
+
+    public function getCleaningStates(): array
+    {
+        return $this->cleaningStates;
+    }
+
+    public function setCleaningStates(array $cleaningStates): self
+    {
+        $this->cleaningStates = $cleaningStates;
+
+        return $this;
     }
 
     public function getId(): ?int

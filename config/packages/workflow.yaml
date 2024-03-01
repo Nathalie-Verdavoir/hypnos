@@ -1,0 +1,26 @@
+framework:
+  workflows:
+    your_workflow:
+      type: 'workflow' # or 'state_machine'
+      marking_store:
+        type: 'method'
+        property: 'cleaningStates'
+      supports: App\Entity\Chambres
+      places:
+        - clean
+        - dirty
+        - occupied
+        - available
+      transitions:
+        to_clean:
+          from: dirty
+          to: clean
+        to_dirty:
+          from: clean
+          to: dirty
+        to_occupied:
+          from: available
+          to: occupied
+        to_available:
+          from: occupied
+          to: available
